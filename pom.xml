@@ -44,6 +44,8 @@
 
     <!-- maven-war-plugin -->
     <version.war.plugin>2.1.1</version.war.plugin>
+    
+    <version.picketlink>2.5.2.Final</version.picketlink>
 
     <!-- maven-compiler-plugin -->
     <version.compiler.plugin>3.1</version.compiler.plugin>
@@ -88,7 +90,20 @@
       <scope>provided</scope>
       <version>1.0.1.Final</version>
     </dependency>
+    
+    <dependency>
+      <groupId>org.picketlink</groupId>
+      <artifactId>picketlink-api</artifactId>
+      <scope>compile</scope>
+      <version>${version.picketlink}</version>
+    </dependency>
 
+    <dependency>
+      <groupId>org.picketlink</groupId>
+      <artifactId>picketlink-impl</artifactId>
+      <scope>compile</scope>
+      <version>${version.picketlink}</version>
+    </dependency>
   </dependencies>
 
   <build>
