@@ -1,7 +1,10 @@
 package org.forgeide.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.forgeide.security.model.User;
 import org.picketlink.idm.jpa.annotations.AttributeValue;
@@ -15,8 +18,10 @@ import org.picketlink.idm.jpa.annotations.entity.IdentityManaged;
  */
 @IdentityManaged(User.class)
 @Entity
-public class UserIdentity {
-    @Id @OwnerReference
+public class UserIdentity implements Serializable {
+    private static final long serialVersionUID = 4744333887309366522L;
+
+    @Id @OwnerReference @OneToOne
     private IdentityType identityType;
 
     @AttributeValue

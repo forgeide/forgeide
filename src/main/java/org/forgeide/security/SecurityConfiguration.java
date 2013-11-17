@@ -5,6 +5,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.forgeide.model.IdentityType;
+import org.forgeide.model.Partition;
 import org.forgeide.model.UserCredential;
 import org.forgeide.model.UserIdentity;
 import org.picketlink.idm.config.IdentityConfiguration;
@@ -41,6 +42,7 @@ public class SecurityConfiguration {
                 .stores()
                     .jpa()
                         .mappedEntity(
+                                Partition.class,
                                 IdentityType.class,
                                 UserIdentity.class,
                                 UserCredential.class)

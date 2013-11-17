@@ -1,5 +1,6 @@
 package org.forgeide.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -24,7 +25,9 @@ import org.picketlink.idm.jpa.annotations.entity.ManagedCredential;
  */
 @ManagedCredential (EncodedPasswordStorage.class)
 @Entity
-public class UserCredential {
+public class UserCredential implements Serializable {
+    private static final long serialVersionUID = 2838520533508516410L;
+
     @Id
     @GeneratedValue
     private Long id;
