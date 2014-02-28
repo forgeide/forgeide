@@ -4,10 +4,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
-import org.forgeide.model.IdentityType;
-import org.forgeide.model.Partition;
-import org.forgeide.model.UserCredential;
-import org.forgeide.model.UserIdentity;
+import org.forgeide.security.schema.IdentityType;
+import org.forgeide.security.schema.Partition;
+import org.forgeide.security.schema.UserCredential;
+import org.forgeide.security.schema.UserIdentity;
 import org.picketlink.idm.config.IdentityConfiguration;
 import org.picketlink.idm.config.IdentityConfigurationBuilder;
 import org.picketlink.idm.model.Relationship;

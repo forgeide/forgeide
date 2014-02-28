@@ -1,6 +1,6 @@
 package org.forgeide.producer;
 
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,7 +12,7 @@ import org.picketlink.annotations.PicketLink;
  *
  * @author Shane Bryzak
  */
-@Stateful
+@Stateless
 public class Resources {
     @PersistenceContext(unitName = "forgeide-default")
     private EntityManager em;
