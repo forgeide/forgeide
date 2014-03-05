@@ -11,15 +11,19 @@
   <body>
     <div class="header">
       <div id="logo"></div>
-      <div id="headerMenu"></div>
+      <div id="headerMenu"></div>     
     </div>
     
     <div id="menu"></div>
-    <div id="toolbar"></div>
+    <div id="toolbar">
+
+    </div>
     
-    <div id="main"></div>
+    <div id="main" style="clear:both"></div>
     
-    <div id="footer"></div>
+    <div id="footer">
+
+    </div>
     
   </body>   
   
@@ -37,6 +41,30 @@
               "value": "main",
               "children": [
                 {
+                  "value": "java",
+                  "children": [
+                    {
+                      "value": "com",
+                      "children": [
+                        {
+                          "value": "acme",
+                          "children": [
+                            {
+                              "value": "Resources.java",
+                              "leafNode": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "value": "test",
+              "children": [
+                {
                   "value": "java"
                 }
               ]
@@ -44,21 +72,8 @@
           ]
         },
         {
-          "value": "DEF",
-          "children": [
-            {
-              "value": "xxx",
-              "leafNode": true
-            },
-            {
-              "value": "yyy",
-              "leafNode": true
-            },
-            {
-              "value": "zzz",
-              "leafNode": true
-            }
-          ]
+          "value": "pom.xml",
+          "leafNode": true
         }
       ]
     });
