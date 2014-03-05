@@ -4,8 +4,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.forgeide.security.schema.IdentityAttribute;
 import org.forgeide.security.schema.IdentityType;
 import org.forgeide.security.schema.Partition;
+import org.forgeide.security.schema.PartitionAttribute;
 import org.forgeide.security.schema.UserCredential;
 import org.forgeide.security.schema.UserIdentity;
 import org.picketlink.idm.config.IdentityConfiguration;
@@ -43,7 +45,9 @@ public class SecurityConfiguration {
                     .jpa()
                         .mappedEntity(
                                 Partition.class,
+                                PartitionAttribute.class,
                                 IdentityType.class,
+                                IdentityAttribute.class,
                                 UserIdentity.class,
                                 UserCredential.class)
                         .supportGlobalRelationship(Relationship.class)

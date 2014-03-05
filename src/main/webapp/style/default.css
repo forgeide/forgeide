@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'abeatbyKaiRegular';
+    src: url('abeatbykairegular-webfont.eot');
+    src: url('abeatbykairegular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('abeatbykairegular-webfont.woff') format('woff'),
+         url('abeatbykairegular-webfont.ttf') format('truetype'),
+         url('abeatbykairegular-webfont.svg#abeatbyKaiRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+html, body {
+  height: 100%;
+}
+
+h2 {
+  font-family: "abeatbyKaiRegular", sans-serif;
+  font-size: 25px;
+  letter-spacing: 6px;
+  color: #653c1b;  
+}
+
+body { 
+  margin:0px;
+  background: url(page_background.png) top left repeat-x;
+  background-color: #ffffff;
+  font-family: helvetica, arial, verdana, sans-serif;
+  font-size: 1em;
+  color: #000000;
+}
+
+.header {
+  height: 40px;
+  border-bottom: 1px solid black;
+}
+
+#logo {
+  background: url(forgeide-icon.png) top left no-repeat; 
+  width: 142px;
+  height: 40px;
+  position: relative;
+}
+
+div#menu {
+  height: 22px;
+}
+
+#headerMenu {
+  float: right;
+}
+
+

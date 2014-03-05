@@ -23,7 +23,7 @@
     xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
     <!-- The datasource is bound into JNDI at this location. We reference 
         this in META-INF/persistence.xml -->
-    <datasource jndi-name="java:jboss/datasources/ForgeIDEDS"
+    <!--datasource jndi-name="java:jboss/datasources/ForgeIDEDS"
         pool-name="forgeide" enabled="true"
         use-java-context="true">
         <connection-url>jdbc:h2:mem:picketlink-quickstart;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
@@ -31,6 +31,17 @@
         <security>
             <user-name>sa</user-name>
             <password>sa</password>
+        </security>
+    </datasource-->
+    
+    <datasource jndi-name="java:jboss/datasources/ForgeIDEDS"
+        pool-name="forgeide" enabled="true"
+        use-java-context="true">
+        <connection-url>jdbc:mariadb://localhost:3306/forgeide</connection-url>
+        <driver>maria</driver>
+        <security>
+            <user-name>forgeide</user-name>
+            <password>forgeide</password>
         </security>
     </datasource>
 </datasources>

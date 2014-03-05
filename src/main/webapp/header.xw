@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+  <div style="float:left;margin-right: 32px">
+    <xw:inputSearch id="searchQuery" styleClass="short">
+        <xw:event type="onsearch">
+          <xw:action type="script">xw.open("learn.xw", {searchQuery: searchQuery.getValue()}, "content");</xw:action>
+        </xw:event>    
+    </xw:inputSearch>
+  </div>
+
+  <xw:fragment rendered="#{!identity.loggedIn}">
+    <xw:link styleClass="header" caption="Sign In">
+      <xw:event type="onclick">
+        <xw:action type="script">xw.openPopup("login.xw", "Please Sign In", 700, 400);</xw:action>
+      </xw:event>
+    </xw:link> |
+  
+    <xw:link styleClass="header" caption="Register">
+      <xw:event type="onclick">
+        <xw:action type="script"></xw:action>
+      </xw:event>
+    </xw:link>      
+  </xw:fragment>
+  
+  <xw:fragment rendered="#{identity.loggedIn}">
+    <span>Welcome, #{identity.attribs.firstName} #{identity.attribs.lastName}</span> |
+  
+    <xw:link styleClass="header" caption="Sign Out">
+      <xw:event type="onclick">
+        <xw:action type="script">identity.logout();</xw:action>
+      </xw:event>
+    </xw:link>
+  
+  </xw:fragment>
+</xw:view>
