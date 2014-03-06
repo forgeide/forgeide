@@ -25,6 +25,7 @@
     <maven.compiler.target>1.6</maven.compiler.target>
     <version.picketlink>2.6.0-SNAPSHOT</version.picketlink>
     <version.forge>2.1.1.Final</version.forge>
+    <version.forge.addons>2.1.1.Final</version.forge.addons>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -103,26 +104,39 @@
       <version>${version.forge}</version>
     </dependency>
     <dependency>
-       <groupId>org.jboss.forge.furnace</groupId>
-       <artifactId>furnace-manager-resolver-maven</artifactId>
-       <version>${version.forge}</version>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.forge.addon</groupId>
       <artifactId>ui</artifactId>
       <version>${version.forge}</version>
       <classifier>forge-addon</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.forge.addon</groupId>
-      <artifactId>forge-bootstrap</artifactId>
-      <version>${version.forge}</version>
     </dependency>
     
   </dependencies>
   <build>
     <finalName>${project.artifactId}</finalName>
     <plugins>
+    
+      <plugin>
+         <groupId>org.jboss.forge.furnace</groupId>
+         <artifactId>furnace-maven-plugin</artifactId>
+         <version>${version.forge}</version>
+         <executions>
+            <execution>
+               <id>deploy-addons</id>
+               <phase>prepare-package</phase>
+               <goals>
+                  <goal>addon-install</goal>
+               </goals>
+               <inherited>false</inherited>
+               <configuration>
+                  <addonRepository>${basedir}/src/main/webapp/WEB-INF/addon-repository</addonRepository>
+                  <addonIds>
+                     <addonId>org.jboss.forge.addon:core,${version.forge.addons}</addonId>
+                  </addonIds>
+               </configuration>
+            </execution>
+         </executions>
+      </plugin>    
+    
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>${version.war.plugin}</version>
