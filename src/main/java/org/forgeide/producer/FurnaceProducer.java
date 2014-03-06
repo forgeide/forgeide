@@ -11,6 +11,7 @@ import org.jboss.forge.furnace.Furnace;
 import org.jboss.forge.furnace.repositories.AddonRepository;
 import org.jboss.forge.furnace.repositories.AddonRepositoryMode;
 import org.jboss.forge.furnace.repositories.MutableAddonRepository;
+import org.jboss.forge.furnace.se.FurnaceFactory;
 import org.jboss.forge.furnace.util.OperatingSystemUtils;
 
 /**
@@ -26,7 +27,7 @@ public class FurnaceProducer {
 
     public FurnaceProducer() {
 
-        furnace = ServiceLoader.load(Furnace.class).iterator().next();
+        furnace = FurnaceFactory.getInstance();
 
         String[] args = {};
 
