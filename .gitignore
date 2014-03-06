@@ -2,4 +2,4 @@ target/
 .classpath
 .project
 .settings
-
+src/main/webapp/WEB-INF/addon-repository/*

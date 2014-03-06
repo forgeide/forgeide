@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<addon>
-  <dependencies>
-    <dependency export="false" name="org.jboss.forge.addon:resources" optional="true" version="2.1.1.Final"/>
-    <dependency export="false" name="org.jboss.forge.addon:ui" optional="true" version="2.1.1.Final"/>
-  </dependencies>
-</addon>
