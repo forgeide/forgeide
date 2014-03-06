@@ -38,6 +38,17 @@ public class FurnaceProducer
       furnace.addRepository(AddonRepositoryMode.IMMUTABLE, repoDir);
 
       furnace.startAsync();
+
+      while (!furnace.getStatus().isStarted())
+      {
+         try
+         {
+            Thread.sleep(500);
+         }
+         catch (InterruptedException e)
+         {
+         }
+      }
    }
 
    @Produces
