@@ -1,5 +1,6 @@
 package org.forgeide.producer;
 
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
@@ -18,11 +19,16 @@ public class FurnaceProducer {
 
     public FurnaceProducer() {
         furnace = FurnaceFactory.getInstance();
-        furnace.start();
+        furnace.startAsync();
     }
 
     @Produces
     public Furnace getFurnace() {
         return furnace;
+    }
+
+    @PreDestroy
+    public void destroy() {
+        furnace.stop();
     }
 }
