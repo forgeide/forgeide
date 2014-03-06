@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -19,9 +21,11 @@ import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
 import org.jboss.forge.addon.ui.metadata.UICommandMetadata;
 import org.jboss.forge.furnace.Furnace;
+import org.jboss.forge.furnace.addons.Addon;
 import org.jboss.forge.furnace.addons.AddonRegistry;
-import org.jboss.forge.furnace.impl.FurnaceImpl;
+import org.jboss.forge.furnace.proxy.ClassLoaderAdapterBuilder;
 import org.jboss.forge.furnace.repositories.AddonRepositoryMode;
+import org.jboss.forge.furnace.util.Sets;
 
 /**
  * 
@@ -41,7 +45,7 @@ public class FurnaceProducer
    @PostConstruct
    public void setup()
    {
-      furnace = new FurnaceImpl();
+      furnace = getFurnaceInstance(Thread.currentThread().getContextClassLoader());
 
       String path = servletContext.getRealPath("/WEB-INF/addon-repository");
       File repoDir = new File(path);
@@ -58,6 +62,7 @@ public class FurnaceProducer
          }
          catch (InterruptedException e)
          {
+            return;
          }
       }
 
@@ -96,4 +101,52 @@ public class FurnaceProducer
    {
       furnace.stop();
    }
+
+   private static Furnace getFurnaceInstance(final ClassLoader loader)
+   {
+      try
+      {
+         Class<?> furnaceType = loader.loadClass("org.jboss.forge.furnace.impl.FurnaceImpl");
+         final Object instance = furnaceType.newInstance();
+
+         final Furnace furnace = (Furnace) ClassLoaderAdapterBuilder
+                  .callingLoader(FurnaceProducer.class.getClassLoader())
+                  .delegateLoader(loader).enhance(instance, Furnace.class);
+
+         Callable<Set<ClassLoader>> whitelistCallback = new Callable<Set<ClassLoader>>()
+         {
+            volatile long lastRegistryVersion = -1;
+            final Set<ClassLoader> result = Sets.getConcurrentSet();
+
+            @Override
+            public Set<ClassLoader> call() throws Exception
+            {
+               if (furnace.getStatus().isStarted())
+               {
+                  long registryVersion = furnace.getAddonRegistry().getVersion();
+                  if (registryVersion != lastRegistryVersion)
+                  {
+                     result.clear();
+                     lastRegistryVersion = registryVersion;
+                     for (Addon addon : furnace.getAddonRegistry().getAddons())
+                     {
+                        result.add(addon.getClassLoader());
+                     }
+                  }
+               }
+
+               return result;
+            }
+         };
+
+         return (Furnace) ClassLoaderAdapterBuilder.callingLoader(FurnaceProducer.class.getClassLoader())
+                  .delegateLoader(loader).whitelist(whitelistCallback)
+                  .enhance(instance, Furnace.class);
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException(e);
+      }
+   }
+
 }
