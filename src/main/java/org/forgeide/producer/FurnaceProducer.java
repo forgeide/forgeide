@@ -2,6 +2,7 @@ package org.forgeide.producer;
 
 import java.io.File;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -24,9 +25,10 @@ public class FurnaceProducer
    @Inject
    ServletContext servletContext;
 
-   private final Furnace furnace;
+   private Furnace furnace;
 
-   public FurnaceProducer()
+   @PostConstruct
+   public void setup()
    {
       furnace = FurnaceFactory.getInstance();
 
