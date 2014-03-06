@@ -7,6 +7,7 @@
 
 package org.forgeide.forge.ui;
 
+import org.jboss.forge.addon.ui.UIProvider;
 import org.jboss.forge.addon.ui.context.AbstractUIContext;
 import org.jboss.forge.addon.ui.context.UISelection;
 import org.jboss.forge.addon.ui.util.Selections;
@@ -22,5 +23,11 @@ public class IDEUIContext extends AbstractUIContext
    {
       // TODO: Change later
       return Selections.emptySelection();
+   }
+
+   @Override
+   public UIProvider getProvider()
+   {
+      return IDEUIProvider.INSTANCE;
    }
 }
