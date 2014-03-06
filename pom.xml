@@ -94,19 +94,13 @@
       </dependency>
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
-         <artifactId>furnace</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace-se</artifactId>
          <version>${version.forge}</version>
       </dependency>
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>ui</artifactId>
+         <artifactId>ui-api</artifactId>
          <version>${version.forge}</version>
-         <classifier>forge-addon</classifier>
       </dependency>
 
    </dependencies>
