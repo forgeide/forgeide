@@ -8,62 +8,87 @@ import javax.persistence.Id;
 
 /**
  * Represents a project
- *
+ * 
  * @author Shane Bryzak
  */
 @Entity
-public class Project implements Serializable {
+public class Project implements Serializable
+{
 
-    private static final long serialVersionUID = 5410491316071577992L;
+   private static final long serialVersionUID = 5410491316071577992L;
 
-    @Id @GeneratedValue
-    private Long id;
+   @Id
+   @GeneratedValue
+   private Long id;
 
-    private String name;
+   private String name;
 
-    private String topLevelPackage;
+   private String topLevelPackage;
 
-    private String version;
+   private String version;
 
-    private String finalName;
+   private String finalName;
 
-    private ProjectType type;
+   private ProjectType type;
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getTopLevelPackage() {
-        return topLevelPackage;
-    }
-    public void setTopLevelPackage(String topLevelPackage) {
-        this.topLevelPackage = topLevelPackage;
-    }
-    public String getVersion() {
-        return version;
-    }
-    public void setVersion(String version) {
-        this.version = version;
-    }
-    public String getFinalName() {
-        return finalName;
-    }
-    public void setFinalName(String finalName) {
-        this.finalName = finalName;
-    }
-    public ProjectType getType() {
-        return type;
-    }
-    public void setType(ProjectType type) {
-        this.type = type;
-    }
+   public Long getId()
+   {
+      return id;
+   }
+
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
+
+   public String getName()
+   {
+      return name;
+   }
+
+   public void setName(String name)
+   {
+      this.name = name;
+   }
+
+   public String getTopLevelPackage()
+   {
+      return topLevelPackage;
+   }
+
+   public void setTopLevelPackage(String topLevelPackage)
+   {
+      this.topLevelPackage = topLevelPackage;
+   }
+
+   public String getVersion()
+   {
+      return version;
+   }
+
+   public void setVersion(String version)
+   {
+      this.version = version;
+   }
+
+   public String getFinalName()
+   {
+      return finalName;
+   }
+
+   public void setFinalName(String finalName)
+   {
+      this.finalName = finalName;
+   }
+
+   public ProjectType getType()
+   {
+      return type;
+   }
+
+   public void setType(ProjectType type)
+   {
+      this.type = type;
+   }
 
 }

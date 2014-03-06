@@ -9,22 +9,25 @@ import org.picketlink.annotations.PicketLink;
 
 /**
  * Produces important application resources
- *
+ * 
  * @author Shane Bryzak
  */
 @Stateless
-public class Resources {
-    @PersistenceContext(unitName = "forgeide-default")
-    private EntityManager em;
+public class Resources
+{
+   @PersistenceContext(unitName = "forgeide-default")
+   private EntityManager em;
 
-    @Produces
-    public EntityManager getEntityManager() {
-        return em;
-    }
+   @Produces
+   public EntityManager getEntityManager()
+   {
+      return em;
+   }
 
-    @Produces
-    @PicketLink
-    public EntityManager getPicketLinkEntityManager() {
-        return em;
-    }
+   @Produces
+   @PicketLink
+   public EntityManager getPicketLinkEntityManager()
+   {
+      return em;
+   }
 }

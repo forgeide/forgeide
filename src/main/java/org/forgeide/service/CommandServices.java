@@ -10,11 +10,14 @@ import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.furnace.Furnace;
 
 @RequestScoped
-public class CommandServices {
-    @Inject Furnace furnace;
+public class CommandServices
+{
+   @Inject
+   Furnace furnace;
 
-    public void listCommandCategories() {
+   public void listCommandCategories()
+   {
 
-        //furnace.getAddonRegistry()
-    }
+      // furnace.getAddonRegistry()
+   }
 }

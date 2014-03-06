@@ -18,29 +18,35 @@ import org.jboss.forge.furnace.se.FurnaceFactory;
  * 
  */
 @ApplicationScoped
-public class FurnaceProducer {
+public class FurnaceProducer
+{
 
-    @Inject ServletContext servletContext;
+   @Inject
+   ServletContext servletContext;
 
-    private final Furnace furnace;
+   private final Furnace furnace;
 
-    public FurnaceProducer() {
-        furnace = FurnaceFactory.getInstance();
-        furnace.startAsync();
+   public FurnaceProducer()
+   {
+      furnace = FurnaceFactory.getInstance();
 
-        String path = servletContext.getRealPath("/WEB-INF/addon-repository");
-        File repoDir = new File(path);
+      String path = servletContext.getRealPath("/WEB-INF/addon-repository");
+      File repoDir = new File(path);
 
-        furnace.addRepository(AddonRepositoryMode.IMMUTABLE, repoDir);
-    }
+      furnace.addRepository(AddonRepositoryMode.IMMUTABLE, repoDir);
 
-    @Produces
-    public Furnace getFurnace() {
-        return furnace;
-    }
+      furnace.startAsync();
+   }
 
-    @PreDestroy
-    public void destroy() {
-        furnace.stop();
-    }
+   @Produces
+   public Furnace getFurnace()
+   {
+      return furnace;
+   }
+
+   @PreDestroy
+   public void destroy()
+   {
+      furnace.stop();
+   }
 }

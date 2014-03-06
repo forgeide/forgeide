@@ -13,56 +13,65 @@ import org.picketlink.idm.jpa.annotations.entity.IdentityManaged;
 
 /**
  * Stores identity partition information
- *
+ * 
  * @author Shane Bryzak
  */
 @IdentityManaged(org.picketlink.idm.model.Partition.class)
 @Entity
-public class Partition implements Serializable {
-    private static final long serialVersionUID = -6840228093092371674L;
+public class Partition implements Serializable
+{
+   private static final long serialVersionUID = -6840228093092371674L;
 
-    @Id
-    @Identifier
-    private String id;
+   @Id
+   @Identifier
+   private String id;
 
-    @AttributeValue
-    private String name;
+   @AttributeValue
+   private String name;
 
-    @PartitionClass
-    private String typeName;
+   @PartitionClass
+   private String typeName;
 
-    @ConfigurationName
-    private String configurationName;
+   @ConfigurationName
+   private String configurationName;
 
-    public String getId() {
-        return id;
-    }
+   public String getId()
+   {
+      return id;
+   }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+   public void setId(String id)
+   {
+      this.id = id;
+   }
 
-    public String getName() {
-        return name;
-    }
+   public String getName()
+   {
+      return name;
+   }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+   public void setName(String name)
+   {
+      this.name = name;
+   }
 
-    public String getTypeName() {
-        return typeName;
-    }
+   public String getTypeName()
+   {
+      return typeName;
+   }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
+   public void setTypeName(String typeName)
+   {
+      this.typeName = typeName;
+   }
 
-    public String getConfigurationName() {
-        return configurationName;
-    }
+   public String getConfigurationName()
+   {
+      return configurationName;
+   }
 
-    public void setConfigurationName(String configurationName) {
-        this.configurationName = configurationName;
-    }
+   public void setConfigurationName(String configurationName)
+   {
+      this.configurationName = configurationName;
+   }
 }

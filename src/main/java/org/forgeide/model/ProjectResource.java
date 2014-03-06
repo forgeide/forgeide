@@ -9,65 +9,77 @@ import javax.persistence.ManyToOne;
 
 /**
  * Represents a single project resource, such as a source file
- *
+ * 
  * @author Shane Bryzak
- *
+ * 
  */
 @Entity
-public class ProjectResource implements Serializable {
+public class ProjectResource implements Serializable
+{
 
-    private static final long serialVersionUID = -4146308990787564792L;
+   private static final long serialVersionUID = -4146308990787564792L;
 
-    @Id @GeneratedValue
-    private Long id;
+   @Id
+   @GeneratedValue
+   private Long id;
 
-    @ManyToOne
-    private Project project;
+   @ManyToOne
+   private Project project;
 
-    private String path;
+   private String path;
 
-    private String name;
+   private String name;
 
-    private String resourceType;
+   private String resourceType;
 
-    public Long getId() {
-        return id;
-    }
+   public Long getId()
+   {
+      return id;
+   }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
 
-    public Project getProject() {
-        return project;
-    }
+   public Project getProject()
+   {
+      return project;
+   }
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
+   public void setProject(Project project)
+   {
+      this.project = project;
+   }
 
-    public String getPath() {
-        return path;
-    }
+   public String getPath()
+   {
+      return path;
+   }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+   public void setPath(String path)
+   {
+      this.path = path;
+   }
 
-    public String getName() {
-        return name;
-    }
+   public String getName()
+   {
+      return name;
+   }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+   public void setName(String name)
+   {
+      this.name = name;
+   }
 
-    public String getResourceType() {
-        return resourceType;
-    }
+   public String getResourceType()
+   {
+      return resourceType;
+   }
 
-    public void setResourceType(String resourceType) {
-        this.resourceType = resourceType;
-    }
+   public void setResourceType(String resourceType)
+   {
+      this.resourceType = resourceType;
+   }
 
 }

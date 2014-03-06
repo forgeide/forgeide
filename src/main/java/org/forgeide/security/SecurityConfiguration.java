@@ -17,43 +17,48 @@ import org.picketlink.internal.EEJPAContextInitializer;
 
 /**
  * Initialize the security configuration
- *
+ * 
  * @author Shane Bryzak
- *
+ * 
  */
 @ApplicationScoped
-public class SecurityConfiguration {
-    @Inject
-    private EEJPAContextInitializer contextInitializer;
+public class SecurityConfiguration
+{
+   @Inject
+   private EEJPAContextInitializer contextInitializer;
 
-    private IdentityConfiguration identityConfig = null;
+   private IdentityConfiguration identityConfig = null;
 
-    @Produces IdentityConfiguration createConfig() {
-        if (identityConfig == null) {
-            initConfig();
-        }
-        return identityConfig;
-    }
+   @Produces
+   IdentityConfiguration createConfig()
+   {
+      if (identityConfig == null)
+      {
+         initConfig();
+      }
+      return identityConfig;
+   }
 
-    @SuppressWarnings("unchecked")
-    private void initConfig() {
-        IdentityConfigurationBuilder builder = new IdentityConfigurationBuilder();
+   @SuppressWarnings("unchecked")
+   private void initConfig()
+   {
+      IdentityConfigurationBuilder builder = new IdentityConfigurationBuilder();
 
-        builder
-            .named("default")
-                .stores()
-                    .jpa()
-                        .mappedEntity(
-                                Partition.class,
-                                PartitionAttribute.class,
-                                IdentityType.class,
-                                IdentityAttribute.class,
-                                UserIdentity.class,
-                                UserCredential.class)
-                        .supportGlobalRelationship(Relationship.class)
-                        .addContextInitializer(this.contextInitializer)
-                        .supportAllFeatures();
+      builder
+               .named("default")
+               .stores()
+               .jpa()
+               .mappedEntity(
+                        Partition.class,
+                        PartitionAttribute.class,
+                        IdentityType.class,
+                        IdentityAttribute.class,
+                        UserIdentity.class,
+                        UserCredential.class)
+               .supportGlobalRelationship(Relationship.class)
+               .addContextInitializer(this.contextInitializer)
+               .supportAllFeatures();
 
-        identityConfig = builder.build();
-    }
+      identityConfig = builder.build();
+   }
 }

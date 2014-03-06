@@ -13,29 +13,32 @@ import org.picketlink.idm.model.basic.Realm;
 
 /**
  * Performs default identity initialization
- *
+ * 
  * @author Shane Bryzak
- *
+ * 
  */
 @Singleton
 @Startup
-public class IDMInitializer {
-    @Inject
-    private PartitionManager partitionManager;
+public class IDMInitializer
+{
+   @Inject
+   private PartitionManager partitionManager;
 
-    @PostConstruct
-    public void create() {
-        if (partitionManager.getPartition(Realm.class, Realm.DEFAULT_REALM) == null) {
-            partitionManager.add(new Realm(Realm.DEFAULT_REALM));
-        }
+   @PostConstruct
+   public void create()
+   {
+      if (partitionManager.getPartition(Realm.class, Realm.DEFAULT_REALM) == null)
+      {
+         partitionManager.add(new Realm(Realm.DEFAULT_REALM));
+      }
 
-        IdentityManager im = partitionManager.createIdentityManager();
-        User u = new User();
+      IdentityManager im = partitionManager.createIdentityManager();
+      User u = new User();
 
-        u.setFirstName("Shane");
-        u.setLastName("Bryzak");
-        u.setEmail("shane@forgeide.org");
-        im.add(u);
-        im.updateCredential(u, new Password("password"));
-    }
+      u.setFirstName("Shane");
+      u.setLastName("Bryzak");
+      u.setEmail("shane@forgeide.org");
+      im.add(u);
+      im.updateCredential(u, new Password("password"));
+   }
 }

@@ -7,16 +7,19 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 
 @ApplicationScoped
-public class ServletContextProducer {
+public class ServletContextProducer
+{
 
-    private ServletContext servletContext;
+   private ServletContext servletContext;
 
-    public void init(@Observes ServletContextEvent event) {
-        this.servletContext = event.getServletContext();
-    }
+   public void init(@Observes ServletContextEvent event)
+   {
+      this.servletContext = event.getServletContext();
+   }
 
-    @Produces
-    public ServletContext getServletContext() {
-        return servletContext;
-    }
+   @Produces
+   public ServletContext getServletContext()
+   {
+      return servletContext;
+   }
 }
