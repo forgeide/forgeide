@@ -99,13 +99,31 @@
          <artifactId>furnace-se</artifactId>
          <version>${version.forge}</version>
       </dependency>
-      <!-- 
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>ui-api</artifactId>
          <version>${version.forge}</version>
+         <exclusions>
+            <exclusion>
+               <artifactId>environment</artifactId>
+               <groupId>org.jboss.forge.addon</groupId>
+            </exclusion>
+            <exclusion>
+               <artifactId>facets</artifactId>
+               <groupId>org.jboss.forge.addon</groupId>
+            </exclusion>
+         </exclusions>
       </dependency>
-       -->
+      <dependency>
+         <groupId>org.jboss.forge.addon</groupId>
+         <artifactId>environment-api</artifactId>
+         <version>${version.forge}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.forge.addon</groupId>
+         <artifactId>facets-api</artifactId>
+         <version>${version.forge}</version>
+      </dependency>
 
    </dependencies>
    <build>

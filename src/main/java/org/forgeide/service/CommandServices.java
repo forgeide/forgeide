@@ -13,7 +13,7 @@ public class CommandServices
 
    public void listCommandCategories()
    {
-
+      System.out.println("LIST");
       // furnace.getAddonRegistry()
    }
 }
