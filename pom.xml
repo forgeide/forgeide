@@ -49,7 +49,6 @@
       <dependency>
          <groupId>org.jboss.spec.javax.ejb</groupId>
          <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-         <version>1.0.2.Final</version>
          <scope>provided</scope>
       </dependency>
       <dependency>
@@ -61,13 +60,11 @@
       <dependency>
          <groupId>org.jboss.spec.javax.annotation</groupId>
          <artifactId>jboss-annotations-api_1.1_spec</artifactId>
-         <version>1.0.1.Final</version>
          <scope>provided</scope>
       </dependency>
       <dependency>
          <groupId>org.hibernate.javax.persistence</groupId>
          <artifactId>hibernate-jpa-2.0-api</artifactId>
-         <version>1.0.1.Final</version>
          <scope>provided</scope>
       </dependency>
       <dependency>
@@ -138,7 +135,14 @@
                </execution>
             </executions>
          </plugin>
-
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+               <!-- web.xml is not mandatory since JavaEE 5 -->
+               <failOnMissingWebXml>false</failOnMissingWebXml>
+            </configuration>
+         </plugin>
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
