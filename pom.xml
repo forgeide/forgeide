@@ -94,9 +94,15 @@
          <artifactId>javax.ws.rs-api</artifactId>
          <scope>provided</scope>
       </dependency>
+      <!-- <dependency> <groupId>org.jboss.forge.furnace</groupId> <artifactId>furnace-se</artifactId> <version>${version.forge}</version> </dependency> -->
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
-         <artifactId>furnace-se</artifactId>
+         <artifactId>furnace</artifactId>
+         <version>${version.forge}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.forge.furnace</groupId>
+         <artifactId>furnace-proxy</artifactId>
          <version>${version.forge}</version>
       </dependency>
       <dependency>
