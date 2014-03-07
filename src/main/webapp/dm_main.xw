@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xw:dataModule xmlns="http://www.w3.org/1999/xhtml" 
+  xmlns:xw="http://xwidgets.org/core">
+
+  <xw:restEndpoint id="commandsService" url="#{location.href}rest/commands"/> 
+
+</xw:dataModule>

@@ -7,6 +7,7 @@
     <link rel="shortcut icon" type="image/png" href="forge-icon.png"/>
     <script src="xwidgets/xw.js"></script>
     <script src="xwidgets/org/xwidgets/core/tree.js"></script>
+    <script src="xwidgets/org/xwidgets/core/button.js"></script>
   </head>
 
   <body>
@@ -15,7 +16,9 @@
       <div id="headerMenu"></div>     
     </div>
     
-    <div id="menu"></div>
+    <div id="menu">
+      <xw:view name="menu.xw"/>
+    </div>
     <div id="toolbar">
 
     </div>
@@ -29,8 +32,10 @@
   </body>   
   
   <script type="text/javascript">
+    xw.open("dm_main.xw");
     xw.open("menu.xw", null, "menu");
     xw.open("header.xw", null, "headerMenu");
+    xw.open("footer.xw", null, "footer");
 
     var tm = org.xwidgets.core.TreeModel.parse({
       "value": "Project Explorer",
@@ -82,6 +87,8 @@
     var t = new org.xwidgets.core.Tree();
     t.setModel(tm);
     t.render(xw.Sys.getObject("main"));
+    
+    xw.EL.setValue("location", location);
     
   </script>
   
