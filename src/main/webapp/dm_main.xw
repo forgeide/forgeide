@@ -3,5 +3,6 @@
   xmlns:xw="http://xwidgets.org/core">
 
   <xw:restEndpoint id="commandsService" url="#{location.href}rest/commands"/> 
+  <xw:RestELBinding binding="commands" restEndpoint="#{commandsService}"/>
 
 </xw:dataModule>

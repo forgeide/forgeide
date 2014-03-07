@@ -3,7 +3,7 @@
   <xw:Button label="Fetch commands">
     <xw:event type="onclick">
       <xw:action type="script"><![CDATA[
-        commandsService.call();
+        commandsService.invoke();
       ]]></xw:action>
     </xw:event>    
   </xw:Button>  
