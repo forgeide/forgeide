@@ -2,7 +2,12 @@
 <xw:dataModule xmlns="http://www.w3.org/1999/xhtml" 
   xmlns:xw="http://xwidgets.org/core">
 
-  <xw:restEndpoint id="commandsService" url="#{location.href}rest/commands"/> 
-  <xw:RestELBinding binding="commands" restEndpoint="#{commandsService}"/>
+  <xw:restEndpoint id="commandsService" url="#{location.href}rest/commands"/>
+
+  <xw:restELBinding binding="addonMenuItems" mode="JSON" restEndpoint="#{commandsService}">
+    <xw:event type="onresult">
+      <xw:action type="script">return parseCommands(result);</xw:action>
+    </xw:event>
+  </xw:restELBinding>
 
 </xw:dataModule>

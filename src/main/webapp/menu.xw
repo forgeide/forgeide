@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
-  <!--xw:link styleClass="menu" caption="test"/-->
+  <xw:menuBar>
+    <xw:event type="onclick">
+      <xw:action type="script"><![CDATA[
+        executeForgeCommand(item.parent.label, item.label);
+      ]]></xw:action>
+    </xw:event>    
+    <xw:menuItem label="Project"/>
+    <xw:menuItem label="Addons" definition="#{addonMenuItems}">
+      <xw:menuItem label="Loading...">
+        <xw:event type="onclick">
+          <xw:action type="script"><![CDATA[
+            // Noop
+          ]]></xw:action>
+        </xw:event> 
+      </xw:menuItem>
+    </xw:menuItem>
+  </xw:menuBar>
 </xw:view>

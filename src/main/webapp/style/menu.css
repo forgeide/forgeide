@@ -1,0 +1,47 @@
+div.xw_menubar {
+  background-color: #eeeeee;  
+  padding: 1px 4px 1px 4px;
+  outline: 1px solid #ddd;
+  border-top: 1px solid #fff;
+  height: 22px;
+  margin-bottom: 4px;
+}
+
+div.xw_menuitem {
+  float: left;
+  border: 1px solid transparent;
+  padding: 1px 4px 1px 4px;
+  margin-right: 4px;  
+}
+
+div.xw_menuitem_selected {
+  float: left;
+  border: 1px solid #f00;
+  padding: 1px 4px 1px 4px;
+  margin-right: 4px; 
+  background-color: #ddf;
+  cursor: pointer;
+}
+
+div.xw_menuitem i {
+  color: #aaa;
+}
+
+div.xw_menuitem:hover {
+  border: 1px solid #009;
+  background-color: #ddf;
+  cursor: pointer;
+}
+
+div.xw_submenu {
+  background-color: #eeeeee;  
+  padding: 1px 4px 1px 4px;
+  outline: 1px solid #ddd;
+  border-top: 1px solid #fff;
+  box-shadow: 6px 6px 3px #888888;
+}
+
+div.xw_submenu div {
+  float: none;
+  margin-left: 24px;
+}

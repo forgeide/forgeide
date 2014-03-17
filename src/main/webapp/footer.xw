@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
-  <xw:Button label="Fetch commands">
+  <!--xw:Button label="Fetch commands">
     <xw:event type="onclick">
       <xw:action type="script"><![CDATA[
         commandsService.invoke();
       ]]></xw:action>
     </xw:event>    
-  </xw:Button>  
+  </xw:Button-->
+
 </xw:view>
