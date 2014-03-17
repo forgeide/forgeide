@@ -42,6 +42,10 @@ body {
   position: relative;
 }
 
+div#main {
+  margin-top: 8px;
+}
+
 div#menu {
   height: 22px;
 }
