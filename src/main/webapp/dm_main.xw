@@ -3,10 +3,12 @@
   xmlns:xw="http://xwidgets.org/core">
 
   <xw:restEndpoint id="commandListService" url="#{location.href}rest/commands/list"/>
+  
+  <xw:restEndpoint id="commandMetadataService" url="#{location.href}rest/commands/get"/>
 
   <xw:restELBinding binding="addonMenuItems" mode="JSON" restEndpoint="#{commandListService}">
     <xw:event type="onresult">
-      <xw:action type="script">return parseCommands(result);</xw:action>
+      <xw:action type="script">return Forge.parseCommands(result);</xw:action>
     </xw:event>
   </xw:restELBinding>
 

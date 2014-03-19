@@ -88,7 +88,7 @@ public class FurnaceProducer
          availableCommands.get(metadata.getCategory().getName()).add(metadata.getName());
       }
 
-      controllerFactory = addonRegistry.getServices(CommandControllerFactory.class).get();
+      controllerFactory = (CommandControllerFactory) addonRegistry.getServices(CommandControllerFactory.class.getName()).get();
    }
 
    @Produces
