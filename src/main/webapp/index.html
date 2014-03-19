@@ -1,104 +1,36 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Forge IDE</title>
+
     <link href="style/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="style/default.css" rel="stylesheet" type="text/css"/>
     <link href="style/tree.css" rel="stylesheet" type="text/css"/>
     <link href="style/menu.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" type="image/png" href="forge-icon.png"/>
-    <script src="script/forgeide.js"></script>
+
     <script src="xwidgets/xw.js"></script>
+    
     <script src="xwidgets/org/xwidgets/core/tree.js"></script>
-    <script src="xwidgets/org/xwidgets/core/button.js"></script>
     <script src="xwidgets/org/xwidgets/core/restendpoint.js"></script>
     <script src="xwidgets/org/xwidgets/core/restelbinding.js"></script>
     <script src="xwidgets/org/xwidgets/core/menubar.js"></script>
+    
+    <script src="script/forgeide.js"></script>
   </head>
+  <body>  
+    <xw:datamodule name="dm_main.xw"/>
 
-  <body>
     <div class="header">
       <div id="logo"></div>
-      <div id="headerMenu"></div>     
     </div>
     
-    <div id="menu">
-      <xw:view name="menu.xw"/>
+    <div id="ide">
+      <xw:view name="ide.xw"/>
     </div>
-    
-    <!--div id="toolbar">
 
-    </div-->
-    
-    <div id="main" style="clear:both"></div>
-    
-    <div id="footer">
-
-    </div>
-    
   </body>   
-  
-  <script type="text/javascript">
-    xw.open("dm_main.xw");
-    xw.open("menu.xw", null, "menu");
-    xw.open("header.xw", null, "headerMenu");
-    xw.open("footer.xw", null, "footer");
-
-    var tm = org.xwidgets.core.TreeModel.parse({
-      "value": "Project Explorer",
-      "children": [
-        {
-          "value": "src",
-          "children": [
-            {
-              "value": "main",
-              "children": [
-                {
-                  "value": "java",
-                  "children": [
-                    {
-                      "value": "com",
-                      "children": [
-                        {
-                          "value": "acme",
-                          "children": [
-                            {
-                              "value": "Resources.java",
-                              "leafNode": true
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }, 
-            {
-              "value": "test",
-              "children": [
-                {
-                  "value": "java"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "value": "pom.xml",
-          "leafNode": true
-        }
-      ]
-    });
-
-    var t = new org.xwidgets.core.Tree();
-    t.setModel(tm);
-    t.render(xw.Sys.getObject("main"));
-    
-    xw.EL.setValue("location", location);
-    
-  </script>
-  
-  
 
 </html>

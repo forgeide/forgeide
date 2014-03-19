@@ -19,6 +19,8 @@ import org.forgeide.forge.ui.IDEUIContext;
 import org.forgeide.qualifiers.Forge;
 import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
+import org.jboss.forge.addon.ui.controller.CommandController;
+import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
 import org.jboss.forge.addon.ui.metadata.UICommandMetadata;
 import org.jboss.forge.furnace.Furnace;
 import org.jboss.forge.furnace.addons.Addon;
@@ -41,6 +43,10 @@ public class FurnaceProducer
    private Furnace furnace;
 
    private Map<String, List<String>> availableCommands;
+
+   private CommandFactory commandFactory;
+
+   private CommandControllerFactory controllerFactory;
 
    @PostConstruct
    public void setup()
@@ -70,7 +76,7 @@ public class FurnaceProducer
       availableCommands = new HashMap<String, List<String>>();
 
       AddonRegistry addonRegistry = furnace.getAddonRegistry();
-      CommandFactory commandFactory = (CommandFactory) addonRegistry.getServices(CommandFactory.class.getName()).get();
+      commandFactory = (CommandFactory) addonRegistry.getServices(CommandFactory.class.getName()).get();
       IDEUIContext context = new IDEUIContext();
       for (UICommand cmd : commandFactory.getCommands())
       {
@@ -81,6 +87,8 @@ public class FurnaceProducer
          }
          availableCommands.get(metadata.getCategory().getName()).add(metadata.getName());
       }
+
+      controllerFactory = addonRegistry.getServices(CommandControllerFactory.class).get();
    }
 
    @Produces
@@ -94,6 +102,18 @@ public class FurnaceProducer
    public Map<String, List<String>> getAvailableCommands()
    {
       return availableCommands;
+   }
+   
+   @Produces
+   @Forge
+   public CommandFactory getCommandFactory() {
+      return commandFactory;
+   }
+
+   @Produces
+   @Forge
+   public CommandControllerFactory getControllerFactory() {
+      return controllerFactory;
    }
 
    @PreDestroy

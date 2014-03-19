@@ -9,7 +9,6 @@
     font-style: normal;
 }
 
-
 html, body {
   height: 100%;
 }
@@ -32,7 +31,6 @@ body {
 
 .header {
   height: 40px;
-  border-bottom: 1px solid black;
 }
 
 #logo {
@@ -42,8 +40,8 @@ body {
   position: relative;
 }
 
-div#main {
-  margin-top: 8px;
+div#ide {
+  margin-top: 2px;
 }
 
 div#menu {
@@ -52,13 +50,5 @@ div#menu {
 
 #headerMenu {
   float: right;
-}
-
-button.forgeCommand {
-  background: url(forge-icon.png) top left no-repeat;
-  border: 0px;
-  padding: 0px;
-  width: 20px;
-  height: 20px;
 }
 

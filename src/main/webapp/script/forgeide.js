@@ -1,3 +1,5 @@
+xw.EL.setValue("location", location);    
+
 function parseCommands(result) { 
   var definition = {};
   
@@ -12,6 +14,9 @@ function parseCommands(result) {
   return definition;
 }
 
-function executeForgeCommand(category, command) {
-  alert("execute forge command [" + category + "] : [" + command + "]");
-}
+var Forge = {
+  executeCommand: function(command) {
+    alert("execute forge command [" + command + "]");  
+  }
+};
+

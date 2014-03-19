@@ -3,7 +3,7 @@
   <xw:menuBar>
     <xw:event type="onclick">
       <xw:action type="script"><![CDATA[
-        executeForgeCommand(item.parent.label, item.label);
+        Forge.executeCommand(item.label);
       ]]></xw:action>
     </xw:event>    
     <xw:menuItem label="Project"/>
