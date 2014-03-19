@@ -159,7 +159,7 @@
          <version>${version.furnace}</version>
       </dependency>
       <!-- Addons API needed -->
-      <dependency>
+      <!--dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>shell-api</artifactId>
          <version>${version.forge.addons}</version>
@@ -169,7 +169,7 @@
          <artifactId>shell-spi</artifactId>
          <version>${version.forge.addons}</version>
          <classifier>forge-addon</classifier>
-      </dependency>
+      </dependency-->
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>ui-api</artifactId>
@@ -206,11 +206,11 @@
          <artifactId>projects-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
-      <dependency>
+      <!--dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>database-tools-api</artifactId>
          <version>${version.forge.addons}</version>
-      </dependency>            
+      </dependency-->
 
    </dependencies>
    <build>
@@ -233,6 +233,7 @@
                      <addonRepository>${basedir}/src/main/webapp/WEB-INF/addon-repository</addonRepository>
                      <addonIds>
                         <addonId>org.jboss.forge.addon:core,${version.forge.addons}</addonId>
+                        <addonId>org.jboss.forge.addon:ui-example,${version.forge.addons}</addonId>
                      </addonIds>
                   </configuration>
                </execution>

@@ -71,11 +71,21 @@ public class CommandServices
          InputComponentMetadata meta = new InputComponentMetadata();
          meta.setLabel(component.getLabel());
          meta.setName(component.getName());
+         meta.setDescription(component.getDescription());
+         meta.setEnabled(component.isEnabled());
+         meta.setRequired(component.isRequired());
+         meta.setRequiredMessage(component.getRequiredMessage());
+         meta.setShortName(component.getShortName());
+         meta.setValueType(component.getValueType());
 
-         
          components.put(key, meta);
       }
 
       return components;
    }
+   
+   
+   // To set a value:
+   
+   // CommandController.setValueFor(input,"value")
 }
