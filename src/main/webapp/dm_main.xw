@@ -4,7 +4,7 @@
 
   <xw:restEndpoint id="commandListService" url="#{location.href}rest/commands/list"/>
   
-  <xw:restEndpoint id="commandMetadataService" url="#{location.href}rest/commands/get"/>
+  <xw:restEndpoint id="commandMetadataService" url="#{location.href}rest/commands/get/{command}"/>
 
   <xw:restELBinding binding="addonMenuItems" mode="JSON" restEndpoint="#{commandListService}">
     <xw:event type="onresult">

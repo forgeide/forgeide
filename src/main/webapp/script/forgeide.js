@@ -14,8 +14,11 @@ var Forge = {
     
     return definition;
   },
+  commandMetadataCallback: function(meta) {
+    alert("Got command metadata: " + meta);
+  },
   executeCommand: function(command) {
-    alert("execute forge command [" + command + "]");  
+    xw.Sys.getWidget("commandMetadataService").invoke({command:command}, Forge.commandMetadataCallback);
   }
 };
 
