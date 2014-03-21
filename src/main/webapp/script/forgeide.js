@@ -14,11 +14,14 @@ var Forge = {
     
     return definition;
   },
-  commandMetadataCallback: function(meta) {
-    alert("Got command metadata: " + meta);
+  commandMetadataCallback: function(command, meta) {
+    xw.Popup.open("commandui.xw", {command: command, meta: meta}, command, 600, 400);
   },
   executeCommand: function(command) {
-    xw.Sys.getWidget("commandMetadataService").invoke({command:command}, Forge.commandMetadataCallback);
+    var cb = function(meta) {
+      Forge.commandMetadataCallback(command, JSON.parse(meta));
+    }
+    xw.Sys.getWidget("commandMetadataService").invoke({command:command}, cb);
   }
 };
 

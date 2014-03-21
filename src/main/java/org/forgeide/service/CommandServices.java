@@ -1,5 +1,6 @@
 package org.forgeide.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,7 @@ public class CommandServices
    @GET
    @Path("/get/{command}")
    @Produces(MediaType.APPLICATION_JSON)
-   public Map<String,InputComponentMetadata> getCommandMetadata(@PathParam("command") String command) 
+   public List<InputComponentMetadata> getCommandMetadata(@PathParam("command") String command) 
        throws Exception {
       IDEUIContext context = new IDEUIContext();
       UICommand cmd = commandFactory.get().getCommandByName(context, command);
@@ -63,7 +64,8 @@ public class CommandServices
                context, new UIRuntimeImpl(), cmd);
       controller.initialize();
 
-      Map<String,InputComponentMetadata> components = new HashMap<String,InputComponentMetadata>();
+      //Map<String,InputComponentMetadata> components = new HashMap<String,InputComponentMetadata>();
+      List<InputComponentMetadata> components = new ArrayList<InputComponentMetadata>();
 
       for (String key : controller.getInputs().keySet()) {
          InputComponent component = controller.getInputs().get(key);
@@ -78,7 +80,8 @@ public class CommandServices
          meta.setShortName(component.getShortName());
          meta.setValueType(component.getValueType());
 
-         components.put(key, meta);
+         //components.put(key, meta);
+         components.add(meta);
       }
 
       return components;

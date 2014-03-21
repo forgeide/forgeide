@@ -19,7 +19,6 @@ import org.forgeide.forge.ui.IDEUIContext;
 import org.forgeide.qualifiers.Forge;
 import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
-import org.jboss.forge.addon.ui.controller.CommandController;
 import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
 import org.jboss.forge.addon.ui.metadata.UICommandMetadata;
 import org.jboss.forge.furnace.Furnace;

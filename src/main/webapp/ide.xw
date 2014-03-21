@@ -4,7 +4,7 @@
     <xw:menuBar>
       <xw:event type="onclick">
         <xw:action type="script"><![CDATA[
-          Forge.executeCommand(item.label);
+          Forge.executeCommand(item.label.value);
         ]]></xw:action>
       </xw:event>    
       <xw:menuItem label="Project"/>
