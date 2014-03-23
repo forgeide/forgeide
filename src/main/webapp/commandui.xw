@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+
+  <xw:ELBinding binding="command">
+    <xw:event type="onbind">
+      <xw:action type="script"><![CDATA[return params["command"];]]></xw:action>
+    </xw:event> 
+  </xw:ELBinding>
+  
+  <xw:ELBinding binding="metadata">
+    <xw:event type="onbind">
+      <xw:action type="script"><![CDATA[return params["meta"];]]></xw:action>
+    </xw:event> 
+  </xw:ELBinding>
+  
+  <xw:repeat value="#{metadata}" var="meta">
+    <div>
+      #{meta.label}
+    </div>
+  </xw:repeat>
+
+  <div>
+    <xw:button label="Execute"/>
+    
+    <xw:button label="Cancel">
+      <xw:event type="onclick">
+        <xw:action type="script"><![CDATA[xw.Popup.close();]]></xw:action>
+      </xw:event>
+    </xw:button>
+  </div>
+</xw:view>

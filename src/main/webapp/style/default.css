@@ -52,3 +52,35 @@ div#menu {
   float: right;
 }
 
+div.xwPopupBackground {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;  
+}
+
+div.xwPopupWindow  {
+  border: 2px solid #4c4c4c;
+  -webkit-border-radius:12px;
+  -moz-border-radius:12px;
+  border-radius:12px;
+  padding: 6px;
+}
+
+div.xwPopupTitle {
+  font-size: 20px;
+  margin-top: 2px;
+  margin-bottom: 6px;
+  color: #653c1b;  
+  font-weight: normal;
+}
+
+div.xwPopupCloseButton {
+  position: absolute;
+  top: -12px;
+  right: -15px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  background: url('close_button.png') top left no-repeat;
+}
