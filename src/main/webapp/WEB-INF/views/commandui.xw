@@ -13,12 +13,14 @@
     </xw:event> 
   </xw:ELBinding>
   
-  <xw:repeat value="#{metadata}" var="meta">
-    <div>
-      <label for="#{meta.name}">#{meta.label}</label>
-      <input type="text" name="#{meta.name}"/>
-    </div>
-  </xw:repeat>
+  <div class="forgeUI">
+    <xw:repeat value="#{metadata}" var="meta">
+      <div>
+        <label for="#{meta.name}">#{meta.label}</label>
+        <input type="text" name="#{meta.name}"/>
+      </div>
+    </xw:repeat>
+  </div>
 
   <div>
     <xw:button label="Execute"/>

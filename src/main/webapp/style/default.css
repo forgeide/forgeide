@@ -52,6 +52,23 @@ div#menu {
   float: right;
 }
 
+div.forgeUI div {
+  height: 24px;
+  vertical-align: middle;
+  clear: both;
+}
+
+div.forgeUI label {
+  float: left;
+  width: 160px;
+  text-align: right;
+  font-size: 75%;
+}
+
+div.forgeUI input {
+  float: left;
+}
+
 div.xwPopupBackground {
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;

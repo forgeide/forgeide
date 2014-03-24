@@ -19,7 +19,8 @@ var Forge = {
       title: command,
       params: {
         command: command, 
-        meta: meta
+        meta: meta,
+        height: 300
       }
     });
   },
