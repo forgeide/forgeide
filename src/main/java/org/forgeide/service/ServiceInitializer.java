@@ -31,13 +31,16 @@ public class ServiceInitializer implements ServletContextListener
       File repoDir = new File(path);
 
       furnaceProducer.get().setup(repoDir);
+
+      int size = furnaceProducer.get().getAvailableCommands().keySet().size();
+
+      log.infof("Forge Initialized with [%d] commands", size);
    }
-   
+
    @Override
    public void contextDestroyed(ServletContextEvent arg0)
    {
-      // TODO Auto-generated method stub
-      
+      // NOOP
    }
 
 }

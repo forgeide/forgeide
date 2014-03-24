@@ -26,9 +26,9 @@ import org.jboss.forge.furnace.repositories.AddonRepositoryMode;
 import org.jboss.forge.furnace.util.Sets;
 
 /**
- * 
+ * Producer method for Forge objects, starts the Furnace service
+ *
  * @author Shane Bryzak
- * 
  */
 @ApplicationScoped
 public class FurnaceProducer
@@ -44,12 +44,7 @@ public class FurnaceProducer
    public void setup(File repoDir)
    {
       furnace = getFurnaceInstance(Thread.currentThread().getContextClassLoader());
-
-      //String path = servletContext.getRealPath("/WEB-INF/addon-repository");
-      //File repoDir = new File(path);
-
       furnace.addRepository(AddonRepositoryMode.IMMUTABLE, repoDir);
-
       furnace.startAsync();
 
       while (!furnace.getStatus().isStarted())
@@ -95,7 +90,7 @@ public class FurnaceProducer
    {
       return availableCommands;
    }
-   
+
    @Produces
    @Forge
    public CommandFactory getCommandFactory() {

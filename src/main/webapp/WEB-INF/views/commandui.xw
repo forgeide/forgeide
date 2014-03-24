@@ -15,7 +15,8 @@
   
   <xw:repeat value="#{metadata}" var="meta">
     <div>
-      #{meta.label}
+      <label for="#{meta.name}">#{meta.label}</label>
+      <input type="text" name="#{meta.name}"/>
     </div>
   </xw:repeat>
 
