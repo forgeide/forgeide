@@ -15,7 +15,13 @@ var Forge = {
     return definition;
   },
   commandMetadataCallback: function(command, meta) {
-    xw.Popup.open("commandui.xw", {command: command, meta: meta}, command, 600, 400);
+    xw.Popup.open("commandui.xw", {
+      title: command,
+      params: {
+        command: command, 
+        meta: meta
+      }
+    });
   },
   executeCommand: function(command) {
     var cb = function(meta) {

@@ -8,12 +8,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.servlet.ServletContext;
 
 import org.forgeide.forge.ui.IDEUIContext;
 import org.forgeide.qualifiers.Forge;
@@ -36,9 +33,6 @@ import org.jboss.forge.furnace.util.Sets;
 @ApplicationScoped
 public class FurnaceProducer
 {
-   @Inject
-   ServletContext servletContext;
-
    private Furnace furnace;
 
    private Map<String, List<String>> availableCommands;
@@ -47,13 +41,12 @@ public class FurnaceProducer
 
    private CommandControllerFactory controllerFactory;
 
-   @PostConstruct
-   public void setup()
+   public void setup(File repoDir)
    {
       furnace = getFurnaceInstance(Thread.currentThread().getContextClassLoader());
 
-      String path = servletContext.getRealPath("/WEB-INF/addon-repository");
-      File repoDir = new File(path);
+      //String path = servletContext.getRealPath("/WEB-INF/addon-repository");
+      //File repoDir = new File(path);
 
       furnace.addRepository(AddonRepositoryMode.IMMUTABLE, repoDir);
 

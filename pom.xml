@@ -29,6 +29,8 @@
       <version.furnace>2.2.0.Final</version.furnace>
       <version.forge>2.2.0.Final</version.forge>
       <version.forge.addons>2.2.0.Final</version.forge.addons>
+      <jboss.logging.version>3.1.1.GA</jboss.logging.version>
+      <deltaspike.version>0.6</deltaspike.version>
    </properties>
    <dependencyManagement>
       <dependencies>
@@ -64,6 +66,12 @@
          <scope>provided</scope>
       </dependency>
       <dependency>
+        <groupId>org.jboss.logging</groupId>
+        <artifactId>jboss-logging</artifactId>
+        <version>${jboss.logging.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
          <groupId>org.hibernate.javax.persistence</groupId>
          <artifactId>hibernate-jpa-2.0-api</artifactId>
          <scope>provided</scope>
@@ -95,6 +103,20 @@
          <artifactId>javax.ws.rs-api</artifactId>
          <scope>provided</scope>
       </dependency>
+      <!--dependency>
+         <groupId>org.apache.deltaspike.core</groupId>
+         <artifactId>deltaspike-core-api</artifactId>
+         <version>${deltaspike.version}</version>
+         <scope>compile</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.apache.deltaspike.core</groupId>
+         <artifactId>deltaspike-core-impl</artifactId>
+         <version>${deltaspike.version}</version>
+         <scope>runtime</scope>
+      </dependency-->
+      
       <!-- <dependency> <groupId>org.jboss.forge.furnace</groupId> <artifactId>furnace-se</artifactId> <version>${version.forge}</version> </dependency> -->
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
