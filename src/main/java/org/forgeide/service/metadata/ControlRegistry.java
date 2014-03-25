@@ -12,7 +12,12 @@ public class ControlRegistry
      new CheckboxControl(),
      new ComboControl(),
      new DirectoryChooserControl(),
+     new FileChooserControl(),
+     new JavaClassChooserControl(),
+     new JavaPackageChooserControl(),
+     new PasswordTextBoxControl(),
      new RadioControl(),
+     new SpinnerControl(),
      new TextBoxControl()
   };
 
