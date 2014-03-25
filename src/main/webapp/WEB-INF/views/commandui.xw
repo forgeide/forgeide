@@ -13,22 +13,31 @@
     </xw:event> 
   </xw:ELBinding>
   
+  <div class="popupFooter">
+    <div class="buttonBar">
+      <xw:button styleClass="pure-button pure-button-primary" label="Execute"/>
+      
+      <xw:button styleClass="pure-button" label="Cancel">
+        <xw:event type="onclick">
+          <xw:action type="script"><![CDATA[xw.Popup.close();]]></xw:action>
+        </xw:event>
+      </xw:button>
+    </div>
+  </div> 
+  
   <div class="forgeUI">
-    <xw:repeat value="#{metadata}" var="meta">
-      <div>
-        <label for="#{meta.name}">#{meta.label}</label>
-        <input type="text" name="#{meta.name}"/>
-      </div>
-    </xw:repeat>
+    <form class="pure-form pure-form-aligned">
+        <fieldset>  
+          <xw:repeat value="#{metadata}" var="meta">
+          
+            <div class="pure-control-group">
+              <label for="#{meta.name}">#{meta.label}</label>
+              <input type="text" name="#{meta.name}" class="pure-input-1-2">
+            </div>
+
+          </xw:repeat>
+        </fieldset>
+    </form>    
   </div>
 
-  <div>
-    <xw:button label="Execute"/>
-    
-    <xw:button label="Cancel">
-      <xw:event type="onclick">
-        <xw:action type="script"><![CDATA[xw.Popup.close();]]></xw:action>
-      </xw:event>
-    </xw:button>
-  </div>
 </xw:view>

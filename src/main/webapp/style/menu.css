@@ -5,6 +5,7 @@ div.xw_menubar {
   border-top: 1px solid #fff;
   height: 22px;
   margin-bottom: 4px;
+  color: #000;
 }
 
 div.xw_menuitem {
@@ -12,6 +13,7 @@ div.xw_menuitem {
   border: 1px solid transparent;
   padding: 1px 4px 1px 4px;
   margin-right: 4px;  
+  font-size: 85%;
 }
 
 div.xw_menuitem_selected {
@@ -21,6 +23,7 @@ div.xw_menuitem_selected {
   margin-right: 4px; 
   background-color: #ddf;
   cursor: pointer;
+  font-size: 85%;
 }
 
 div.xw_menuitem i {
