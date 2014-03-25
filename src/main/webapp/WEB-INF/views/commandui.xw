@@ -32,7 +32,19 @@
           
             <div class="pure-control-group">
               <label for="#{meta.name}">#{meta.label}</label>
-              <input type="text" name="#{meta.name}" class="pure-input-1-2">
+              <xw:switch value="#{meta.inputType}">
+                <xw:case value="org.jboss.forge.inputType.TEXTBOX">
+                  <input type="text" name="#{meta.name}" class="pure-input-1-2"/>                
+                </xw:case>
+                <xw:case value="org.jboss.forge.inputType.DROPDOWN">
+                  <xw:select name="#{meta.name}">
+                    <xw:selectItems value="#{meta.valueChoices}" var="opt" itemLabel="#{opt}" itemValue="#{opt}"/>
+                  </xw:select>
+                </xw:case>
+                <xw:case value="org.jboss.forge.inputType.CHECKBOX">
+                  <input type="checkbox" name="#{meta.name}"/>
+                </xw:case>
+              </xw:switch>
             </div>
 
           </xw:repeat>

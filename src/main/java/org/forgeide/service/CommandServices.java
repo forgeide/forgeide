@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
@@ -30,6 +31,7 @@ import org.jboss.forge.addon.ui.input.UIInputMany;
 import org.jboss.forge.addon.ui.input.UISelectMany;
 import org.jboss.forge.addon.ui.input.UISelectOne;
 import org.jboss.forge.addon.ui.util.InputComponents;
+import org.jboss.forge.furnace.Furnace;
 
 /**
  * Provides RESTful services for querying Forge commands
@@ -44,14 +46,22 @@ public class CommandServices
    @Inject
    @Forge
    Instance<Map<String, List<String>>> availableCommands;
-   
+
    @Inject
    @Forge
    Instance<CommandFactory> commandFactory;
-   
+
    @Inject
    @Forge
    Instance<CommandControllerFactory> controllerFactory;
+
+   @Inject
+   Instance<Furnace> furnace;
+
+   @PostConstruct
+   public void init() {
+      ControlRegistry.init(furnace.get());
+   }
 
    @GET
    @Path("/list")

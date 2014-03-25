@@ -1,6 +1,7 @@
 package org.forgeide.service.metadata;
 
 import org.jboss.forge.addon.ui.input.InputComponent;
+import org.jboss.forge.furnace.Furnace;
 
 /**
  *
@@ -8,18 +9,25 @@ import org.jboss.forge.addon.ui.input.InputComponent;
  */
 public class ControlRegistry
 {
+   // The order seems to be important here
   private static final InputControl[] CONTROLS = {
      new CheckboxControl(),
      new ComboControl(),
-     new DirectoryChooserControl(),
-     new FileChooserControl(),
-     new JavaClassChooserControl(),
-     new JavaPackageChooserControl(),
-     new PasswordTextBoxControl(),
      new RadioControl(),
+     new FileChooserControl(),
+     new DirectoryChooserControl(),
+     new TextBoxControl(),
      new SpinnerControl(),
-     new TextBoxControl()
+     new PasswordTextBoxControl(),
+     new JavaPackageChooserControl(),
+     new JavaClassChooserControl()
   };
+
+  public static void init(Furnace furnace) {
+     for (InputControl meta : CONTROLS) {
+        meta.init(furnace);
+     }
+  }
 
   public static InputControl getControlFor(InputComponent<?, ?> input) {
      for (InputControl meta : CONTROLS) {

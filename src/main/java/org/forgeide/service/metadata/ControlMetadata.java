@@ -17,6 +17,7 @@ public class ControlMetadata implements Serializable
    private String requiredMessage;
    private char shortName;
    private String inputType;
+   private String[] valueChoices;
 
    public String getLabel()
    {
@@ -96,5 +97,13 @@ public class ControlMetadata implements Serializable
    public void setInputType(String inputType)
    {
       this.inputType = inputType;
+   }
+
+   public String[] getValueChoices() {
+      return valueChoices;
+   }
+
+   public void setValueChoices(String[] valueChoices) {
+      this.valueChoices = valueChoices;
    }
 }

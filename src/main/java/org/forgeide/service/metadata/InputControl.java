@@ -7,6 +7,7 @@ import javax.persistence.Transient;
 import org.jboss.forge.addon.ui.hints.InputType;
 import org.jboss.forge.addon.ui.input.InputComponent;
 import org.jboss.forge.addon.ui.util.InputComponents;
+import org.jboss.forge.furnace.Furnace;
 import org.jboss.forge.furnace.proxy.Proxies;
 
 /**
@@ -16,6 +17,16 @@ import org.jboss.forge.furnace.proxy.Proxies;
  */
 public abstract class InputControl
 {
+   private Furnace furnace;
+
+   public void init(Furnace furnace) {
+      this.furnace = furnace;
+   }
+
+   protected Furnace getFurnace() {
+      return furnace;
+   }
+
    public abstract String getSupportedInputType();
 
    public abstract Class<?> getProducedType();
