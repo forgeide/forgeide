@@ -16,11 +16,20 @@ import javax.ws.rs.core.MediaType;
 
 import org.forgeide.forge.ui.IDEUIContext;
 import org.forgeide.qualifiers.Forge;
+import org.forgeide.service.metadata.ControlMetadata;
+import org.forgeide.service.metadata.ControlRegistry;
+import org.forgeide.service.metadata.InputControl;
 import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
 import org.jboss.forge.addon.ui.controller.CommandController;
 import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
+import org.jboss.forge.addon.ui.facets.HintsFacet;
 import org.jboss.forge.addon.ui.input.InputComponent;
+import org.jboss.forge.addon.ui.input.UIInput;
+import org.jboss.forge.addon.ui.input.UIInputMany;
+import org.jboss.forge.addon.ui.input.UISelectMany;
+import org.jboss.forge.addon.ui.input.UISelectOne;
+import org.jboss.forge.addon.ui.util.InputComponents;
 
 /**
  * Provides RESTful services for querying Forge commands
@@ -55,7 +64,7 @@ public class CommandServices
    @GET
    @Path("/get/{command}")
    @Produces(MediaType.APPLICATION_JSON)
-   public List<InputComponentMetadata> getCommandMetadata(@PathParam("command") String command) 
+   public List<ControlMetadata> getCommandMetadata(@PathParam("command") String command) 
        throws Exception {
       IDEUIContext context = new IDEUIContext();
       UICommand cmd = commandFactory.get().getCommandByName(context, command);
@@ -65,30 +74,21 @@ public class CommandServices
       controller.initialize();
 
       //Map<String,InputComponentMetadata> components = new HashMap<String,InputComponentMetadata>();
-      List<InputComponentMetadata> components = new ArrayList<InputComponentMetadata>();
+      List<ControlMetadata> controlMetadata = new ArrayList<ControlMetadata>();
 
       for (String key : controller.getInputs().keySet()) {
          InputComponent component = controller.getInputs().get(key);
 
-         InputComponentMetadata meta = new InputComponentMetadata();
-         meta.setLabel(component.getLabel());
-         meta.setName(component.getName());
-         meta.setDescription(component.getDescription());
-         meta.setEnabled(component.isEnabled());
-         meta.setRequired(component.isRequired());
-         meta.setRequiredMessage(component.getRequiredMessage());
-         meta.setShortName(component.getShortName());
-         meta.setValueType(component.getValueType());
+         InputControl control = ControlRegistry.getControlFor(component);
 
-         //components.put(key, meta);
-         components.add(meta);
+         ControlMetadata meta = new ControlMetadata();
+
+         control.populateMetadata(component, meta);
+
+         controlMetadata.add(meta);
       }
 
-      return components;
+      return controlMetadata;
    }
-   
-   
-   // To set a value:
-   
-   // CommandController.setValueFor(input,"value")
+
 }
