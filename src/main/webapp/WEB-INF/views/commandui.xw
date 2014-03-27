@@ -51,7 +51,7 @@
             <xw:case value="org.jboss.forge.inputType.CHECKBOX">
               <div class="pure-controls" style="margin: 0.8em 0 0.8em 8.5em">
                 <label for="#{meta.name}" class="pure-checkbox">
-                  <input type="checkbox" name="#{meta.name}"/>
+                  <xw:checkbox name="#{meta.name}" formData="#{commandParams}"/>
                   #{meta.label}
                 </label>
               </div>

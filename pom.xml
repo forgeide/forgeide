@@ -262,19 +262,19 @@
          <artifactId>projects-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
-      
+
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>resources-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
-      
-      <!--dependency>
+
+      <dependency>
          <groupId>org.forgeide.addon.resource</groupId>
          <artifactId>forgeideresource-api</artifactId>
          <version>${project.version}</version>
-      </dependency-->
-      
+      </dependency>
+
       <!--dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>database-tools-api</artifactId>
@@ -303,6 +303,7 @@
                      <addonIds>
                         <addonId>org.jboss.forge.addon:core,${version.forge.addons}</addonId>
                         <addonId>org.jboss.forge.addon:ui-example,${version.forge.addons}</addonId>
+                        <addonId>org.forgeide.addon.resource:forgeideresource,${project.version}</addonId>
                      </addonIds>
                   </configuration>
                </execution>
