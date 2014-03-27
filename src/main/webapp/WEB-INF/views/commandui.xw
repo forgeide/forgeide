@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
 
-  <xw:ELBinding binding="command">
-    <xw:event type="onbind">
-      <xw:action type="script"><![CDATA[return params["command"];]]></xw:action>
-    </xw:event> 
-  </xw:ELBinding>
-  
+  <xw:formData id="commandParams"/>
+
   <xw:ELBinding binding="metadata">
     <xw:event type="onbind">
       <xw:action type="script"><![CDATA[return params["meta"];]]></xw:action>
@@ -15,7 +11,11 @@
   
   <div class="popupFooter">
     <div class="buttonBar">
-      <xw:button styleClass="pure-button pure-button-primary" label="Execute"/>
+      <xw:button styleClass="pure-button pure-button-primary" label="Execute">
+        <xw:event type="onclick">
+          <xw:action type="script"><![CDATA[Forge.executeCommand(params["command"], commandParams.value);]]></xw:action>
+        </xw:event>
+      </xw:button>
       
       <xw:button styleClass="pure-button" label="Cancel">
         <xw:event type="onclick">
@@ -23,32 +23,44 @@
         </xw:event>
       </xw:button>
     </div>
-  </div> 
+  </div>
   
   <div class="forgeUI">
     <form class="pure-form pure-form-aligned">
-        <fieldset>  
-          <xw:repeat value="#{metadata}" var="meta">
-          
-            <div class="pure-control-group">
-              <label for="#{meta.name}">#{meta.label}</label>
-              <xw:switch value="#{meta.inputType}">
-                <xw:case value="org.jboss.forge.inputType.TEXTBOX">
-                  <input type="text" name="#{meta.name}" class="pure-input-1-2"/>                
-                </xw:case>
-                <xw:case value="org.jboss.forge.inputType.DROPDOWN">
-                  <xw:select name="#{meta.name}">
-                    <xw:selectItems value="#{meta.valueChoices}" var="opt" itemLabel="#{opt}" itemValue="#{opt}"/>
-                  </xw:select>
-                </xw:case>
-                <xw:case value="org.jboss.forge.inputType.CHECKBOX">
-                  <input type="checkbox" name="#{meta.name}"/>
-                </xw:case>
-              </xw:switch>
-            </div>
+      <fieldset>  
+        <xw:repeat value="#{metadata}" var="meta">
+        
+          <xw:switch value="#{meta.inputType}">
 
-          </xw:repeat>
-        </fieldset>
+            <xw:case value="org.jboss.forge.inputType.TEXTBOX">
+              <div class="pure-control-group">
+                <label for="#{meta.name}">#{meta.label}</label>
+                <xw:inputText formData="#{commandParams}" styleClass="pure-input-1-2" name="#{meta.name}"/>
+              </div>
+            </xw:case>
+
+            <xw:case value="org.jboss.forge.inputType.DROPDOWN">
+              <div class="pure-control-group">
+                <label for="#{meta.name}">#{meta.label}</label>
+                <xw:select name="#{meta.name}" formData="#{commandParams}">
+                  <xw:selectItems value="#{meta.valueChoices}" var="opt" itemLabel="#{opt}" itemValue="#{opt}"/>
+                </xw:select>
+              </div>
+            </xw:case>
+
+            <xw:case value="org.jboss.forge.inputType.CHECKBOX">
+              <div class="pure-controls" style="margin: 0.8em 0 0.8em 8.5em">
+                <label for="#{meta.name}" class="pure-checkbox">
+                  <input type="checkbox" name="#{meta.name}"/>
+                  #{meta.label}
+                </label>
+              </div>
+            </xw:case>
+
+          </xw:switch>
+
+        </xw:repeat>
+      </fieldset>
     </form>    
   </div>
 

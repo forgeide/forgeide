@@ -1,7 +1,6 @@
 package org.forgeide.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +8,9 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -24,13 +25,7 @@ import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
 import org.jboss.forge.addon.ui.controller.CommandController;
 import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
-import org.jboss.forge.addon.ui.facets.HintsFacet;
 import org.jboss.forge.addon.ui.input.InputComponent;
-import org.jboss.forge.addon.ui.input.UIInput;
-import org.jboss.forge.addon.ui.input.UIInputMany;
-import org.jboss.forge.addon.ui.input.UISelectMany;
-import org.jboss.forge.addon.ui.input.UISelectOne;
-import org.jboss.forge.addon.ui.util.InputComponents;
 import org.jboss.forge.furnace.Furnace;
 
 /**
@@ -75,7 +70,8 @@ public class CommandServices
    @Path("/get/{command}")
    @Produces(MediaType.APPLICATION_JSON)
    public List<ControlMetadata> getCommandMetadata(@PathParam("command") String command) 
-       throws Exception {
+       throws Exception 
+   {
       IDEUIContext context = new IDEUIContext();
       UICommand cmd = commandFactory.get().getCommandByName(context, command);
 
@@ -99,6 +95,26 @@ public class CommandServices
       }
 
       return controlMetadata;
+   }
+
+   @POST
+   @Path("/execute/{command}")
+   @Consumes("application/json")
+   @Produces(MediaType.APPLICATION_JSON)
+   public void executeCommand(@PathParam("command") String command, Map<String,Object> parameters) 
+       throws Exception 
+   {
+      IDEUIContext context = new IDEUIContext();
+      UICommand cmd = commandFactory.get().getCommandByName(context, command);
+
+      CommandController controller = controllerFactory.get().createSingleController(
+               context, new UIRuntimeImpl(), cmd);
+      controller.initialize();
+
+      //controller.setValueFor(inputName, value)
+      //controller.execute();
+
+
    }
 
 }

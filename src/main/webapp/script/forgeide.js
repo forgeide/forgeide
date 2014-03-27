@@ -24,11 +24,15 @@ var Forge = {
       }
     });
   },
-  executeCommand: function(command) {
+  initiateCommand: function(command) {
     var cb = function(meta) {
       Forge.commandMetadataCallback(command, JSON.parse(meta));
     }
     xw.Sys.getWidget("commandMetadataService").invoke({command:command}, cb);
+  },
+  executeCommand: function(command, params) {
+    alert("executing command: " + command + " with params: " + params);
+  
   }
 };
 
