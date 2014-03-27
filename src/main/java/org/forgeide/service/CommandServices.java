@@ -111,9 +111,11 @@ public class CommandServices
                context, new UIRuntimeImpl(), cmd);
       controller.initialize();
 
-      //controller.setValueFor(inputName, value)
-      //controller.execute();
+      for (String key : parameters.keySet()) {
+         controller.setValueFor(key, parameters.get(key));
+      }
 
+      controller.execute();
 
    }
 

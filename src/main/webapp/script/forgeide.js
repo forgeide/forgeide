@@ -28,11 +28,17 @@ var Forge = {
     var cb = function(meta) {
       Forge.commandMetadataCallback(command, JSON.parse(meta));
     }
-    xw.Sys.getWidget("commandMetadataService").invoke({command:command}, cb);
+    xw.Sys.getWidget("commandMetadataService").invoke({command:command}, null, cb);
+  },
+  executeCommandCallback: function(command) {
+  
   },
   executeCommand: function(command, params) {
-    alert("executing command: " + command + " with params: " + params);
+    var cb = function() {
+      Forge.executeCommandCallback(command, JSON.parse(meta));
+    }
   
+    xw.Sys.getWidget("commandExecutionService").invoke({command:command}, JSON.stringify(params), cb);
   }
 };
 
