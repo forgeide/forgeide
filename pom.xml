@@ -54,55 +54,72 @@
          <artifactId>jboss-ejb-api_3.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
+      
       <dependency>
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
          <version>1.1</version>
          <scope>provided</scope>
       </dependency>
+      
+      <dependency>
+         <groupId>javax.inject</groupId>
+         <artifactId>javax.inject</artifactId>
+         <version>1</version>
+         <scope>provided</scope>
+      </dependency>
+      
       <dependency>
          <groupId>org.jboss.spec.javax.annotation</groupId>
          <artifactId>jboss-annotations-api_1.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
+      
       <dependency>
         <groupId>org.jboss.logging</groupId>
         <artifactId>jboss-logging</artifactId>
         <version>${jboss.logging.version}</version>
         <scope>provided</scope>
       </dependency>
+      
       <dependency>
          <groupId>org.hibernate.javax.persistence</groupId>
          <artifactId>hibernate-jpa-2.0-api</artifactId>
          <scope>provided</scope>
       </dependency>
+      
       <dependency>
          <groupId>org.picketlink</groupId>
          <artifactId>picketlink-api</artifactId>
          <version>${version.picketlink}</version>
          <scope>compile</scope>
       </dependency>
+      
       <dependency>
          <groupId>org.picketlink</groupId>
          <artifactId>picketlink-impl</artifactId>
          <version>${version.picketlink}</version>
          <scope>compile</scope>
       </dependency>
+      
       <dependency>
          <groupId>org.xwidgets</groupId>
          <artifactId>xwidgets</artifactId>
          <version>${version.xwidgets}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.spec.javax.servlet</groupId>
          <artifactId>jboss-servlet-api_3.0_spec</artifactId>
          <scope>provided</scope>
       </dependency>
+      
       <dependency>
          <groupId>javax.ws.rs</groupId>
          <artifactId>javax.ws.rs-api</artifactId>
          <scope>provided</scope>
       </dependency>
+      
       <!--dependency>
          <groupId>org.apache.deltaspike.core</groupId>
          <artifactId>deltaspike-core-api</artifactId>
@@ -118,16 +135,19 @@
       </dependency-->
       
       <!-- <dependency> <groupId>org.jboss.forge.furnace</groupId> <artifactId>furnace-se</artifactId> <version>${version.forge}</version> </dependency> -->
+      
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace</artifactId>
          <version>${version.forge}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace-proxy</artifactId>
          <version>${version.forge}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>ui-api</artifactId>
@@ -143,16 +163,19 @@
             </exclusion>
          </exclusions>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>environment-api</artifactId>
          <version>${version.forge}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>facets-api</artifactId>
          <version>${version.forge}</version>
       </dependency>
+      
       <!--dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>convert</artifactId>
@@ -165,21 +188,25 @@
          <artifactId>forge-javassist</artifactId>
          <version>2</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace-api</artifactId>
          <version>${version.furnace}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace-proxy</artifactId>
          <version>${version.furnace}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace-se</artifactId>
          <version>${version.furnace}</version>
       </dependency>
+      
       <!-- Addons API needed -->
       <!--dependency>
          <groupId>org.jboss.forge.addon</groupId>
@@ -192,42 +219,62 @@
          <version>${version.forge.addons}</version>
          <classifier>forge-addon</classifier>
       </dependency-->
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>ui-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>ui-spi</artifactId>
          <version>${version.forge.addons}</version>
          <classifier>forge-addon</classifier>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>convert-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>facets-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>resources-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>dependencies-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
+      
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>projects-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
+      
+      <dependency>
+         <groupId>org.jboss.forge.addon</groupId>
+         <artifactId>resources-api</artifactId>
+         <version>${version.forge.addons}</version>
+      </dependency>
+      
+      <!--dependency>
+         <groupId>org.forgeide.addon.resource</groupId>
+         <artifactId>forgeideresource-api</artifactId>
+         <version>${project.version}</version>
+      </dependency-->
+      
       <!--dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>database-tools-api</artifactId>
