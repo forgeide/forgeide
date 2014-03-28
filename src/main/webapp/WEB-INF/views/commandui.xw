@@ -8,7 +8,7 @@
       <xw:action type="script"><![CDATA[return params["meta"];]]></xw:action>
     </xw:event> 
   </xw:ELBinding>
-  
+   
   <div class="popupFooter">
     <div class="buttonBar">
       <xw:button styleClass="pure-button pure-button-primary" label="Execute">
@@ -26,6 +26,11 @@
   </div>
   
   <div class="forgeUI">
+    <!--div class="popupOverlay">
+      <i class="fa fa-refresh fa-spin"></i>
+      <span>Executing command...</span>
+    </div-->  
+  
     <form class="pure-form pure-form-aligned">
       <fieldset>  
         <xw:repeat value="#{metadata}" var="meta">

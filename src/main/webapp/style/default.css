@@ -145,3 +145,17 @@ div.xwPopupCloseButton {
   cursor: pointer;
   background: url('close_button.png') top left no-repeat;
 }
+
+.popupOverlay {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: #000;
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  opacity: 0.8;
+  text-align: center;
+  color: #fff;
+}
