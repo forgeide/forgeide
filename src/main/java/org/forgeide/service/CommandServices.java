@@ -16,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.forgeide.filesystem.ResourcePath;
 import org.forgeide.forge.ui.IDEUIContext;
 import org.forgeide.qualifiers.Forge;
 import org.forgeide.service.metadata.ControlMetadata;
@@ -101,8 +102,8 @@ public class CommandServices
    @Path("/execute/{command}")
    @Consumes("application/json")
    @Produces(MediaType.APPLICATION_JSON)
-   public void executeCommand(@PathParam("command") String command, Map<String,Object> parameters) 
-       throws Exception 
+   public void executeCommand(@PathParam("command") String command, Map<String,Object> parameters)
+       throws Exception
    {
       IDEUIContext context = new IDEUIContext();
       UICommand cmd = commandFactory.get().getCommandByName(context, command);
@@ -114,6 +115,8 @@ public class CommandServices
       for (String key : parameters.keySet()) {
          controller.setValueFor(key, parameters.get(key));
       }
+      
+      //controller.setValueFor("targetLocation", new ResourcePath());
 
       controller.execute();
 
