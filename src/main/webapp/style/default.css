@@ -146,7 +146,8 @@ div.xwPopupCloseButton {
   background: url('close_button.png') top left no-repeat;
 }
 
-.popupOverlay {
+#popupOverlay {
+  display: none;
   position: absolute;
   top: 0px;
   bottom: 0px;
@@ -156,6 +157,28 @@ div.xwPopupCloseButton {
   filter: alpha(opacity=80);
   -moz-opacity: 0.8;
   opacity: 0.8;
-  text-align: center;
   color: #fff;
 }
+
+#popupOverlay i {
+  margin-right: 12px;
+}
+
+#popupOverlay div {
+  margin-top: 24px;
+  text-align: center;
+}
+
+#command_executing i {
+  color: #ffff00;
+}
+
+#command_successful i {
+  color: #33CC33;
+}
+
+#command_failed i {
+  color: #CC0000;
+}
+
+

@@ -39,15 +39,39 @@ var Forge = {
     }
     xw.Sys.getWidget("commandMetadataService").invoke({command:command}, null, cb);
   },
-  executeCommandCallback: function(command) {
-  
+  executeCommandCallback: function(response) {
+      Forge.updateCommandStatus("successful");
   },
-  executeCommand: function(command, params) {
-    var cb = function() {
-      Forge.executeCommandCallback(command, JSON.parse(meta));
+  executeCommand: function(command, params, view) {  
+    Forge.commandView = view;
+    Forge.updateCommandStatus("executing");
+    xw.Sys.getWidget("commandExecutionService").invoke({command:command}, JSON.stringify(params), Forge.executeCommandCallback);
+  },
+  updateCommandStatus: function(status) {
+    // valid status values - executing, successful, failure
+    
+    var o = xw.Sys.getObject("popupOverlay");
+    var ce = xw.Sys.getObject("command_executing");
+    var cs = xw.Sys.getObject("command_successful");
+    var cf = xw.Sys.getObject("command_failed");
+    var be = Forge.commandView.getWidgetById("commandExecute");
+    var bc = Forge.commandView.getWidgetById("commandCancel");
+    
+    if (status == "executing") {
+      be.disable();
+      bc.disable();
+      ce.style.display = "block";
+      cs.style.display = "none";
+      cf.style.display = "none";
+      o.style.display = "block";
+    } else if (status == "successful") {
+      be.disable();
+      bc.enable();
+      ce.style.display = "none";
+      cs.style.display = "block";
+      cf.style.display = "none";
+      o.style.display = "block";
     }
-  
-    xw.Sys.getWidget("commandExecutionService").invoke({command:command}, JSON.stringify(params), cb);
-  }
+  }  
 };
 

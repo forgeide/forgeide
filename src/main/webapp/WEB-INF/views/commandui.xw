@@ -11,30 +11,44 @@
    
   <div class="popupFooter">
     <div class="buttonBar">
-      <xw:button styleClass="pure-button pure-button-primary" label="Execute">
+      <xw:button id="commandExecute" styleClass="pure-button pure-button-primary" label="Execute">
         <xw:event type="onclick">
-          <xw:action type="script"><![CDATA[Forge.executeCommand(params["command"], commandParams.value);]]></xw:action>
+          <xw:action type="script"><![CDATA[Forge.executeCommand(params["command"], commandParams.value, _owner);]]></xw:action>
         </xw:event>
       </xw:button>
       
-      <xw:button styleClass="pure-button" label="Cancel">
+      <xw:button id="commandCancel" styleClass="pure-button" label="Cancel">
         <xw:event type="onclick">
           <xw:action type="script"><![CDATA[xw.Popup.close();]]></xw:action>
         </xw:event>
       </xw:button>
     </div>
   </div>
-  
+
   <div class="forgeUI">
-    <!--div class="popupOverlay">
-      <i class="fa fa-refresh fa-spin"></i>
-      <span>Executing command...</span>
-    </div-->  
-  
+
+    <div id="popupOverlay">
+      <div id="command_executing">
+        <i class="fa fa-cog fa-spin fa-2x"></i>
+        Executing command...
+      </div>
+      <div id="command_successful">
+        <i class="fa fa-check fa-2x"></i>
+        Command successful!
+      </div>
+      <div id="command_failed">
+        <i class="fa fa-times fa-2x"/>
+        Command failed!
+        <div>
+        
+        </div>
+      </div>
+    </div>
+
     <form class="pure-form pure-form-aligned">
       <fieldset>  
         <xw:repeat value="#{metadata}" var="meta">
-        
+
           <xw:switch value="#{meta.inputType}">
 
             <xw:case value="org.jboss.forge.inputType.TEXTBOX">
