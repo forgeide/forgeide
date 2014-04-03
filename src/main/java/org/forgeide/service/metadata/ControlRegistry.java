@@ -14,6 +14,7 @@ public class ControlRegistry
      new CheckboxControl(),
      new ComboControl(),
      new RadioControl(),
+     new ResourceChooserControl(),
      new FileChooserControl(),
      new DirectoryChooserControl(),
      new TextBoxControl(),

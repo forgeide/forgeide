@@ -12,6 +12,7 @@ public class ControlMetadata implements Serializable
    private String label;
    private String name;
    private String description;
+   private String value;
    private boolean enabled;
    private boolean required;
    private String requiredMessage;
@@ -47,6 +48,16 @@ public class ControlMetadata implements Serializable
    public void setDescription(String description)
    {
       this.description = description;
+   }
+
+   public String getValue()
+   {
+      return value;
+   }
+
+   public void setValue(String value)
+   {
+      this.value = value;
    }
 
    public boolean isEnabled()

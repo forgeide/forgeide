@@ -1,9 +1,5 @@
 package org.forgeide.service.metadata;
 
-import java.io.Serializable;
-
-import javax.persistence.Transient;
-
 import org.jboss.forge.addon.ui.hints.InputType;
 import org.jboss.forge.addon.ui.input.InputComponent;
 import org.jboss.forge.addon.ui.util.InputComponents;
@@ -61,6 +57,7 @@ public abstract class InputControl
       meta.setLabel(component.getLabel());
       meta.setName(component.getName());
       meta.setDescription(component.getDescription());
+      meta.setValue(component.getValue() != null ? component.getValue().toString() : "");
       meta.setEnabled(component.isEnabled());
       meta.setRequired(component.isRequired());
       meta.setRequiredMessage(component.getRequiredMessage());

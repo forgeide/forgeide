@@ -16,7 +16,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.forgeide.filesystem.ResourcePath;
 import org.forgeide.forge.ui.IDEUIContext;
 import org.forgeide.qualifiers.Forge;
 import org.forgeide.service.metadata.ControlMetadata;

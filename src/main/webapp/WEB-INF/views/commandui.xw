@@ -53,14 +53,14 @@
 
             <xw:case value="org.jboss.forge.inputType.TEXTBOX">
               <div class="pure-control-group">
-                <label for="#{meta.name}">#{meta.label}</label>
-                <xw:inputText formData="#{commandParams}" styleClass="pure-input-1-2" name="#{meta.name}"/>
+                <label for="#{meta.name}">#{meta.label}<xw:fragment rendered="#{meta.required}">*</xw:fragment></label>
+                <xw:inputText formData="#{commandParams}" styleClass="pure-input-1-2" name="#{meta.name}" value="#{meta.value}"/>
               </div>
             </xw:case>
 
             <xw:case value="org.jboss.forge.inputType.DROPDOWN">
               <div class="pure-control-group">
-                <label for="#{meta.name}">#{meta.label}</label>
+                <label for="#{meta.name}">#{meta.label}<xw:fragment rendered="#{meta.required}">*</xw:fragment></label>
                 <xw:select name="#{meta.name}" formData="#{commandParams}">
                   <xw:selectItems value="#{meta.valueChoices}" var="opt" itemLabel="#{opt}" itemValue="#{opt}"/>
                 </xw:select>
@@ -71,7 +71,7 @@
               <div class="pure-controls" style="margin: 0.8em 0 0.8em 8.5em">
                 <label for="#{meta.name}" class="pure-checkbox">
                   <xw:checkbox name="#{meta.name}" formData="#{commandParams}"/>
-                  #{meta.label}
+                  #{meta.label}<xw:fragment rendered="#{meta.required}">*</xw:fragment>
                 </label>
               </div>
             </xw:case>
