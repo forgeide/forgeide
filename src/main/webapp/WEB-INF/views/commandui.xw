@@ -39,13 +39,22 @@
       <div id="command_failed">
         <i class="fa fa-times fa-2x"/>
         Command failed!
-        <div>
-        
+        <div id="command_message"></div>       
+        <div class="buttonBar">
+          <!--xw:button id="tryAgain" styleClass="pure-button" label="Try Again">
+            <xw:event type="onclick">
+              <xw:action type="script"><![CDATA[Forge.commandReset();]]></xw:action>
+            </xw:event>        
+          </xw:button-->
         </div>
       </div>
     </div>
 
-    <form class="pure-form pure-form-aligned">
+    <xw:form styleClass="pure-form pure-form-aligned">
+      <xw:event type="onload">
+        <xw:action type="script"><![CDATA[this.focus();]]></xw:action>
+      </xw:event>
+    
       <fieldset>  
         <xw:repeat value="#{metadata}" var="meta">
 
@@ -80,7 +89,7 @@
 
         </xw:repeat>
       </fieldset>
-    </form>    
+    </xw:form>    
   </div>
 
 </xw:view>

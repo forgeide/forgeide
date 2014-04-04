@@ -21,11 +21,14 @@ import org.forgeide.qualifiers.Forge;
 import org.forgeide.service.metadata.ControlMetadata;
 import org.forgeide.service.metadata.ControlRegistry;
 import org.forgeide.service.metadata.InputControl;
+import org.forgeide.service.metadata.ResultMetadata;
 import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
 import org.jboss.forge.addon.ui.controller.CommandController;
 import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
 import org.jboss.forge.addon.ui.input.InputComponent;
+import org.jboss.forge.addon.ui.result.Failed;
+import org.jboss.forge.addon.ui.result.Result;
 import org.jboss.forge.furnace.Furnace;
 
 /**
@@ -101,7 +104,7 @@ public class CommandServices
    @Path("/execute/{command}")
    @Consumes("application/json")
    @Produces(MediaType.APPLICATION_JSON)
-   public void executeCommand(@PathParam("command") String command, Map<String,Object> parameters)
+   public ResultMetadata executeCommand(@PathParam("command") String command, Map<String,Object> parameters)
        throws Exception
    {
       IDEUIContext context = new IDEUIContext();
@@ -114,11 +117,34 @@ public class CommandServices
       for (String key : parameters.keySet()) {
          controller.setValueFor(key, parameters.get(key));
       }
-      
+
       //controller.setValueFor("targetLocation", new ResourcePath());
 
-      controller.execute();
+      ResultMetadata rm = new ResultMetadata();
+      try
+      {
+         Result result = controller.execute();
+         if (result instanceof Failed) {
+            rm.setPassed(false);
+            rm.setMessage(result.getMessage());
+            if (((Failed) result).getException() != null) 
+            {
+               rm.setException(((Failed) result).getException().getMessage());
+            }
+         }
+         else
+         {
+            rm.setPassed(true);
+            rm.setMessage(result.getMessage());
+         }
+      }
+      catch (Exception ex)
+      {
+         rm.setPassed(false);
+         rm.setException(ex.getMessage());
+      }
 
+      return rm;
    }
 
 }

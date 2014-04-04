@@ -181,4 +181,19 @@ div.xwPopupCloseButton {
   color: #CC0000;
 }
 
+#command_message {
+  color: #fff;
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: 48px;
+  top: 48px;
+  text-align: left !important;
+  font-family: courier;
+  font-size: 0.8em;
+  overflow: auto;
+}
+
+#command_failed 
+
 

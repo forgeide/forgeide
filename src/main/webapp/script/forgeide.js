@@ -40,12 +40,24 @@ var Forge = {
     xw.Sys.getWidget("commandMetadataService").invoke({command:command}, null, cb);
   },
   executeCommandCallback: function(response) {
+    if (response.passed) {
       Forge.updateCommandStatus("successful");
+    } else {
+      var d = xw.Sys.getObject("command_message");
+      xw.Sys.clearChildren(d);
+      var m = document.createTextNode(response.message);
+      d.appendChild(m);
+      Forge.updateCommandStatus("failure");
+    }
   },
   executeCommand: function(command, params, view) {  
     Forge.commandView = view;
     Forge.updateCommandStatus("executing");
-    xw.Sys.getWidget("commandExecutionService").invoke({command:command}, JSON.stringify(params), Forge.executeCommandCallback);
+    
+    var cb = function(response) {
+      Forge.executeCommandCallback(JSON.parse(response));
+    }    
+    xw.Sys.getWidget("commandExecutionService").invoke({command:command}, JSON.stringify(params), cb);
   },
   updateCommandStatus: function(status) {
     // valid status values - executing, successful, failure
@@ -70,6 +82,13 @@ var Forge = {
       ce.style.display = "none";
       cs.style.display = "block";
       cf.style.display = "none";
+      o.style.display = "block";
+    } else if (status == "failure") {
+      be.disable();
+      bc.enable();
+      ce.style.display = "none";
+      cs.style.display = "none";
+      cf.style.display = "block";
       o.style.display = "block";
     }
   }  
