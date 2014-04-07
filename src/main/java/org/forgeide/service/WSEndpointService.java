@@ -43,8 +43,10 @@ public class WSEndpointService
    }
 
    @OnClose
-   public void onClose(CloseReason reason)
+   public void onClose(CloseReason reason, Session session)
    {
+      registry.unregisterSession(session);
+
       String msg = "";
       if (reason != null)
       {

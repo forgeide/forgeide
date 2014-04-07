@@ -9,13 +9,26 @@ xw.Ajax.loadingCallback = function(requests) {
 };
 
 /* Allows us to use #{location} EL expression */
-xw.EL.setValue("location", location);    
+xw.EL.setValue("location", location);
+
+var ForgeIDE = {
+  createProjectCallback: function(response) {
+    alert("Created project");
+  
+  },
+  createProject: function(props) {  
+    var cb = function(response) {
+      ForgeIDE.createProjectCallback(JSON.parse(response));
+    };
+    xw.Sys.getWidget("projectService").invoke(null, JSON.stringify(props), cb);
+  }
+};  
 
 /* FORGE OPERATIONS */
 var Forge = {
-  parseCommands: function(result) { 
+  parseCommands: function(result) {
     var definition = {};
-    
+
     for (var category in result) {
       var commands = [];
       for (var i = 0; i < result[category].length; i++) {

@@ -11,7 +11,12 @@
         <xw:menuItem label="New Project...">
           <xw:event type="onclick">
             <xw:action type="script"><![CDATA[
-              
+              xw.Popup.open("createproject.xw", {
+                title: "Create Project",
+                params: {
+                  height: 300
+                }
+              });              
             ]]></xw:action>
           </xw:event>
         </xw:menuItem>

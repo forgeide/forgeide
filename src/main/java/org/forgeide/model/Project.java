@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * Represents a project
@@ -29,6 +30,7 @@ public class Project implements Serializable
 
    private String finalName;
 
+   @ManyToOne
    private ProjectType type;
 
    public Long getId()

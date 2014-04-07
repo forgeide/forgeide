@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -38,7 +38,7 @@ import org.jboss.forge.furnace.Furnace;
  * 
  */
 @Path("/commands")
-@Model
+@Stateless
 public class CommandServices
 {
    @Inject

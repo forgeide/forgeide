@@ -23,7 +23,12 @@ public class SessionRegistry
       sessions.add(session);
    }
 
-   public List<Session> getSessions() 
+   public void unregisterSession(Session session)
+   {
+      sessions.remove(session);
+   }
+
+   public List<Session> getSessions()
    {
       return Collections.unmodifiableList(sessions);
    }

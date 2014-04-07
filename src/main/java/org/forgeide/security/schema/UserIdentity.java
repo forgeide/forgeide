@@ -28,7 +28,7 @@ public class UserIdentity implements Serializable
    private IdentityType identityType;
 
    @AttributeValue
-   private String email;
+   private String username;
 
    @AttributeValue
    private String firstName;
@@ -46,14 +46,14 @@ public class UserIdentity implements Serializable
       this.identityType = identityType;
    }
 
-   public String getEmail()
+   public String getUsername()
    {
-      return email;
+      return username;
    }
 
-   public void setEmail(String email)
+   public void setUsername(String username)
    {
-      this.email = email;
+      this.username = username;
    }
 
    public String getFirstName()

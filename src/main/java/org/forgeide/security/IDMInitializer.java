@@ -37,7 +37,7 @@ public class IDMInitializer
 
       u.setFirstName("Shane");
       u.setLastName("Bryzak");
-      u.setEmail("shane@forgeide.org");
+      u.setUsername("sbryzak");
       im.add(u);
       im.updateCredential(u, new Password("password"));
    }

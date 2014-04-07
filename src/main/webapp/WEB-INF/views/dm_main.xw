@@ -7,6 +7,8 @@
   <xw:restEndpoint id="commandMetadataService" url="#{location.href}rest/commands/get/{command}"/>
   
   <xw:restEndpoint id="commandExecutionService" url="#{location.href}rest/commands/execute/{command}" method="POST"/>
+  
+  <xw:restEndpoint id="projectService" url="#{location.href}rest/projects/create" method="POST"/>
 
   <xw:restELBinding binding="addonMenuItems" mode="JSON" restEndpoint="#{commandListService}">
     <xw:event type="onresult">

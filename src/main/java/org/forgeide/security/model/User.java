@@ -7,9 +7,8 @@ import org.picketlink.idm.model.annotation.Unique;
 
 /**
  * Represents the user object
- * 
+ *
  * @author Shane Bryzak
- * 
  */
 public class User extends AbstractIdentityType implements Account
 {
@@ -17,7 +16,7 @@ public class User extends AbstractIdentityType implements Account
 
    @Unique
    @AttributeProperty
-   private String email;
+   private String username;
 
    @AttributeProperty
    private String firstName;
@@ -25,14 +24,14 @@ public class User extends AbstractIdentityType implements Account
    @AttributeProperty
    private String lastName;
 
-   public String getEmail()
+   public String getUsername()
    {
-      return email;
+      return username;
    }
 
-   public void setEmail(String email)
+   public void setUsername(String username)
    {
-      this.email = email;
+      this.username = username;
    }
 
    public String getFirstName()
