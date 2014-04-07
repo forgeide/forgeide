@@ -20,6 +20,25 @@
             ]]></xw:action>
           </xw:event>
         </xw:menuItem>
+        <xw:menuItem label="Open Project...">
+          <xw:event type="onclick">
+            <xw:action type="script"><![CDATA[
+              xw.Popup.open("openproject.xw", {
+                title: "Open Project",
+                params: {
+                  height: 300
+                }
+              });              
+            ]]></xw:action>
+          </xw:event>
+        </xw:menuItem>
+        <xw:menuItem label="Close Project...">
+          <xw:event type="onclick">
+            <xw:action type="script"><![CDATA[
+              ForgeIDE.closeCurrentProject();
+            ]]></xw:action>
+          </xw:event>
+        </xw:menuItem>
       </xw:menuItem>
       <xw:menuItem label="Addons" definition="#{addonMenuItems}">
         <xw:menuItem label="Loading...">
