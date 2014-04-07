@@ -12,7 +12,6 @@
     <link href="style/forms.css" rel="stylesheet" type="text/css"/>
     <link href="style/default.css" rel="stylesheet" type="text/css"/>
     
-    
     <link href="style/tree.css" rel="stylesheet" type="text/css"/>
     <link href="style/menu.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" type="image/png" href="forge-icon.png"/>
@@ -22,25 +21,23 @@
     <script src="xwidgets/org/xwidgets/core/form.js"></script>
     <script src="xwidgets/org/xwidgets/core/inputtext.js"></script>
     <script src="xwidgets/org/xwidgets/core/select.js"></script>
+    <script src="xwidgets/org/xwidgets/core/tree.js"></script>
     
+    <script src="xwidgets/org/xwidgets/core/websocket.js"></script>
     
     <script src="script/forgeide.js"></script>
   </head>
   <body>  
-    <xw:datamodule name="dm_main.xw"/>
+    <xw:datamodule name="dm_main.xw"></xw:datamodule>
 
     <div class="header">
       <div id="logo"></div>
       <div id="ajax"><i class="fa fa-refresh fa-spin"></i></div>
     </div>
     
-    <div id="ide">
-      <xw:view name="ide.xw"/>
-    </div>
+    <div id="ide"><xw:view name="ide.xw"></xw:view></div>
     
-    <script type="text/javascript">
-      xw.viewPath = "views/";
-    </script>
+    <div id="test"><xw:view name="test.xw"></xw:view></div>
 
   </body>
 

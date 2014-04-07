@@ -263,18 +263,17 @@
          <version>${version.forge.addons}</version>
       </dependency>
 
-      <dependency>
-         <groupId>org.forgeide.addon</groupId>
-         <artifactId>resources</artifactId>
-         <version>${project.version}</version>
-         <classifier>forge-addon</classifier>
-      </dependency>
-
       <!--dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>database-tools-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency-->
+      
+      <dependency>
+        <groupId>org.jboss.spec.javax.websocket</groupId>
+        <artifactId>jboss-websocket-api_1.0_spec</artifactId>
+        <version>1.0.0.Final</version>
+      </dependency>
 
    </dependencies>
    <build>
@@ -298,7 +297,6 @@
                      <addonIds>
                         <addonId>org.jboss.forge.addon:core,${version.forge.addons}</addonId>
                         <addonId>org.jboss.forge.addon:ui-example,${version.forge.addons}</addonId>
-                        <!--addonId>org.forgeide.addon.resource:forgeideresource,${project.version}</addonId-->
                      </addonIds>
                   </configuration>
                </execution>

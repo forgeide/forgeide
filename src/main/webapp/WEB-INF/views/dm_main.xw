@@ -10,8 +10,14 @@
 
   <xw:restELBinding binding="addonMenuItems" mode="JSON" restEndpoint="#{commandListService}">
     <xw:event type="onresult">
-      <xw:action type="script">return Forge.parseCommands(result);</xw:action>
+      <xw:action type="script"><![CDATA[return Forge.parseCommands(result);]]></xw:action>
     </xw:event>
   </xw:restELBinding>
+  
+  <xw:webSocket id="projectListener" hostname="localhost" port="8080" path="/forge-ide/websocket/projects">
+    <xw:event type="onmessage">
+      <xw:action type="script"><![CDATA[alert("received: " + event.data);]]></xw:action>
+    </xw:event>
+  </xw:webSocket>
 
 </xw:dataModule>

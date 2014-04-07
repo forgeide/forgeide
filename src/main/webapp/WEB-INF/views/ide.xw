@@ -7,7 +7,15 @@
           Forge.initiateCommand(item.label.value);
         ]]></xw:action>
       </xw:event>    
-      <xw:menuItem label="Project"/>
+      <xw:menuItem label="Project">
+        <xw:menuItem label="New Project...">
+          <xw:event type="onclick">
+            <xw:action type="script"><![CDATA[
+              
+            ]]></xw:action>
+          </xw:event>
+        </xw:menuItem>
+      </xw:menuItem>
       <xw:menuItem label="Addons" definition="#{addonMenuItems}">
         <xw:menuItem label="Loading...">
           <xw:event type="onclick">
@@ -21,6 +29,8 @@
   </div>
   
   <div>
+    <!--xw:tree id="projectExplorer">
     
+    </xw:tree-->
   </div>
 </xw:view>

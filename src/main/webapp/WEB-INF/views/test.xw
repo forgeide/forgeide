@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+  <xw:button label="test">
+    <xw:event type="onclick">
+      <xw:action type="script"><![CDATA[
+        projectListener.send("client-side send 123");
+      ]]></xw:action>
+    </xw:event>
+  </xw:button>
+</xw:view>

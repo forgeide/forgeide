@@ -1,3 +1,4 @@
+/* INITIALIZATION */
 xw.Ajax.loadingCallback = function(requests) {
   var ctl = xw.Sys.getObject("ajax");
   if (requests > 0) {
@@ -7,8 +8,10 @@ xw.Ajax.loadingCallback = function(requests) {
   }
 };
 
+/* Allows us to use #{location} EL expression */
 xw.EL.setValue("location", location);    
 
+/* FORGE OPERATIONS */
 var Forge = {
   parseCommands: function(result) { 
     var definition = {};
@@ -36,7 +39,7 @@ var Forge = {
   initiateCommand: function(command) {
     var cb = function(meta) {
       Forge.commandMetadataCallback(command, JSON.parse(meta));
-    }
+    };
     xw.Sys.getWidget("commandMetadataService").invoke({command:command}, null, cb);
   },
   executeCommandCallback: function(response) {
