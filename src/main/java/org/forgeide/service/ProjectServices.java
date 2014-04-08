@@ -22,6 +22,10 @@ import org.forgeide.model.Project;
 @Stateless
 public class ProjectServices
 {
+   public static final String MESSAGE_CAT_PROJECT = "PROJECT";
+
+   public static final String PROJECT_OP_NEW = "NEW";
+
    @Inject EntityManager entityManager;
 
    @Inject SessionRegistry registry;
@@ -40,6 +44,10 @@ public class ProjectServices
       //p.setType(type);
 
       entityManager.persist(p);
+
+      Message m = new Message(MESSAGE_CAT_PROJECT, PROJECT_OP_NEW);
+
+      registry.transmitProjectMessage(p.getId(), m);
 
       return p;
    }

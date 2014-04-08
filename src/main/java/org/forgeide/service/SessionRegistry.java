@@ -28,8 +28,11 @@ public class SessionRegistry
       sessions.remove(session);
    }
 
-   public List<Session> getSessions()
+   public void transmitProjectMessage(Long projectId, Message message)
    {
-      return Collections.unmodifiableList(sessions);
+      for (Session session : sessions)
+      {
+         session.getAsyncRemote().sendObject(message);
+      }
    }
 }
