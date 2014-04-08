@@ -9,15 +9,15 @@ import javax.persistence.ManyToOne;
 
 /**
  * Represents a single project resource, such as a source file
- * 
+ *
  * @author Shane Bryzak
- * 
  */
 @Entity
 public class ProjectResource implements Serializable
 {
-
    private static final long serialVersionUID = -4146308990787564792L;
+
+   public enum ResourceType {DIRECTORY, FILE};
 
    @Id
    @GeneratedValue
@@ -26,11 +26,11 @@ public class ProjectResource implements Serializable
    @ManyToOne
    private Project project;
 
-   private String path;
+   private ProjectResource parent;
 
    private String name;
 
-   private String resourceType;
+   private ResourceType resourceType;
 
    public Long getId()
    {
@@ -52,14 +52,14 @@ public class ProjectResource implements Serializable
       this.project = project;
    }
 
-   public String getPath()
+   public ProjectResource getParent()
    {
-      return path;
+      return parent;
    }
 
-   public void setPath(String path)
+   public void setParent(ProjectResource parent)
    {
-      this.path = path;
+      this.parent = parent;
    }
 
    public String getName()
@@ -72,12 +72,12 @@ public class ProjectResource implements Serializable
       this.name = name;
    }
 
-   public String getResourceType()
+   public ResourceType getResourceType()
    {
       return resourceType;
    }
 
-   public void setResourceType(String resourceType)
+   public void setResourceType(ResourceType resourceType)
    {
       this.resourceType = resourceType;
    }
