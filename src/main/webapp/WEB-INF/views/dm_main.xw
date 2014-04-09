@@ -15,7 +15,7 @@
   </xw:restELBinding>
   
   <xw:webSocket id="projectListener" hostname="localhost" port="8080" path="/forge-ide/websocket/projects">
-    <xw:event type="onmessage"><![CDATA[alert("received: " + event.data);]]></xw:event>
+    <xw:event type="onmessage"><![CDATA[ForgeIDE.processMessage(event.data);]]></xw:event>
   </xw:webSocket>
 
 </xw:dataModule>

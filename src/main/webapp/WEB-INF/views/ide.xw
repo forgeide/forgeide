@@ -8,22 +8,12 @@
       <xw:menuItem label="Project">
         <xw:menuItem label="New Project...">
           <xw:event type="onclick"><![CDATA[
-              xw.Popup.open("createproject.xw", {
-                title: "Create Project",
-                params: {
-                  height: 300
-                }
-              });              
+              xw.Popup.open("createproject.xw", {title: "Create Project", params: {height: 300}});              
             ]]></xw:event>
         </xw:menuItem>
         <xw:menuItem label="Open Project...">
           <xw:event type="onclick"><![CDATA[
-              xw.Popup.open("openproject.xw", {
-                title: "Open Project",
-                params: {
-                  height: 300
-                }
-              });              
+              xw.Popup.open("openproject.xw", {title: "Open Project", params: {height: 300}});              
             ]]></xw:event>
         </xw:menuItem>
         <xw:menuItem label="Close Project...">
@@ -42,9 +32,9 @@
     </xw:menuBar>
   </div>
   
-  <div>
-    <!--xw:tree id="projectExplorer">
-    
-    </xw:tree-->
+  <div id="projectExplorer">
+    <xw:tree id="projectExplorer">
+      <xw:event type="afterRender"><![CDATA[ForgeIDE.setProjectExplorer(this);]]></xw:event>
+    </xw:tree>
   </div>
 </xw:view>

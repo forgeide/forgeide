@@ -12,16 +12,45 @@ xw.Ajax.loadingCallback = function(requests) {
 xw.EL.setValue("location", location);
 
 var ForgeIDE = {
+  projectExplorer: null,
+  messageHandler: {},
   createProjectCallback: function(response) {
     xw.Popup.close();
   },
-  createProject: function(props) {  
+  createProject: function(props) {
     var cb = function(response) {
       ForgeIDE.createProjectCallback(JSON.parse(response));
     };
     xw.Sys.getWidget("projectService").invoke(null, JSON.stringify(props), cb);
+  },
+  setProjectExplorer: function(tree) {
+    ForgeIDE.projectExplorer = tree;
+  },
+  processMessage: function(data) {
+    var msg = JSON.parse(data);
+    var handler = ForgeIDE.messageHandler[msg.c];
+    if (xw.Sys.isUndefined(handler)) {
+      throw "No message handler registered for message category " + msg.c;
+    }
+    if (xw.Sys.isDefined(handler[msg.o]) && typeof handler[msg.o] == "function") {
+      handler[msg.o].call(null, msg);
+    } else {
+      throw "No operation [" + msg.o + "] defined for message handler [" + handler + "]";
+    }
   }
-};  
+};
+
+ForgeIDE.messageHandler.PROJECT = {
+  NEW: function(msg) {
+    var n = new org.xwidgets.core.TreeNode(msg.payload.name, false, {id: msg.payload.id});
+    ForgeIDE.projectExplorer.model.rootNode.add(n);
+  }
+};
+
+ForgeIDE.registerMessageHandler(ForgeIDE.projectMessageHandler);
+
+
+
 
 /* FORGE OPERATIONS */
 var Forge = {

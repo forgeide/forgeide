@@ -47,9 +47,10 @@ public class ProjectServices
       entityManager.persist(p);
 
       Message m = new Message(MESSAGE_CAT_PROJECT, PROJECT_OP_NEW);
+      m.setPayloadValue("id", p.getId());
       m.setPayloadValue("name", p.getName());
 
-      registry.transmitProjectMessage(p.getId(), m);
+      registry.broadcast(m);
 
       return p;
    }

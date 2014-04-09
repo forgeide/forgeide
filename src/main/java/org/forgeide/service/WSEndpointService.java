@@ -19,12 +19,12 @@ public class WSEndpointService
    @Inject SessionRegistry registry;
 
    @OnMessage
-   public void onMessage(String message, Session session)
+   public void onMessage(String data, Session session)
    {
-      String msg = "Received message: " + message;
+      String msg = "Received message: " + data;
       System.out.println(msg);
 
-      registry.sendAll(msg);
+      //registry.sendAll(msg);
 
       //return message;
    }
