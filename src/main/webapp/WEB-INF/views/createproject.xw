@@ -10,7 +10,7 @@
           <xw:action type="script"><![CDATA[ForgeIDE.createProject(projectParams.value, _owner);]]></xw:action>
         </xw:event>
       </xw:button>
-      
+
       <xw:button styleClass="pure-button" label="Cancel">
         <xw:event type="onclick">
           <xw:action type="script"><![CDATA[xw.Popup.close();]]></xw:action>
@@ -20,12 +20,7 @@
   </div>
 
   <div class="forgeUI">
-
     <xw:form styleClass="pure-form pure-form-aligned">
-      <xw:event type="onload">
-        <xw:action type="script"><![CDATA[this.focus();]]></xw:action>
-      </xw:event>
-    
       <fieldset>
 
         <div class="pure-control-group">
@@ -46,7 +41,7 @@
         <div class="pure-control-group">
           <label for="finalName">Final Name</label>
           <xw:inputText formData="#{projectParams}" styleClass="pure-input-1-2" name="finalName"/>
-        </div>                
+        </div>
 
       </fieldset>
     </xw:form>    

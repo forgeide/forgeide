@@ -35,4 +35,12 @@ public class SessionRegistry
          session.getAsyncRemote().sendObject(message);
       }
    }
+
+   public void sendAll(String msg)
+   {
+      for (Session s : sessions)
+      {
+         s.getAsyncRemote().sendText(msg);
+      }
+   }
 }

@@ -13,7 +13,7 @@ import javax.websocket.server.ServerEndpoint;
  * @author Shane Bryzak
  *
  */
-@ServerEndpoint("/websocket/projects")
+@ServerEndpoint(value = "/websocket/projects", encoders = {MessageEncoder.class})
 public class WSEndpointService
 {
    @Inject SessionRegistry registry;
@@ -24,10 +24,7 @@ public class WSEndpointService
       String msg = "Received message: " + message;
       System.out.println(msg);
 
-      for (Session s : registry.getSessions())
-      {
-         s.getAsyncRemote().sendText(msg);
-      }
+      registry.sendAll(msg);
 
       //return message;
    }

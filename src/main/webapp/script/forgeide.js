@@ -13,8 +13,7 @@ xw.EL.setValue("location", location);
 
 var ForgeIDE = {
   createProjectCallback: function(response) {
-    alert("Created project");
-  
+    xw.Popup.close();
   },
   createProject: function(props) {  
     var cb = function(response) {

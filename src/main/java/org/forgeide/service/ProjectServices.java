@@ -2,6 +2,7 @@ package org.forgeide.service;
 
 import java.util.Map;
 
+import javax.json.JsonString;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -46,6 +47,7 @@ public class ProjectServices
       entityManager.persist(p);
 
       Message m = new Message(MESSAGE_CAT_PROJECT, PROJECT_OP_NEW);
+      m.setPayloadValue("name", p.getName());
 
       registry.transmitProjectMessage(p.getId(), m);
 
