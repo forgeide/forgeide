@@ -32,23 +32,12 @@ public class WSEndpointService
    @OnOpen
    public void onOpen(Session session)
    {
-      System.out.println("Session opened: " + session.getId());
-
       registry.registerSession(session);
-
-      session.getAsyncRemote().sendText("test message");
    }
 
    @OnClose
    public void onClose(CloseReason reason, Session session)
    {
       registry.unregisterSession(session);
-
-      String msg = "";
-      if (reason != null)
-      {
-         msg = reason.getReasonPhrase();
-      }
-      System.out.println("WebSocket closed: " + msg);
    }
 }

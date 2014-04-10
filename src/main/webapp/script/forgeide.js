@@ -43,13 +43,9 @@ var ForgeIDE = {
 ForgeIDE.messageHandler.PROJECT = {
   NEW: function(msg) {
     var n = new org.xwidgets.core.TreeNode(msg.payload.name, false, {id: msg.payload.id});
-    ForgeIDE.projectExplorer.model.rootNode.add(n);
+    ForgeIDE.projectExplorer.model.addRootNode(n);
   }
 };
-
-ForgeIDE.registerMessageHandler(ForgeIDE.projectMessageHandler);
-
-
 
 
 /* FORGE OPERATIONS */
