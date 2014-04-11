@@ -120,7 +120,7 @@
          <scope>provided</scope>
       </dependency>
       
-      <!--dependency>
+      <dependency>
          <groupId>org.apache.deltaspike.core</groupId>
          <artifactId>deltaspike-core-api</artifactId>
          <version>${deltaspike.version}</version>
@@ -132,7 +132,19 @@
          <artifactId>deltaspike-core-impl</artifactId>
          <version>${deltaspike.version}</version>
          <scope>runtime</scope>
-      </dependency-->
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.deltaspike.modules</groupId>
+        <artifactId>deltaspike-security-module-api</artifactId>
+        <version>${deltaspike.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.deltaspike.modules</groupId>
+        <artifactId>deltaspike-security-module-impl</artifactId>
+        <version>${deltaspike.version}</version>
+      </dependency>
       
       <!-- <dependency> <groupId>org.jboss.forge.furnace</groupId> <artifactId>furnace-se</artifactId> <version>${version.forge}</version> </dependency> -->
       
