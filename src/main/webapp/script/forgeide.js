@@ -11,6 +11,9 @@ xw.Ajax.loadingCallback = function(requests) {
 /* Allows us to use #{location} EL expression */
 xw.EL.setValue("location", location);
 
+/* Set the Log level */
+xw.Log.logLevel = "DEBUG";
+
 var ForgeIDE = {
   projectExplorer: null,
   messageHandler: {},

@@ -16,8 +16,6 @@ import org.forgeide.events.SessionCreatedEvent;
 import org.forgeide.model.Project;
 import org.forgeide.model.ProjectAccess;
 import org.forgeide.model.ProjectAccess.AccessLevel;
-import org.forgeide.security.annotations.LoggedIn;
-import org.forgeide.security.schema.IdentityType;
 import org.forgeide.service.Message;
 import org.picketlink.Identity;
 

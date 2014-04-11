@@ -4,7 +4,7 @@
     <xw:menuBar>
       <xw:event type="onclick"><![CDATA[
           Forge.initiateCommand(item.label.value);
-        ]]></xw:event>    
+        ]]></xw:event>
       <xw:menuItem label="Project">
         <xw:menuItem label="New Project...">
           <xw:event type="onclick"><![CDATA[
@@ -32,8 +32,12 @@
     </xw:menuBar>
   </div>
   
+  <xw:popupMenu id="projectPopup">
+    <xw:menuItem label="test"></xw:menuItem>
+  </xw:popupMenu>
+  
   <div class="projectExplorer">
-    <xw:tree id="projectExplorer">
+    <xw:tree id="projectExplorer" popupMenu="#{projectPopup}">
       <xw:event type="afterRender"><![CDATA[ForgeIDE.setProjectExplorer(this);]]></xw:event>
     </xw:tree>
   </div>
