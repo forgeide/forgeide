@@ -86,6 +86,4 @@ public class ProjectAccess implements Serializable
    {
       this.accessLevel = accessLevel;
    }
-   
-   
 }

@@ -1,10 +1,11 @@
 package org.forgeide.service;
 
-import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
+
+import com.google.gson.Gson;
 
 /**
  * Message encoder
@@ -28,6 +29,10 @@ public class MessageEncoder implements Encoder.Text<Message>
    @Override
    public String encode(Message msg) throws EncodeException
    {
+      Gson gson = new Gson();
+      return gson.toJson(msg);
+      
+      /*
       JsonObjectBuilder messageBuilder = Json.createObjectBuilder()
                .add("c", msg.getCat())
                .add("o", msg.getOp());
@@ -43,7 +48,7 @@ public class MessageEncoder implements Encoder.Text<Message>
          messageBuilder.add("payload", payloadBuilder);
       }
 
-      return messageBuilder.build().toString();
+      return messageBuilder.build().toString();*/
    }
 
    private void addBuilderValue(JsonObjectBuilder builder, String name, Object value)

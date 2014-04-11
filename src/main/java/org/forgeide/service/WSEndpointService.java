@@ -9,9 +9,8 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 /**
- * 
- * @author Shane Bryzak
  *
+ * @author Shane Bryzak
  */
 @ServerEndpoint(value = "/websocket/projects", encoders = {MessageEncoder.class})
 public class WSEndpointService

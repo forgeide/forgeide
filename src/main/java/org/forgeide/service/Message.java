@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.json.JsonValue;
-
 /**
  * Broadcast messages are transmitted to the client to indicate a change in project state
  *
@@ -13,6 +11,11 @@ import javax.json.JsonValue;
  */
 public class Message implements Serializable
 {
+   public static final String CAT_PROJECT = "PROJECT";
+
+   public static final String OP_PROJECT_NEW = "NEW";
+   public static final String OP_PROJECT_LIST = "LIST";
+
    private static final long serialVersionUID = -7283438779264064519L;
 
    // Message category

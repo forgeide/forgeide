@@ -28,14 +28,14 @@ var ForgeIDE = {
   },
   processMessage: function(data) {
     var msg = JSON.parse(data);
-    var handler = ForgeIDE.messageHandler[msg.c];
+    var handler = ForgeIDE.messageHandler[msg.cat];
     if (xw.Sys.isUndefined(handler)) {
-      throw "No message handler registered for message category " + msg.c;
+      throw "No message handler registered for message category [" + msg.cat + "]";
     }
-    if (xw.Sys.isDefined(handler[msg.o]) && typeof handler[msg.o] == "function") {
-      handler[msg.o].call(null, msg);
+    if (xw.Sys.isDefined(handler[msg.op]) && typeof handler[msg.op] == "function") {
+      handler[msg.op].call(null, msg);
     } else {
-      throw "No operation [" + msg.o + "] defined for message handler [" + handler + "]";
+      throw "No operation [" + msg.op + "] defined for message handler [" + handler + "]";
     }
   }
 };
@@ -44,6 +44,9 @@ ForgeIDE.messageHandler.PROJECT = {
   NEW: function(msg) {
     var n = new org.xwidgets.core.TreeNode(msg.payload.name, false, {id: msg.payload.id});
     ForgeIDE.projectExplorer.model.addRootNode(n);
+  },
+  LIST: function(msg) {
+    alert("got project list: " + msg);
   }
 };
 

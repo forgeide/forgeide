@@ -194,10 +194,11 @@ div.xwPopupCloseButton {
   overflow: auto;
 }
 
-#command_failed 
+#command_failed {
+}
 
-#projectExplorer {
+div.projectExplorer {
   margin-top: 8px;
-  margin-left: 2px;
+  margin-left: 4px;
 }
 

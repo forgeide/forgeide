@@ -1,18 +1,23 @@
 package org.forgeide.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-import javax.json.JsonString;
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.forgeide.events.NewProjectEvent;
 import org.forgeide.model.Project;
+import org.forgeide.model.ProjectAccess;
 
 /**
  * Project-related RESTful services
@@ -23,13 +28,9 @@ import org.forgeide.model.Project;
 @Stateless
 public class ProjectServices
 {
-   public static final String MESSAGE_CAT_PROJECT = "PROJECT";
-
-   public static final String PROJECT_OP_NEW = "NEW";
-
    @Inject EntityManager entityManager;
 
-   @Inject SessionRegistry registry;
+   @Inject Event<NewProjectEvent> newProjectEvent;
 
    @POST
    @Path("/create")
@@ -46,11 +47,7 @@ public class ProjectServices
 
       entityManager.persist(p);
 
-      Message m = new Message(MESSAGE_CAT_PROJECT, PROJECT_OP_NEW);
-      m.setPayloadValue("id", p.getId());
-      m.setPayloadValue("name", p.getName());
-
-      registry.broadcast(m);
+      newProjectEvent.fire(new NewProjectEvent(p));
 
       return p;
    }
