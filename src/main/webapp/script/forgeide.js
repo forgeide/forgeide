@@ -42,11 +42,16 @@ var ForgeIDE = {
 
 ForgeIDE.messageHandler.PROJECT = {
   NEW: function(msg) {
-    var n = new org.xwidgets.core.TreeNode(msg.payload.name, false, {id: msg.payload.id});
+    var n = new org.xwidgets.core.TreeNode(msg.payload.name, false, msg.payload);
     ForgeIDE.projectExplorer.model.addRootNode(n);
   },
   LIST: function(msg) {
-    alert("got project list: " + msg);
+    if (msg.payload.projects) {
+      for (var i = 0; i < msg.payload.projects.length; i++) {
+        var n = new org.xwidgets.core.TreeNode(msg.payload.projects[i].name, false, msg.payload.projects[i]);
+        ForgeIDE.projectExplorer.model.addRootNode(n);
+      }
+    }
   }
 };
 

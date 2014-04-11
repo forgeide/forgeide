@@ -37,7 +37,7 @@ public class ProjectController
    @Inject
    private Identity identity;
 
-   @LoggedIn
+   //@LoggedIn
    public void createProject(Project project)
    {
       EntityManager em = entityManager.get();
@@ -48,9 +48,9 @@ public class ProjectController
       pa.setAccessLevel(AccessLevel.OWNER);
       pa.setOpen(true);
 
-      IdentityType id = em.<IdentityType>createQuery("select i from IdentityType i where i.id = :id", IdentityType.class)
-               .setParameter("id", identity.getAccount().getId()).getSingleResult();
-      pa.setUser(id);
+      //IdentityType id = em.<IdentityType>createQuery("select i from IdentityType i where i.id = :id", IdentityType.class)
+//               .setParameter("id", identity.getAccount().getId()).getSingleResult();
+  //    pa.setUser(id);
 
       em.persist(pa);
 
