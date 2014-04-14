@@ -12,6 +12,7 @@ import javax.websocket.Session;
 
 import org.forgeide.controller.ProjectController;
 import org.forgeide.events.NewProjectEvent;
+import org.forgeide.events.NewResourceEvent;
 import org.forgeide.events.SessionCreatedEvent;
 
 /**
@@ -51,9 +52,14 @@ public class SessionRegistry
    public void newProjectEventObserver(@Observes NewProjectEvent event)
    {
       Message m = new Message(Message.CAT_PROJECT, Message.OP_PROJECT_NEW);
-      m.setPayloadValue("id", event.getProject().getId());
-      m.setPayloadValue("name", event.getProject().getName());
+      m.setPayloadValue("project", event.getProject());
+      broadcast(m);
+   }
 
+   public void newProjectResourceEventObserver(@Observes NewResourceEvent event)
+   {
+      Message m = new Message(Message.CAT_RESOURCE, Message.OP_RESOURCE_NEW);
+      m.setPayloadValue("resource", event.getResource());
       broadcast(m);
    }
 }

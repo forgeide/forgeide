@@ -26,6 +26,7 @@ public class ProjectResource implements Serializable
    @ManyToOne
    private Project project;
 
+   @ManyToOne
    private ProjectResource parent;
 
    private String name;

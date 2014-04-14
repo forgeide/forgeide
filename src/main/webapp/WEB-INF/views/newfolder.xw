@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+
+  <xw:formData id="folderParams"/>
+
+  <div class="popupFooter">
+    <div class="buttonBar">
+      <xw:button id="folderCreate" styleClass="pure-button pure-button-primary" label="Create">
+        <xw:event type="onclick">
+          <xw:action type="script"><![CDATA[ForgeIDE.createFolder(folderParams.value, _owner);]]></xw:action>
+        </xw:event>
+      </xw:button>
+
+      <xw:button styleClass="pure-button" label="Cancel">
+        <xw:event type="onclick">
+          <xw:action type="script"><![CDATA[xw.Popup.close();]]></xw:action>
+        </xw:event>
+      </xw:button>
+    </div>
+  </div>
+
+  <div class="forgeUI">
+    <xw:form styleClass="pure-form pure-form-aligned">
+      <fieldset>
+
+        <div class="pure-control-group">
+          <label for="name">Name</label>
+          <xw:inputText formData="#{folderParams}" styleClass="pure-input-1-2" name="name"/>
+        </div>
+
+      </fieldset>
+    </xw:form>    
+  </div>
+
+</xw:view>

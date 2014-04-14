@@ -12,6 +12,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.forgeide.controller.ProjectController;
 import org.forgeide.model.Project;
+import org.forgeide.model.ProjectResource;
+import org.forgeide.model.ProjectResource.ResourceType;
 
 /**
  * Project-related RESTful services
@@ -40,5 +42,32 @@ public class ProjectServices
       controller.createProject(p);
 
       return p;
+   }
+
+   @POST
+   @Path("/newfolder")
+   @Consumes("application/json")
+   @Produces(MediaType.APPLICATION_JSON)
+   public ProjectResource createProjectFolder(Map<String,String> properties)
+   {
+      ProjectResource r = new ProjectResource();
+      r.setName(properties.get("name"));
+      r.setResourceType(ResourceType.DIRECTORY);
+
+      if (properties.containsKey("projectId"))
+      {
+         Long projectId = Long.valueOf(properties.get("projectId"));
+         r.setProject(controller.lookupProject(projectId));
+      }
+
+      if (properties.containsKey("parentResourceId"))
+      {
+         Long resourceId = Long.valueOf(properties.get("parentResourceId"));
+         r.setParent(controller.lookupResource(resourceId));
+      }
+
+      controller.createResource(r);
+
+      return r;
    }
 }

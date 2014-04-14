@@ -15,16 +15,43 @@ xw.EL.setValue("location", location);
 xw.Log.logLevel = "DEBUG";
 
 var ForgeIDE = {
+  projects: [],
   projectExplorer: null,
   messageHandler: {},
   createProjectCallback: function(response) {
     xw.Popup.close();
   },
+  selectedProject: function() {
+    var n = ForgeIDE.projectExplorer.selectedNode;
+    while (n.parent != null) {
+      n = n.parent;
+    }
+    return n.userObject;
+  },
+  selectedResource: function() {
+    var n = ForgeIDE.projectExplorer.selectedNode;
+    return n.parent != null ? n.userObject : null;
+  },
+  getProjectById: function(projectId) {
+    for (var i = 0; i < ForgeIDE.projects.length; i++) {
+      if (ForgeIDE.projects[i].id == projectId) {
+        return ForgeIDE.projects[i];
+      }
+    }  
+  },
+  getResourceById: function(projectId, resourceId) {
+    var p = ForgeIDE.getProjectById(projectId);
+    for (var i = 0; i < p.resources.length; i++) {
+      if (p.resources[i].id == resourceId) {
+        return p.resources[i];
+      }
+    }
+  },
   createProject: function(props) {
     var cb = function(response) {
       ForgeIDE.createProjectCallback(JSON.parse(response));
     };
-    xw.Sys.getWidget("projectService").invoke(null, JSON.stringify(props), cb);
+    xw.Sys.getWidget("projectService").invoke({command: "create"}, JSON.stringify(props), cb);
   },
   setProjectExplorer: function(tree) {
     ForgeIDE.projectExplorer = tree;
@@ -40,21 +67,79 @@ var ForgeIDE = {
     } else {
       throw "No operation [" + msg.op + "] defined for message handler [" + handler + "]";
     }
+  },
+  createFolderCallback: function(response) {
+    xw.Popup.close();
+  },
+  createFolder: function(props) {
+    var cb = function(response) {
+      ForgeIDE.createFolderCallback(JSON.parse(response));
+    };
+    props.projectId = ForgeIDE.selectedProject().id;
+    var r = ForgeIDE.selectedResource();
+    if (r != null) {
+      props.parentResourceId = r.id;
+    }
+    xw.Sys.getWidget("projectService").invoke({command: "newfolder"}, JSON.stringify(props), cb);
+  },
+  addProjectNode: function(project, select) {
+    var n = new org.xwidgets.core.TreeNode(project.name, false, project);
+    ForgeIDE.projects.push({
+      id: project.id,
+      name: project.name,
+      node: n,
+      resources: []});
+    ForgeIDE.projectExplorer.model.addRootNode(n); 
+    if (select) {
+      ForgeIDE.projectExplorer.selectNode(n);
+    }
+  },
+  addResourceNode: function(resource, select) {
+    var leaf = resource.resourceType != "DIRECTORY";
+    var n = new org.xwidgets.core.TreeNode(resource.name, leaf, resource);  
+
+    var p = ForgeIDE.getProjectById(resource.project.id);
+    p.resources.push({
+      id: resource.id,
+      name: resource.name,
+      type: resource.type,
+      node: n
+    });
+
+    if (resource.parent != null) {
+      var r = ForgeIDE.getResourceById(resource.project.id, resource.parent.id);
+      r.node.add(n);
+    } else {
+      p.node.add(n);
+    }
+    
+    if (select) {
+      ForgeIDE.projectExplorer.selectNode(n);
+    }
   }
 };
 
 ForgeIDE.messageHandler.PROJECT = {
   NEW: function(msg) {
-    var n = new org.xwidgets.core.TreeNode(msg.payload.name, false, msg.payload);
-    ForgeIDE.projectExplorer.model.addRootNode(n);
+    ForgeIDE.addProjectNode(msg.payload.project, true);
   },
   LIST: function(msg) {
     if (msg.payload.projects) {
       for (var i = 0; i < msg.payload.projects.length; i++) {
-        var n = new org.xwidgets.core.TreeNode(msg.payload.projects[i].name, false, msg.payload.projects[i]);
-        ForgeIDE.projectExplorer.model.addRootNode(n);
+        ForgeIDE.addProjectNode(msg.payload.projects[i], false);
       }
     }
+    if (msg.payload.resources) {
+      for (var i = 0; i < msg.payload.resources.length; i++) {
+        ForgeIDE.addResourceNode(msg.payload.resources[i], false);
+      }
+    }
+  }
+};
+
+ForgeIDE.messageHandler.RESOURCE = {
+  NEW: function(msg) {
+    ForgeIDE.addResourceNode(msg.payload.resource, true);
   }
 };
 

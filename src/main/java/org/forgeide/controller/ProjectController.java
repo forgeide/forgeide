@@ -12,10 +12,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.forgeide.events.NewProjectEvent;
+import org.forgeide.events.NewResourceEvent;
 import org.forgeide.events.SessionCreatedEvent;
 import org.forgeide.model.Project;
 import org.forgeide.model.ProjectAccess;
 import org.forgeide.model.ProjectAccess.AccessLevel;
+import org.forgeide.model.ProjectResource;
 import org.forgeide.service.Message;
 import org.picketlink.Identity;
 
@@ -31,6 +33,8 @@ public class ProjectController
    private Instance<EntityManager> entityManager;
 
    @Inject Event<NewProjectEvent> newProjectEvent;
+
+   @Inject Event<NewResourceEvent> newResourceEvent;
 
    @Inject
    private Identity identity;
@@ -55,12 +59,40 @@ public class ProjectController
       newProjectEvent.fire(new NewProjectEvent(project));
    }
 
+   //@LoggedIn
+   public void createResource(ProjectResource resource)
+   {
+      EntityManager em = entityManager.get();
+      em.persist(resource);
+
+      newResourceEvent.fire(new NewResourceEvent(resource));
+   }
+
+   public Project lookupProject(Long id)
+   {
+      EntityManager em = entityManager.get();
+      return em.find(Project.class, id);
+   }
+
+   public ProjectResource lookupResource(Long id)
+   {
+      EntityManager em = entityManager.get();
+      return em.find(ProjectResource.class, id);
+   }
+
    public void sessionCreated(@Observes SessionCreatedEvent event)
    {
       List<Project> projects = listOpenProjects();
 
+      List<ProjectResource> resources = new ArrayList<ProjectResource>();
+      for (Project p : projects)
+      {
+         resources.addAll(listResources(p));
+      }
+
       Message m = new Message(Message.CAT_PROJECT, Message.OP_PROJECT_LIST);
       m.setPayloadValue("projects", projects);
+      m.setPayloadValue("resources", resources);
 
       event.getSession().getAsyncRemote().sendObject(m);
    }
@@ -77,5 +109,13 @@ public class ProjectController
       }
 
       return projects;
+   }
+
+   public List<ProjectResource> listResources(Project project)
+   {
+      TypedQuery<ProjectResource> q = entityManager.get().<ProjectResource>createQuery("select r from ProjectResource r where r.project = :project", 
+               ProjectResource.class);
+      q.setParameter("project", project);
+      return q.getResultList();
    }
 }

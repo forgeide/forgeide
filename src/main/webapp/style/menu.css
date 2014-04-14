@@ -8,14 +8,32 @@ div.xw_menubar {
   color: #000;
 }
 
-div.xw_popupmenu {
-  background-color: #eeeeee;  
-  padding: 1px 4px 1px 4px;
+div.xw_popupmenu { 
+  background: url(submenu-bg.png) top left repeat-y;
+  background-color: #f2f2f2;
+  padding: 1px 1px 1px 1px;
   outline: 1px solid #ddd;
   border-top: 1px solid #fff;
-  height: 22px;
-  margin-bottom: 4px;
-  color: #000;
+  box-shadow: 6px 6px 3px #888888;
+}
+
+div.xw_popupmenu div {
+  float: none;
+  margin-left: 0px;
+  padding-left: 32px;
+}
+
+div.xw_popupmenu div i {
+  float: right;
+}
+
+div.xw_popupmenu hr {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #fff;
+  border-left: 0px;
+  border-right: 0px;
 }
 
 div.xw_menuitem {
@@ -66,4 +84,13 @@ div.xw_submenu div {
 
 div.xw_submenu div i {
   float: right;
+}
+
+div.xw_submenu hr {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #fff;
+  border-left: 0px;
+  border-right: 0px;
 }

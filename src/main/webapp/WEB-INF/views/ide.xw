@@ -33,7 +33,18 @@
   </div>
   
   <xw:popupMenu id="projectPopup">
-    <xw:menuItem label="test"></xw:menuItem>
+    <xw:menuItem label="New">
+      <xw:menuItem label="Package"></xw:menuItem>
+      <xw:menuItem label="Class"></xw:menuItem>
+      <xw:menuDivider></xw:menuDivider>
+      <xw:menuItem label="Interface"></xw:menuItem>
+      <xw:menuItem label="Folder">
+        <xw:event type="onclick"><![CDATA[
+          xw.Popup.open("newfolder.xw", {title: "New folder", params: {height: 300}}); 
+        ]]></xw:event>
+      </xw:menuItem>
+      <xw:menuItem label="File"></xw:menuItem>
+    </xw:menuItem>
   </xw:popupMenu>
   
   <div class="projectExplorer">
