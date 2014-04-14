@@ -67,7 +67,30 @@ public class ProjectServices
       }
 
       controller.createResource(r);
+      return r;
+   }
 
+   @POST
+   @Path("/newclass")
+   @Consumes("application/json")
+   @Produces(MediaType.APPLICATION_JSON)
+   public ProjectResource createProjectClass(Map<String,String> properties)
+   {
+      ProjectResource r = new ProjectResource();
+      r.setName(properties.get("name") + ".java");
+      r.setResourceType(ResourceType.FILE);
+
+      Project p = controller.lookupProject(Long.valueOf(properties.get("projectId")));
+      r.setProject(p);
+
+      String folder = properties.get("folder");
+      String pkg = properties.get("package");
+
+      ProjectResource parentDir = controller.createDirStructure(p, folder);
+      ProjectResource parentPkg = controller.createPackage(p, parentDir, pkg);
+      r.setParent(parentPkg);
+
+      controller.createResource(r);
       return r;
    }
 }

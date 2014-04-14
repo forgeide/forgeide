@@ -82,6 +82,17 @@ var ForgeIDE = {
     }
     xw.Sys.getWidget("projectService").invoke({command: "newfolder"}, JSON.stringify(props), cb);
   },
+  createClassCallback: function(response) {
+    xw.Popup.close();
+  },
+  createClass: function(props) {
+    var cb = function(response) {
+      ForgeIDE.createClassCallback(JSON.parse(response));
+    };
+    props.projectId = ForgeIDE.selectedProject().id;
+    xw.Sys.getWidget("projectService").invoke({command: "newclass"}, JSON.stringify(props), cb);
+  
+  },
   addProjectNode: function(project, select) {
     var n = new org.xwidgets.core.TreeNode(project.name, false, project);
     ForgeIDE.projects.push({

@@ -17,6 +17,8 @@ public class ProjectResource implements Serializable
 {
    private static final long serialVersionUID = -4146308990787564792L;
 
+   public static final String PATH_SEPARATOR = "/";
+
    public enum ResourceType {DIRECTORY, FILE};
 
    @Id
