@@ -101,6 +101,19 @@
          <version>${version.picketlink}</version>
          <scope>compile</scope>
       </dependency>
+
+      <dependency>
+         <groupId>org.picketlink</groupId>
+         <artifactId>picketlink-rest</artifactId>
+         <version>${version.picketlink}</version>
+         <scope>compile</scope>
+         <exclusions>
+            <exclusion>
+               <artifactId>resteasy-jaxrs</artifactId>
+               <groupId>org.jboss.resteasy</groupId>
+            </exclusion>
+         </exclusions>
+      </dependency>
       
       <dependency>
          <groupId>org.xwidgets</groupId>

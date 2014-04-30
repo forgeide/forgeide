@@ -16,9 +16,12 @@
     <link href="style/menu.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" type="image/png" href="forge-icon.png"/>
 
+    <script src="script/picketlink.js"></script>
     <script src="xwidgets/xw.js"></script>
     
     <!-- Individual widget sources loaded for debugging purposes only - delete for final release! -->
+
+    <script src="xwidgets/org/xwidgets/core/eventobserver.js"></script>
     
     <script src="xwidgets/org/xwidgets/core/restendpoint.js"></script>
     <script src="xwidgets/org/xwidgets/core/restelbinding.js"></script>
@@ -40,6 +43,7 @@
 
     <div class="header">
       <div id="logo"></div>
+      <div id="auth"><xw:view name="auth.xw"></xw:view></div>
       <div id="ajax"><i class="fa fa-refresh fa-spin"></i></div>
     </div>
     

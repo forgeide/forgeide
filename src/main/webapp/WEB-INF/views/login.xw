@@ -2,7 +2,7 @@
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
   
   <xw:eventObserver event="org.picketlink.identity.loggedIn">
-    <xw:event type="onFire"><xw:action type="script">xw.closePopup();</xw:action></xw:event>
+    <xw:event type="onFire">xw.closePopup();</xw:event>
   </xw:eventObserver>
   
   <p>
