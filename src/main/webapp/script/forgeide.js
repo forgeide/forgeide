@@ -8,6 +8,8 @@ xw.Ajax.loadingCallback = function(requests) {
   }
 };
 
+pl.basePath = "/forge-ide/rest";
+
 /* Allows us to use #{location} EL expression */
 xw.EL.setValue("location", location);
 

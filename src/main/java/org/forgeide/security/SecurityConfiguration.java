@@ -4,6 +4,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.forgeide.security.model.User;
 import org.forgeide.security.schema.IdentityAttribute;
 import org.forgeide.security.schema.IdentityType;
 import org.forgeide.security.schema.Partition;
@@ -12,6 +13,7 @@ import org.forgeide.security.schema.UserCredential;
 import org.forgeide.security.schema.UserIdentity;
 import org.picketlink.idm.config.IdentityConfiguration;
 import org.picketlink.idm.config.IdentityConfigurationBuilder;
+import org.picketlink.idm.credential.handler.CredentialHandler;
 import org.picketlink.idm.model.Relationship;
 import org.picketlink.internal.EEJPAContextInitializer;
 
@@ -57,6 +59,9 @@ public class SecurityConfiguration
                         UserCredential.class)
                .supportGlobalRelationship(Relationship.class)
                .addContextInitializer(this.contextInitializer)
+               .setCredentialHandlerProperty(CredentialHandler.SUPPORTED_ACCOUNT_TYPES_PROPERTY, new Class[] {User.class})
+               .setCredentialHandlerProperty(CredentialHandler.LOGIN_NAME_PROPERTY, "username")
+               .supportType(User.class)
                .supportAllFeatures();
 
       identityConfig = builder.build();

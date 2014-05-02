@@ -26,17 +26,20 @@ var pl = {
   },
   login: function(username, password, callback) {
     var cb = function(response) {
-      if (response != null) {
-        pl.loggedIn = true;
-        pl.account = response;
-        if (callback) {
-          callback.call();
+      if (typeof response == "string" && response.length > 0) {
+        var acct = JSON.parse(response);
+        if (acct != null) {
+          pl.loggedIn = true;
+          pl.account = acct;
+          if (callback) {
+            callback.call();
+          }
         }
       }
     }
     var r = pl.createRequestObject(cb);
     r.open("POST", pl.basePath + "/auth/login", true);
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    r.send({username: username, password: password});
+    r.send(JSON.stringify({username: username, password: password}));
   }
 };

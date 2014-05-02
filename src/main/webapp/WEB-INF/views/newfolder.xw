@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div class="forgeUI">
+  <div class="popupUI">
     <xw:form styleClass="pure-form pure-form-aligned">
       <fieldset>
 

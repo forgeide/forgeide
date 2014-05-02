@@ -5,67 +5,37 @@
     <xw:event type="onFire">xw.closePopup();</xw:event>
   </xw:eventObserver>
   
-  <p>
-    You may log in by using either a previously registered Forge IDE account, or alternatively you may 
-    use OpenID to log in using Google, Yahoo or any other OpenID provider.
-  </p>
-  
-  <div style="float:left;width:49%;height:220px;border-right: 1px solid #aaaaaa">
-    <p>
-      Please login with your Forge IDE account:
-    </p>
-    
-    <p>
-      <xw:label value="E-mail" styleClass="short"/><xw:inputText id="email" styleClass="medium"/>
-    </p>    
-    
-    <p>
-      <xw:label value="Password" styleClass="short"/><xw:inputSecret id="password" styleClass="medium"/>    
-    </p>
-    
+  <div class="popupFooter">
     <div class="buttonBar">   
-      <xw:button label="Login" styleClass="standard">
-        <xw:event type="onclick"><xw:action type="script">identity.login(email.getValue(), password.getValue())</xw:action></xw:event>
-      </xw:button>       
-    </div>
-    
+      <xw:button label="Login" styleClass="pure-button pure-button-primary">
+        <xw:event type="onclick">
+          <xw:action type="script">pl.login(email.getValue(), password.getValue())</xw:action>
+        </xw:event>
+      </xw:button>
+
+      <xw:button styleClass="pure-button" label="Cancel">
+        <xw:event type="onclick">
+          <xw:action type="script"><![CDATA[xw.Popup.close();]]></xw:action>
+        </xw:event>
+      </xw:button>
+    </div>  
   </div>
   
-  <div style="float:right;width:49%;margin-right:4px">
-    <p>
-      Or, select one of the following OpenID providers:
-    </p>
+  <div class="popupUI"> 
+    
+    <xw:form styleClass="pure-form pure-form-aligned">
+      <fieldset>
+        <div class="pure-control-group">
+          <label for="email">E-mail</label>
+          <xw:inputText id="email" styleClass="medium"/>
+        </div>  
 
-    <div>    
-      <xw:button styleClass="openId google">
-        <xw:event type="onclick"><xw:action type="script">identity.openIdLogin("google");</xw:action></xw:event>
-      </xw:button>
-      <xw:button styleClass="openId yahoo">
-      </xw:button>   
-      <xw:button styleClass="openId verisign">
-      </xw:button>    
-    </div>
-    
-    <div>    
-      <xw:button styleClass="openId livejournal">
-      </xw:button>
-      <xw:button styleClass="openId blogger">
-      </xw:button>   
-      <xw:button styleClass="openId flickr">
-      </xw:button>    
-    </div>
-    
-    <div>    
-      <xw:button styleClass="openId wordpress">
-      </xw:button>
-      <xw:button styleClass="openId myopenid">
-      </xw:button>   
-      <xw:button styleClass="openId claimid">
-      </xw:button>    
-    </div>        
-    
+        <div class="pure-control-group">
+          <label for="password">Password</label>          
+          <xw:inputSecret id="password" styleClass="medium"/>
+        </div>
+      </fieldset>
+    </xw:form>
   </div>
-  
-  <br style="clear:both"/>
-
+   
 </xw:view>
