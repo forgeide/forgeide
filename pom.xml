@@ -122,6 +122,12 @@
       </dependency>
       
       <dependency>
+         <groupId>org.xwidgets</groupId>
+         <artifactId>xwidgets-picketlink</artifactId>
+         <version>${version.xwidgets}</version>
+      </dependency>      
+      
+      <dependency>
          <groupId>org.jboss.spec.javax.servlet</groupId>
          <artifactId>jboss-servlet-api_3.0_spec</artifactId>
          <scope>provided</scope>
