@@ -2,14 +2,14 @@
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
   
   <xw:eventObserver event="org.picketlink.identity.loggedIn">
-    <xw:event type="onFire">xw.closePopup();</xw:event>
+    <xw:event type="onfire"><![CDATA[xw.Popup.close();]]></xw:event>
   </xw:eventObserver>
   
   <div class="popupFooter">
     <div class="buttonBar">   
       <xw:button label="Login" styleClass="pure-button pure-button-primary">
         <xw:event type="onclick">
-          <xw:action type="script">pl.login(email.getValue(), password.getValue())</xw:action>
+          <xw:action type="script">identity.login(email.getValue(), password.getValue())</xw:action>
         </xw:event>
       </xw:button>
 

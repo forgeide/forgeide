@@ -2,14 +2,18 @@
 <xw:dataModule xmlns="http://www.w3.org/1999/xhtml" 
   xmlns:xw="http://xwidgets.org/core"
   xmlns:pl="http://picketlink.org">
+  
+  <xw:eLBinding binding="location">
+    <xw:event type="onbind"><![CDATA[return window.location.origin + window.location.pathname;]]></xw:event>
+  </xw:eLBinding>
 
-  <xw:restEndpoint id="commandListService" url="#{location.href}rest/commands/list"/>
+  <xw:restEndpoint id="commandListService" url="#{location}rest/commands/list"/>
 
-  <xw:restEndpoint id="commandMetadataService" url="#{location.href}rest/commands/get/{command}"/>
+  <xw:restEndpoint id="commandMetadataService" url="#{location}rest/commands/get/{command}"/>
 
-  <xw:restEndpoint id="commandExecutionService" url="#{location.href}rest/commands/execute/{command}" method="POST"/>
+  <xw:restEndpoint id="commandExecutionService" url="#{location}rest/commands/execute/{command}" method="POST"/>
 
-  <xw:restEndpoint id="projectService" url="#{location.href}rest/projects/{command}" method="POST"/>
+  <xw:restEndpoint id="projectService" url="#{location}rest/projects/{command}" method="POST"/>
 
   <xw:restELBinding binding="addonMenuItems" mode="JSON" restEndpoint="#{commandListService}">
     <xw:event type="onresult"><![CDATA[return Forge.parseCommands(result);]]></xw:event>
@@ -18,11 +22,7 @@
   <xw:webSocket id="projectListener" hostname="localhost" port="8080" path="/forge-ide/websocket/projects">
     <xw:event type="onmessage"><![CDATA[ForgeIDE.processMessage(event.data);]]></xw:event>
   </xw:webSocket>
-
-  <xw:ELBinding binding="identity">
-    <xw:event type="onbind"><![CDATA[return pl;]]></xw:event>
-  </xw:ELBinding>
   
-  <pl:identity/>  
+  <pl:identity id="identity"/>
 
 </xw:dataModule>
