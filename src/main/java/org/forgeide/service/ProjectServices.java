@@ -1,5 +1,7 @@
 package org.forgeide.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
@@ -48,26 +50,37 @@ public class ProjectServices
    @Path("/newfolder")
    @Consumes("application/json")
    @Produces(MediaType.APPLICATION_JSON)
-   public ProjectResource createProjectFolder(Map<String,String> properties)
+   public ProjectResource[] createProjectFolder(Map<String,String> properties)
    {
-      ProjectResource r = new ProjectResource();
-      r.setName(properties.get("name"));
-      r.setResourceType(ResourceType.DIRECTORY);
+      String[] parts = properties.get("name").split("/");
+      List<ProjectResource> resources = new ArrayList<ProjectResource>();
 
-      if (properties.containsKey("projectId"))
-      {
-         Long projectId = Long.valueOf(properties.get("projectId"));
-         r.setProject(controller.lookupProject(projectId));
-      }
+      ProjectResource parent = null;
 
       if (properties.containsKey("parentResourceId"))
       {
          Long resourceId = Long.valueOf(properties.get("parentResourceId"));
-         r.setParent(controller.lookupResource(resourceId));
+         parent = controller.lookupResource(resourceId);
       }
 
-      controller.createResource(r);
-      return r;
+      for (String part : parts) 
+      {
+         ProjectResource r = new ProjectResource();
+         r.setName(part);
+         r.setResourceType(ResourceType.DIRECTORY);
+         r.setParent(parent);
+
+         if (properties.containsKey("projectId"))
+         {
+            Long projectId = Long.valueOf(properties.get("projectId"));
+            r.setProject(controller.lookupProject(projectId));
+         }
+
+         controller.createResource(r);
+         parent = r;
+      }
+
+      return resources.toArray(new ProjectResource[resources.size()]);
    }
 
    @POST

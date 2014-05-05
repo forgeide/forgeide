@@ -20,7 +20,7 @@ body {
 }
 
 #auth a, #auth a:visited, #auth a:hover {
-  margin-left: 12px;
+  margin-right: 12px;
   font-family: sans-serif;
   text-decoration: none;
 }
