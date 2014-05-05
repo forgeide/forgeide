@@ -20,7 +20,7 @@
   
     <xw:link caption="Sign Out">
       <xw:event type="onclick">
-        <xw:action type="script">identity.logout();</xw:action>
+        <xw:action type="script"><![CDATA[identity.logout();]]></xw:action>
       </xw:event>
     </xw:link>
   </xw:fragment>
