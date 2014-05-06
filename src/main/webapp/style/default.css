@@ -49,10 +49,23 @@ body {
 
 div#ide {
   margin-top: 2px;
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 }
 
 div#menu {
   height: 22px;
+}
+
+div.codeTabPanel {
+  height: 100%;
+}
+
+div.ace_editor {
+  height: 100%;
 }
 
 #headerMenu {
@@ -192,7 +205,10 @@ div.xwPopupCloseButton {
 }
 
 div.projectExplorer {
-  margin-top: 8px;
-  margin-left: 4px;
+  position: absolute;
+  top: 28px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 }
 

@@ -31,29 +31,41 @@
       </xw:menuItem>
     </xw:menuBar>
   </div>
-  
-  <xw:popupMenu id="projectPopup">
-    <xw:menuItem label="New">
-      <xw:menuItem label="Package"></xw:menuItem>
-      <xw:menuItem label="Class">
-        <xw:event type="onclick"><![CDATA[
-          xw.Popup.open("newclass.xw", {title: "New Java Class", params: {height: 300}}); 
-        ]]></xw:event>
-      </xw:menuItem>
-      <xw:menuDivider></xw:menuDivider>
-      <xw:menuItem label="Interface"></xw:menuItem>
-      <xw:menuItem label="Folder">
-        <xw:event type="onclick"><![CDATA[
-          xw.Popup.open("newfolder.xw", {title: "New Project Folder", params: {height: 300}}); 
-        ]]></xw:event>
-      </xw:menuItem>
-      <xw:menuItem label="File"></xw:menuItem>
-    </xw:menuItem>
-  </xw:popupMenu>
-  
+   
   <div class="projectExplorer">
-    <xw:tree id="projectExplorer" popupMenu="#{projectPopup}">
-      <xw:event type="afterRender"><![CDATA[ForgeIDE.setProjectExplorer(this);]]></xw:event>
-    </xw:tree>
+    <xw:popupMenu id="projectPopup">
+      <xw:menuItem label="New">
+        <xw:menuItem label="Package"></xw:menuItem>
+        <xw:menuItem label="Class">
+          <xw:event type="onclick"><![CDATA[
+            xw.Popup.open("newclass.xw", {title: "New Java Class", params: {height: 300}}); 
+          ]]></xw:event>
+        </xw:menuItem>
+        <xw:menuDivider></xw:menuDivider>
+        <xw:menuItem label="Interface"></xw:menuItem>
+        <xw:menuItem label="Folder">
+          <xw:event type="onclick"><![CDATA[
+            xw.Popup.open("newfolder.xw", {title: "New Project Folder", params: {height: 300}}); 
+          ]]></xw:event>
+        </xw:menuItem>
+        <xw:menuItem label="File"></xw:menuItem>
+      </xw:menuItem>
+    </xw:popupMenu>
+  
+    <xw:splitter>
+      <xw:tree id="projectExplorer" popupMenu="#{projectPopup}">
+        <xw:event type="afterRender"><![CDATA[
+          ForgeIDE.setProjectExplorer(this);
+          projectListener.connect();  
+        ]]></xw:event>
+      </xw:tree>
+      <xw:tabPanel styleClass="codeTabPanel">
+        <xw:tab name="foo.java">
+          <xw:codeEditor>
+          
+          </xw:codeEditor>
+        </xw:tab>
+      </xw:tabPanel>
+    </xw:splitter>
   </div>
 </xw:view>
