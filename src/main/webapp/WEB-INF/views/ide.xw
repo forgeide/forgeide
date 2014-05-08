@@ -60,12 +60,12 @@
         ]]></xw:event>
       </xw:tree>
       <xw:tabPanel styleClass="codeTabPanel">
-        <xw:tab name="foo.java">
+        <xw:tab name="Foo.java">
           <xw:codeEditor>
           
           </xw:codeEditor>
         </xw:tab>
-        <xw:tab name="bar.java">
+        <xw:tab name="Bar.java">
           <xw:codeEditor>
           
           </xw:codeEditor>
