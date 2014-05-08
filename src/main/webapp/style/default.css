@@ -115,7 +115,7 @@ div.ace_editor {
 }
 
 .tabContent {
-  border-top: 1px solid #cccccc;
+  border: 1px solid #cccccc;
 }
 
 /* Command UI popup window styles */
@@ -197,6 +197,10 @@ div.xwPopupCloseButton {
   width: 30px;
   cursor: pointer;
   background: url('close_button.png') top left no-repeat;
+}
+
+.pure-button {
+  border-radius: 8px;
 }
 
 #popupOverlay {
