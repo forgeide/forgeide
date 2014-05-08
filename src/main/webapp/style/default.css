@@ -72,6 +72,46 @@ div.ace_editor {
   float: right;
 }
 
+.tabHeader {
+  z-index: 1;
+}
+
+.tabHeader div {
+  color: #000000;
+  font-size: 0.8em;
+  padding-top: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 2px;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-top-left-border-radius: 4px;
+  -moz-top-right-border-radius: 4px;
+  -webkit-top-left-border-radius: 4px;
+  -webkit-top-right-border-radius: 4px;
+  box-shadow: inset 0 1px 3px #ddd;
+  
+  background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(10%,rgba(0,0,0,0.1)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 10%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 10%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 10%,rgba(0,0,0,0) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 10%,rgba(0,0,0,0) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+}
+
+.tabHeader div.selected {
+  border-bottom: 1px solid #ffffff;
+}
+
+.tabContent {
+  border-top: 1px solid #cccccc;
+}
+
 /* Command UI popup window styles */
 
 .popupUI {

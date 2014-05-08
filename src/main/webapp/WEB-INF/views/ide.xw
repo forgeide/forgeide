@@ -65,6 +65,11 @@
           
           </xw:codeEditor>
         </xw:tab>
+        <xw:tab name="bar.java">
+          <xw:codeEditor>
+          
+          </xw:codeEditor>
+        </xw:tab>
       </xw:tabPanel>
     </xw:splitter>
   </div>
