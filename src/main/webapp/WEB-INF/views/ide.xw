@@ -52,7 +52,7 @@
       </xw:menuItem>
     </xw:popupMenu>
   
-    <xw:splitter>
+    <xw:splitter splitterClass="splitter">
       <xw:tree id="projectExplorer" popupMenu="#{projectPopup}">
         <xw:event type="afterRender"><![CDATA[
           ForgeIDE.setProjectExplorer(this);

@@ -72,6 +72,15 @@ div.ace_editor {
   float: right;
 }
 
+.splitter {
+  width: 4px;
+  background: url(splitter_grip.png) center center no-repeat;
+  background-color: #dddddd;
+  border-left: 1px solid #eeeeee;
+  border-right: 1px solid #cccccc;
+  cursor: ew-resize;
+}
+
 .tabHeader {
   z-index: 1;
 }
