@@ -58,6 +58,9 @@
           ForgeIDE.setProjectExplorer(this);
           projectListener.connect();  
         ]]></xw:event>
+        <xw:event type="onDoubleClickNode"><![CDATA[
+          ForgeIDE.resourceManager.openResource(node.userObject.id);
+        ]]></xw:event>
       </xw:tree>
       <xw:tabPanel styleClass="codeTabPanel">
         <xw:tab name="Foo.java">

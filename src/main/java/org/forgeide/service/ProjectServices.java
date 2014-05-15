@@ -13,9 +13,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.forgeide.controller.ProjectController;
+import org.forgeide.controller.ResourceController;
 import org.forgeide.model.Project;
 import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ProjectResource.ResourceType;
+import org.forgeide.model.ResourceContent;
 
 /**
  * Project-related RESTful services
@@ -26,7 +28,8 @@ import org.forgeide.model.ProjectResource.ResourceType;
 @Stateless
 public class ProjectServices
 {
-   @Inject ProjectController controller;
+   @Inject ProjectController projectController;
+   @Inject ResourceController resourceController;
 
    @POST
    @Path("/create")
@@ -41,7 +44,7 @@ public class ProjectServices
       p.setFinalName(properties.get("finalName"));
       //p.setType(type);
 
-      controller.createProject(p);
+      projectController.createProject(p);
 
       return p;
    }
@@ -60,7 +63,7 @@ public class ProjectServices
       if (properties.containsKey("parentResourceId"))
       {
          Long resourceId = Long.valueOf(properties.get("parentResourceId"));
-         parent = controller.lookupResource(resourceId);
+         parent = projectController.lookupResource(resourceId);
       }
 
       for (String part : parts) 
@@ -73,10 +76,10 @@ public class ProjectServices
          if (properties.containsKey("projectId"))
          {
             Long projectId = Long.valueOf(properties.get("projectId"));
-            r.setProject(controller.lookupProject(projectId));
+            r.setProject(projectController.lookupProject(projectId));
          }
 
-         controller.createResource(r);
+         projectController.createResource(r);
          parent = r;
       }
 
@@ -93,17 +96,25 @@ public class ProjectServices
       r.setName(properties.get("name") + ".java");
       r.setResourceType(ResourceType.FILE);
 
-      Project p = controller.lookupProject(Long.valueOf(properties.get("projectId")));
+      Project p = projectController.lookupProject(Long.valueOf(properties.get("projectId")));
       r.setProject(p);
 
       String folder = properties.get("folder");
       String pkg = properties.get("package");
 
-      ProjectResource parentDir = controller.createDirStructure(p, folder);
-      ProjectResource parentPkg = controller.createPackage(p, parentDir, pkg);
+      ProjectResource parentDir = projectController.createDirStructure(p, folder);
+      ProjectResource parentPkg = projectController.createPackage(p, parentDir, pkg);
       r.setParent(parentPkg);
 
-      controller.createResource(r);
+      projectController.createResource(r);
       return r;
+   }
+
+   @POST
+   @Path("/getresource")
+   @Consumes("application/json")
+   @Produces(MediaType.APPLICATION_JSON)
+   public void openResource(Long resourceId) {
+      resourceController.openResource(resourceId);
    }
 }

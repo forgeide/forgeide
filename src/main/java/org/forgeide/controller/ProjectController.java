@@ -20,11 +20,12 @@ import org.forgeide.model.ProjectAccess;
 import org.forgeide.model.ProjectAccess.AccessLevel;
 import org.forgeide.model.ProjectResource.ResourceType;
 import org.forgeide.model.ProjectResource;
+import org.forgeide.model.ResourceContent;
 import org.forgeide.service.Message;
 import org.picketlink.Identity;
 
 /**
- * Performs persistence operations for projects and resources
+ * Performs persistence operations for projects
  *
  * @author Shane Bryzak
  */

@@ -30,7 +30,7 @@
       <version.forge>2.3.1-SNAPSHOT</version.forge>
       <version.forge.addons>2.3.1-SNAPSHOT</version.forge.addons>
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
-      <deltaspike.version>0.6</deltaspike.version>
+      <deltaspike.version>0.7</deltaspike.version>
    </properties>
    <dependencyManagement>
       <dependencies>
@@ -58,14 +58,12 @@
       <dependency>
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
-         <version>1.1</version>
          <scope>provided</scope>
       </dependency>
       
       <dependency>
          <groupId>javax.inject</groupId>
          <artifactId>javax.inject</artifactId>
-         <version>1</version>
          <scope>provided</scope>
       </dependency>
       
@@ -138,20 +136,6 @@
          <artifactId>javax.ws.rs-api</artifactId>
          <scope>provided</scope>
       </dependency>
-      
-      <dependency>
-         <groupId>org.apache.deltaspike.core</groupId>
-         <artifactId>deltaspike-core-api</artifactId>
-         <version>${deltaspike.version}</version>
-         <scope>compile</scope>
-      </dependency>
-
-      <dependency>
-         <groupId>org.apache.deltaspike.core</groupId>
-         <artifactId>deltaspike-core-impl</artifactId>
-         <version>${deltaspike.version}</version>
-         <scope>runtime</scope>
-      </dependency>
 
       <dependency>
         <groupId>org.apache.deltaspike.modules</groupId>
@@ -164,8 +148,6 @@
         <artifactId>deltaspike-security-module-impl</artifactId>
         <version>${deltaspike.version}</version>
       </dependency>
-      
-      <!-- <dependency> <groupId>org.jboss.forge.furnace</groupId> <artifactId>furnace-se</artifactId> <version>${version.forge}</version> </dependency> -->
       
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>

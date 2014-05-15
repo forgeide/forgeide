@@ -126,6 +126,22 @@ var ForgeIDE = {
     if (select) {
       ForgeIDE.projectExplorer.selectNode(n);
     }
+  },
+  openResource: function(id) {
+    xw.Sys.getWidget("projectService").invoke({command: "getresource"}, JSON.stringify(id));
+  }
+};
+
+ForgeIDE.resourceManager = {
+  openResources: [],
+  openResource: function(id) {
+    ForgeIDE.openResource(id);
+  }
+};
+
+ForgeIDE.messageHandler.RESOURCE = {
+  OPEN: function(msg) {
+    ForgeIDE.openResourceEditor();
   }
 };
 
