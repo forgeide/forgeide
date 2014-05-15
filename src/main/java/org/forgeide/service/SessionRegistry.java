@@ -5,8 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.websocket.Session;
 
@@ -30,8 +32,18 @@ public class SessionRegistry
 
    @Inject Event<SessionCreatedEvent> sessionCreatedEvent;
 
+   @Inject
+   Instance<SessionHolder> sessionHolder;
+
+   @SessionScoped
+   public Session produceSession()
+   {
+      return sessionHolder.get().getSession();
+   }
+
    public void registerSession(Session session)
    {
+      sessionHolder.get().setSession(session);
       sessions.add(session);
       sessionCreatedEvent.fire(new SessionCreatedEvent(session));
    }
@@ -39,6 +51,7 @@ public class SessionRegistry
    public void unregisterSession(Session session)
    {
       sessions.remove(session);
+      sessionHolder.get().setSession(null);
    }
 
    public void broadcast(Message message)
