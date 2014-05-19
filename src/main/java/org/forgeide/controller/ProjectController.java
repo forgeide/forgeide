@@ -21,7 +21,7 @@ import org.forgeide.model.ProjectAccess.AccessLevel;
 import org.forgeide.model.ProjectResource.ResourceType;
 import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ResourceContent;
-import org.forgeide.service.Message;
+import org.forgeide.service.websockets.Message;
 import org.picketlink.Identity;
 
 /**
@@ -67,6 +67,11 @@ public class ProjectController
    {
       EntityManager em = entityManager.get();
       em.persist(resource);
+
+      ResourceContent content = new ResourceContent();
+      content.setResource(resource);
+
+      em.persist(content);
 
       newResourceEvent.fire(new NewResourceEvent(resource));
    }

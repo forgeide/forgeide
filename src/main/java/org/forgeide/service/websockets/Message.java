@@ -1,4 +1,4 @@
-package org.forgeide.service;
+package org.forgeide.service.websockets;
 
 import java.io.Serializable;
 import java.util.HashMap;

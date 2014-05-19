@@ -1,9 +1,6 @@
 package org.forgeide.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -35,25 +31,21 @@ public class ResourceController
    @Inject
    private Instance<EntityManager> entityManager;
 
-   @Inject @SessionScoped
-   private Instance<Session> sessionInstance;
-
    @Lock(LockType.READ)
-   public void openResource(Long resourceId)
+   public void openResource(Long resourceId, Session subscriber)
    {
       if (!resourceContent.containsKey(resourceId)) {
          loadResourceContent(resourceId);
       }
 
-      subscribe(resourceId, sessionInstance.get());
+      subscribe(resourceId, subscriber);
    }
 
    private synchronized void loadResourceContent(Long resourceId)
    {
       if (!resourceContent.containsKey(resourceId))
       {
-         ProjectResource resource = entityManager.get().find(ProjectResource.class, resourceId);
-         ResourceContent content = entityManager.get().find(ResourceContent.class, resource);
+         ResourceContent content = entityManager.get().find(ResourceContent.class, resourceId);
          resourceContent.put(resourceId, content.getContent());
       }
    }

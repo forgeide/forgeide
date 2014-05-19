@@ -1,4 +1,4 @@
-package org.forgeide.service;
+package org.forgeide.service.websockets;
 
 import javax.inject.Inject;
 import javax.websocket.CloseReason;
@@ -8,24 +8,22 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.forgeide.service.SessionRegistry;
+
 /**
  *
  * @author Shane Bryzak
  */
-@ServerEndpoint(value = "/websocket/projects", encoders = {MessageEncoder.class})
+@ServerEndpoint(value = "/websocket/projects", encoders = {MessageEncoder.class}, decoders = {MessageDecoder.class})
 public class WSEndpointService
 {
    @Inject SessionRegistry registry;
+   @Inject MessageHandlerFactory handlerFactory;
 
    @OnMessage
-   public void onMessage(String data, Session session)
+   public void receiveMessage(Message msg, Session session)
    {
-      String msg = "Received message: " + data;
-      System.out.println(msg);
-
-      //registry.sendAll(msg);
-
-      //return message;
+      handlerFactory.handleMessage(msg, session);
    }
 
    @OnOpen

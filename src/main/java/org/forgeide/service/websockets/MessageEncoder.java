@@ -1,4 +1,4 @@
-package org.forgeide.service;
+package org.forgeide.service.websockets;
 
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;

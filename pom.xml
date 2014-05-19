@@ -136,10 +136,10 @@
          <artifactId>javax.ws.rs-api</artifactId>
          <scope>provided</scope>
       </dependency>
-
+      
       <dependency>
-        <groupId>org.apache.deltaspike.modules</groupId>
-        <artifactId>deltaspike-security-module-api</artifactId>
+        <groupId>org.apache.deltaspike.core</groupId>
+        <artifactId>deltaspike-core-impl</artifactId>
         <version>${deltaspike.version}</version>
       </dependency>
 

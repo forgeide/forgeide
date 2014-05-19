@@ -17,7 +17,6 @@ import org.forgeide.controller.ResourceController;
 import org.forgeide.model.Project;
 import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ProjectResource.ResourceType;
-import org.forgeide.model.ResourceContent;
 
 /**
  * Project-related RESTful services
@@ -108,13 +107,5 @@ public class ProjectServices
 
       projectController.createResource(r);
       return r;
-   }
-
-   @POST
-   @Path("/getresource")
-   @Consumes("application/json")
-   @Produces(MediaType.APPLICATION_JSON)
-   public void openResource(Long resourceId) {
-      resourceController.openResource(resourceId);
    }
 }

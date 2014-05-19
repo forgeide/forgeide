@@ -128,8 +128,16 @@ var ForgeIDE = {
     }
   },
   openResource: function(id) {
-    xw.Sys.getWidget("projectService").invoke({command: "getresource"}, JSON.stringify(id));
+    xw.Sys.getWidget("projectListener").send(ForgeIDE.createMessage("resource", "open", {id:(id + "")}));
   }
+};
+
+ForgeIDE.createMessage = function(cat, op, payload) {
+  return JSON.stringify({
+    cat: cat,
+    op: op,
+    payload: payload
+  });
 };
 
 ForgeIDE.resourceManager = {
