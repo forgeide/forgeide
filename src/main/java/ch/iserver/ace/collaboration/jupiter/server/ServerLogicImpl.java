@@ -22,7 +22,6 @@
 package ch.iserver.ace.collaboration.jupiter.server;
 
 import org.jboss.logging.Logger;
-import org.jboss.logging.Logger.Level;
 
 import ch.iserver.ace.DocumentDetails;
 import ch.iserver.ace.DocumentModel;

@@ -9,13 +9,12 @@ import javax.persistence.ManyToOne;
 
 /**
  * Represents a project
- * 
+ *
  * @author Shane Bryzak
  */
 @Entity
 public class Project implements Serializable
 {
-
    private static final long serialVersionUID = 5410491316071577992L;
 
    @Id

@@ -21,6 +21,7 @@ import org.forgeide.model.ProjectAccess.AccessLevel;
 import org.forgeide.model.ProjectResource.ResourceType;
 import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ResourceContent;
+import org.forgeide.security.schema.IdentityType;
 import org.forgeide.service.websockets.Message;
 import org.picketlink.Identity;
 
@@ -53,9 +54,11 @@ public class ProjectController
       pa.setAccessLevel(AccessLevel.OWNER);
       pa.setOpen(true);
 
-      //IdentityType id = em.<IdentityType>createQuery("select i from IdentityType i where i.id = :id", IdentityType.class)
-//               .setParameter("id", identity.getAccount().getId()).getSingleResult();
-  //    pa.setUser(id);
+      IdentityType id = em.<IdentityType>createQuery(
+               "select i from IdentityType i where i.id = :id", IdentityType.class)
+               .setParameter("id", identity.getAccount().getId())
+               .getSingleResult();
+      pa.setUser(id);
 
       em.persist(pa);
 
