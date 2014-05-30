@@ -15,6 +15,12 @@ import ch.iserver.ace.net.RemoteUserProxy;
  */
 public class ParticipantConnectionImpl implements ParticipantConnection
 {
+   private RemoteUserProxy user;
+
+   public ParticipantConnectionImpl(RemoteUserProxy user)
+   {
+      this.user = user;
+   }
 
    @Override
    public void setParticipantId(int participantId)
@@ -38,7 +44,7 @@ public class ParticipantConnectionImpl implements ParticipantConnection
    public RemoteUserProxy getUser()
    {
       System.out.println("### getUser");
-      return null;
+      return user;
    }
 
    @Override

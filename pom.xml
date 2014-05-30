@@ -74,6 +74,12 @@
       </dependency>
       
       <dependency>
+         <groupId>org.jboss.spec.javax.transaction</groupId>
+         <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
         <groupId>org.jboss.logging</groupId>
         <artifactId>jboss-logging</artifactId>
         <version>${jboss.logging.version}</version>
@@ -111,6 +117,13 @@
                <groupId>org.jboss.resteasy</groupId>
             </exclusion>
          </exclusions>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.picketlink</groupId>
+         <artifactId>picketlink-json</artifactId>
+         <version>${version.picketlink}</version>
+         <scope>compile</scope>
       </dependency>
       
       <dependency>

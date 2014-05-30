@@ -96,7 +96,11 @@ public class ResourceController
          loadResourceContent(resourceId);
       }
 
-      resources.get(resourceId).join(new ParticipantConnectionImpl());
+      User user = (User) identity.get().getAccount();
+
+      resources.get(resourceId).join(new ParticipantConnectionImpl(
+               new RemoteUserProxyImpl(user.getId(), new UserDetails(user.getUsername())
+               )));
 
       /*if (!subscribers.containsKey(resourceId))
       {

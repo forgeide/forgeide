@@ -14,6 +14,7 @@ import org.forgeide.security.schema.UserIdentity;
 import org.picketlink.idm.config.IdentityConfiguration;
 import org.picketlink.idm.config.IdentityConfigurationBuilder;
 import org.picketlink.idm.credential.handler.CredentialHandler;
+import org.picketlink.idm.credential.handler.TokenCredentialHandler;
 import org.picketlink.idm.model.Relationship;
 import org.picketlink.internal.EEJPAContextInitializer;
 
@@ -28,6 +29,9 @@ public class SecurityConfiguration
 {
    @Inject
    private EEJPAContextInitializer contextInitializer;
+
+   @Inject
+   private JWSTokenProvider tokenProvider;
 
    private IdentityConfiguration identityConfig = null;
 
@@ -61,6 +65,7 @@ public class SecurityConfiguration
                .addContextInitializer(this.contextInitializer)
                .setCredentialHandlerProperty(CredentialHandler.SUPPORTED_ACCOUNT_TYPES_PROPERTY, new Class[] {User.class})
                .setCredentialHandlerProperty(CredentialHandler.LOGIN_NAME_PROPERTY, "username")
+               .setCredentialHandlerProperty(TokenCredentialHandler.TOKEN_PROVIDER, tokenProvider)
                .supportType(User.class)
                .supportAllFeatures();
 
