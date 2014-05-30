@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.websocket.Session;
 
-import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ResourceContent;
 
 /**

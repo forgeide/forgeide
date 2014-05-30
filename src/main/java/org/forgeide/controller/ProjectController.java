@@ -70,6 +70,7 @@ public class ProjectController
 
       ResourceContent content = new ResourceContent();
       content.setResource(resource);
+      content.setContent(new byte[0]);
 
       em.persist(content);
 

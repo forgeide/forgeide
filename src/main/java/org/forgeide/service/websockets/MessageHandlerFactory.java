@@ -19,7 +19,8 @@ import org.forgeide.annotations.MessageOperation;
 import org.picketlink.common.reflection.Reflections;
 
 /**
- * 
+ * Registers message handlers and delegates message processing to the appropriate handler method
+ *
  * @author Shane Bryzak
  */
 public class MessageHandlerFactory implements Extension
