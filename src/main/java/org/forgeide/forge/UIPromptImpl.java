@@ -1,4 +1,4 @@
-package org.forgeide.service;
+package org.forgeide.forge;
 
 import org.jboss.forge.addon.ui.input.UIPrompt;
 

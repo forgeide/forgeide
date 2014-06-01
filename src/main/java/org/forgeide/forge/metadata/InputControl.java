@@ -1,4 +1,4 @@
-package org.forgeide.service.metadata;
+package org.forgeide.forge.metadata;
 
 import org.jboss.forge.addon.ui.hints.InputType;
 import org.jboss.forge.addon.ui.input.InputComponent;

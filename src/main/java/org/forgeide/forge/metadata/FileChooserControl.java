@@ -1,25 +1,26 @@
-package org.forgeide.service.metadata;
+package org.forgeide.forge.metadata;
+
+import java.io.File;
 
 import org.jboss.forge.addon.ui.hints.InputType;
 import org.jboss.forge.addon.ui.input.UIInput;
 
 /**
- * 
- * @author Shane Bryzak
  *
+ * @author Shane Bryzak
  */
-public class JavaPackageChooserControl extends InputControl
+public class FileChooserControl extends InputControl
 {
    @Override
    public String getSupportedInputType()
    {
-      return InputType.JAVA_PACKAGE_PICKER;
+      return InputType.FILE_PICKER;
    }
 
    @Override
-   public Class<?> getProducedType()
+   public Class<File> getProducedType()
    {
-      return String.class;
+      return File.class;
    }
 
    @Override

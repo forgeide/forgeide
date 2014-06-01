@@ -1,19 +1,19 @@
-package org.forgeide.service.metadata;
+package org.forgeide.forge.metadata;
 
 import org.jboss.forge.addon.ui.hints.InputType;
 import org.jboss.forge.addon.ui.input.UIInput;
 
 /**
- *
+ * 
  * @author Shane Bryzak
  *
  */
-public class TextBoxControl extends InputControl
+public class JavaPackageChooserControl extends InputControl
 {
    @Override
    public String getSupportedInputType()
    {
-      return InputType.TEXTBOX;
+      return InputType.JAVA_PACKAGE_PICKER;
    }
 
    @Override

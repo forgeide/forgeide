@@ -1,25 +1,27 @@
-package org.forgeide.service.metadata;
+package org.forgeide.forge.metadata;
 
+import org.jboss.forge.addon.resource.Resource;
 import org.jboss.forge.addon.ui.hints.InputType;
 import org.jboss.forge.addon.ui.input.UIInput;
 
 /**
- * 
+ *
  * @author Shane Bryzak
  *
  */
-public class JavaClassChooserControl extends InputControl
+public class ResourceChooserControl extends InputControl
 {
+
    @Override
    public String getSupportedInputType()
    {
-      return InputType.JAVA_CLASS_PICKER;
+      return InputType.DIRECTORY_PICKER;
    }
 
    @Override
-   public Class<String> getProducedType()
+   public Class<?> getProducedType()
    {
-      return String.class;
+      return Resource.class;
    }
 
    @Override

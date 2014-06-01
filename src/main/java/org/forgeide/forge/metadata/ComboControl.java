@@ -1,4 +1,4 @@
-package org.forgeide.service.metadata;
+package org.forgeide.forge.metadata;
 
 import java.util.ArrayList;
 import java.util.List;

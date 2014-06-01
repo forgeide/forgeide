@@ -1,4 +1,4 @@
-package org.forgeide.service;
+package org.forgeide.forge;
 
 import java.io.File;
 

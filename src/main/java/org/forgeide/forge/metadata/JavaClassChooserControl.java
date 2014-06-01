@@ -1,20 +1,25 @@
-package org.forgeide.service.metadata;
+package org.forgeide.forge.metadata;
 
 import org.jboss.forge.addon.ui.hints.InputType;
 import org.jboss.forge.addon.ui.input.UIInput;
 
-public class CheckboxControl extends InputControl
+/**
+ * 
+ * @author Shane Bryzak
+ *
+ */
+public class JavaClassChooserControl extends InputControl
 {
    @Override
    public String getSupportedInputType()
    {
-      return InputType.CHECKBOX;
+      return InputType.JAVA_CLASS_PICKER;
    }
 
    @Override
-   public Class<Boolean> getProducedType()
+   public Class<String> getProducedType()
    {
-      return Boolean.class;
+      return String.class;
    }
 
    @Override
@@ -22,4 +27,5 @@ public class CheckboxControl extends InputControl
    {
       return new Class<?>[] { UIInput.class };
    }
+
 }

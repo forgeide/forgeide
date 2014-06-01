@@ -16,12 +16,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.forgeide.forge.UIRuntimeImpl;
+import org.forgeide.forge.metadata.ControlMetadata;
+import org.forgeide.forge.metadata.ControlRegistry;
+import org.forgeide.forge.metadata.InputControl;
+import org.forgeide.forge.metadata.ResultMetadata;
 import org.forgeide.forge.ui.IDEUIContext;
 import org.forgeide.qualifiers.Forge;
-import org.forgeide.service.metadata.ControlMetadata;
-import org.forgeide.service.metadata.ControlRegistry;
-import org.forgeide.service.metadata.InputControl;
-import org.forgeide.service.metadata.ResultMetadata;
 import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
 import org.jboss.forge.addon.ui.controller.CommandController;

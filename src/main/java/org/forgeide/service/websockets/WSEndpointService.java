@@ -8,7 +8,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.forgeide.service.SessionRegistry;
+import org.forgeide.system.SessionRegistry;
 
 /**
  *
