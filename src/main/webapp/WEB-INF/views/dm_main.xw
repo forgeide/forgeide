@@ -6,14 +6,16 @@
   <xw:eLBinding binding="location">
     <xw:event type="onbind"><![CDATA[return window.location.origin + window.location.pathname;]]></xw:event>
   </xw:eLBinding>
+  
+  <pl:requestAuthenticator id="requestAuthenticator"/>
 
-  <xw:restEndpoint id="commandListService" url="#{location}rest/commands/list"/>
+  <xw:restEndpoint id="commandListService" url="#{location}rest/commands/list" decorator="#{requestAuthenticator}"/>
 
-  <xw:restEndpoint id="commandMetadataService" url="#{location}rest/commands/get/{command}"/>
+  <xw:restEndpoint id="commandMetadataService" url="#{location}rest/commands/get/{command}" decorator="#{requestAuthenticator}"/>
 
-  <xw:restEndpoint id="commandExecutionService" url="#{location}rest/commands/execute/{command}" method="POST"/>
+  <xw:restEndpoint id="commandExecutionService" url="#{location}rest/commands/execute/{command}" decorator="#{requestAuthenticator}" method="POST"/>
 
-  <xw:restEndpoint id="projectService" url="#{location}rest/projects/{command}" method="POST"/>
+  <xw:restEndpoint id="projectService" url="#{location}rest/projects/{command}" decorator="#{requestAuthenticator}" method="POST"/>
 
   <xw:restELBinding binding="addonMenuItems" mode="JSON" restEndpoint="#{commandListService}">
     <xw:event type="onresult"><![CDATA[return Forge.parseCommands(result);]]></xw:event>
@@ -24,5 +26,5 @@
   </xw:webSocket>
   
   <pl:identity id="identity"/>
-
+  
 </xw:dataModule>
