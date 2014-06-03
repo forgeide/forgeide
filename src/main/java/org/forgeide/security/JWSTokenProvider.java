@@ -3,6 +3,7 @@ package org.forgeide.security;
 import java.util.List;
 import java.util.UUID;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Status;
 import javax.transaction.SystemException;
@@ -21,6 +22,7 @@ import org.picketlink.json.JsonException;
 import org.picketlink.json.jose.JWS;
 import org.picketlink.json.jose.JWSBuilder;
 
+@ApplicationScoped
 public class JWSTokenProvider implements Token.Provider
 {
    @Inject

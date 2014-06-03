@@ -25,7 +25,7 @@ import org.picketlink.idm.jpa.annotations.entity.ManagedCredential;
  */
 @ManagedCredential(EncodedPasswordStorage.class)
 @Entity
-public class UserCredential implements Serializable
+public class UserPasswordCredential implements Serializable
 {
    private static final long serialVersionUID = 2838520533508516410L;
 

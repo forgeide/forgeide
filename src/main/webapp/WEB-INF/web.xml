@@ -17,6 +17,7 @@
     <filter-name>AuthenticationFilter</filter-name>
     <url-pattern>/rest/commands/execute/*</url-pattern>
     <url-pattern>/rest/projects/*</url-pattern>
+    <url-pattern>/rest/auth/*</url-pattern>
   </filter-mapping>
 
 	<!-- Force SSL usage -->

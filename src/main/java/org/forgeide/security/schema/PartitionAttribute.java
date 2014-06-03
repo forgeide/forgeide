@@ -1,8 +1,10 @@
 package org.forgeide.security.schema;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.picketlink.idm.jpa.annotations.AttributeClass;
@@ -67,6 +69,8 @@ public class PartitionAttribute
       this.attributeName = attributeName;
    }
 
+   @Lob
+   @Column(name = "ATTRIBUTE_VALUE", length = 2048)
    public String getAttributeValue()
    {
       return attributeValue;
@@ -81,5 +85,4 @@ public class PartitionAttribute
    {
       this.id = id;
    }
-
 }

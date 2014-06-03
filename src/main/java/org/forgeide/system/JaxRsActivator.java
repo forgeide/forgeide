@@ -1,4 +1,4 @@
-package org.forgeide.forge;
+package org.forgeide.system;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
