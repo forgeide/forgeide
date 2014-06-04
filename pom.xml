@@ -128,7 +128,7 @@
       
       <dependency>
          <groupId>org.xwidgets</groupId>
-         <artifactId>xwidgets</artifactId>
+         <artifactId>xwidgets-script</artifactId>
          <version>${version.xwidgets}</version>
       </dependency>
       
