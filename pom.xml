@@ -26,9 +26,9 @@
       <version.xwidgets>1.0-SNAPSHOT</version.xwidgets>
       <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
       <version.picketlink>2.6.0-SNAPSHOT</version.picketlink>
-      <version.furnace>2.3.0.Final</version.furnace>
-      <version.forge>2.3.1-SNAPSHOT</version.forge>
-      <version.forge.addons>2.3.1-SNAPSHOT</version.forge.addons>
+      <version.furnace>2.6.0.Final</version.furnace>
+      <version.forge>2.6.0.Final</version.forge>
+      <version.forge.addons>2.6.0.Final</version.forge.addons>
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
       <deltaspike.version>0.7</deltaspike.version>
    </properties>
@@ -329,7 +329,7 @@
          <plugin>
             <groupId>org.jboss.forge.furnace</groupId>
             <artifactId>furnace-maven-plugin</artifactId>
-            <version>${version.forge}</version>
+            <version>${version.furnace}</version>
             <executions>
                <execution>
                   <id>deploy-addons</id>

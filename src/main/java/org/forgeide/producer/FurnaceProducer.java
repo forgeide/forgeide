@@ -63,7 +63,7 @@ public class FurnaceProducer
       availableCommands = new HashMap<String, List<String>>();
 
       AddonRegistry addonRegistry = furnace.getAddonRegistry();
-      commandFactory = (CommandFactory) addonRegistry.getServices(CommandFactory.class.getName()).get();
+      commandFactory = (CommandFactory) addonRegistry.getServices(CommandFactory.class).get();
       IDEUIContext context = new IDEUIContext();
       for (UICommand cmd : commandFactory.getCommands())
       {
