@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +31,7 @@ import org.jboss.forge.furnace.util.Sets;
  * Producer method for Forge objects, starts the Furnace service
  *
  * @author Shane Bryzak
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @ApplicationScoped
 public class FurnaceProducer
@@ -45,25 +48,21 @@ public class FurnaceProducer
    {
       furnace = getFurnaceInstance(Thread.currentThread().getContextClassLoader());
       furnace.addRepository(AddonRepositoryMode.IMMUTABLE, repoDir);
-      furnace.startAsync();
+      Future<Furnace> future = furnace.startAsync();
 
-      while (!furnace.getStatus().isStarted())
+      try
       {
-         try
-         {
-            Thread.sleep(500);
-         }
-         catch (InterruptedException e)
-         {
-            return;
-         }
+         future.get();
+      }
+      catch (InterruptedException | ExecutionException e)
+      {
+         throw new RuntimeException("Furnace failed to start.", e);
       }
 
-      // Query the available commands
-      availableCommands = new HashMap<String, List<String>>();
+      availableCommands = new HashMap<>();
 
       AddonRegistry addonRegistry = furnace.getAddonRegistry();
-      commandFactory = (CommandFactory) addonRegistry.getServices(CommandFactory.class).get();
+      commandFactory = addonRegistry.getServices(CommandFactory.class).get();
       IDEUIContext context = new IDEUIContext();
       for (UICommand cmd : commandFactory.getCommands())
       {
@@ -75,7 +74,8 @@ public class FurnaceProducer
          availableCommands.get(metadata.getCategory().getName()).add(metadata.getName());
       }
 
-      controllerFactory = (CommandControllerFactory) addonRegistry.getServices(CommandControllerFactory.class.getName()).get();
+      controllerFactory = (CommandControllerFactory) addonRegistry
+               .getServices(CommandControllerFactory.class.getName()).get();
    }
 
    @Produces
@@ -93,13 +93,15 @@ public class FurnaceProducer
 
    @Produces
    @Forge
-   public CommandFactory getCommandFactory() {
+   public CommandFactory getCommandFactory()
+   {
       return commandFactory;
    }
 
    @Produces
    @Forge
-   public CommandControllerFactory getControllerFactory() {
+   public CommandControllerFactory getControllerFactory()
+   {
       return controllerFactory;
    }
 
@@ -137,7 +139,9 @@ public class FurnaceProducer
                      lastRegistryVersion = registryVersion;
                      for (Addon addon : furnace.getAddonRegistry().getAddons())
                      {
-                        result.add(addon.getClassLoader());
+                        ClassLoader classLoader = addon.getClassLoader();
+                        if (classLoader != null)
+                           result.add(classLoader);
                      }
                   }
                }

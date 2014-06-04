@@ -26,8 +26,7 @@
       <version.xwidgets>1.0-SNAPSHOT</version.xwidgets>
       <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
       <version.picketlink>2.6.0-SNAPSHOT</version.picketlink>
-      <version.furnace>2.6.0.Final</version.furnace>
-      <version.forge>2.6.0.Final</version.forge>
+      <version.furnace>2.6.1-SNAPSHOT</version.furnace>
       <version.forge.addons>2.6.0.Final</version.forge.addons>
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
       <deltaspike.version>0.7</deltaspike.version>
@@ -165,19 +164,31 @@
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace</artifactId>
-         <version>${version.forge}</version>
+         <version>${version.furnace}</version>
       </dependency>
       
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace-proxy</artifactId>
-         <version>${version.forge}</version>
+         <version>${version.furnace}</version>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.jboss.forge.furnace</groupId>
+         <artifactId>furnace-api</artifactId>
+         <version>${version.furnace}</version>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.jboss.forge.furnace</groupId>
+         <artifactId>furnace-se</artifactId>
+         <version>${version.furnace}</version>
       </dependency>
       
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>ui-api</artifactId>
-         <version>${version.forge}</version>
+         <version>${version.forge.addons}</version>
          <exclusions>
             <exclusion>
                <artifactId>environment</artifactId>
@@ -193,45 +204,21 @@
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>environment-api</artifactId>
-         <version>${version.forge}</version>
+         <version>${version.forge.addons}</version>
       </dependency>
       
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>facets-api</artifactId>
-         <version>${version.forge}</version>
+         <version>${version.forge.addons}</version>
       </dependency>
       
       <!--dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>convert</artifactId>
          <classifier>forge-addon</classifier>
-         <version>${version.forge}</version>
+         <version>${version.forge.addons}</version>
       </dependency-->
-      
-      <dependency>
-         <groupId>org.jboss.forge</groupId>
-         <artifactId>forge-javassist</artifactId>
-         <version>2</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.furnace</groupId>
-         <artifactId>furnace-api</artifactId>
-         <version>${version.furnace}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.furnace</groupId>
-         <artifactId>furnace-proxy</artifactId>
-         <version>${version.furnace}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.furnace</groupId>
-         <artifactId>furnace-se</artifactId>
-         <version>${version.furnace}</version>
-      </dependency>
       
       <!-- Addons API needed -->
       <!--dependency>
