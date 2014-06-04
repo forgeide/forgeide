@@ -128,10 +128,10 @@
       
       <dependency>
          <groupId>org.xwidgets</groupId>
-         <artifactId>xwidgets-script</artifactId>
+         <artifactId>xwidgets</artifactId>
          <version>${version.xwidgets}</version>
       </dependency>
-      
+
       <dependency>
          <groupId>org.xwidgets</groupId>
          <artifactId>xwidgets-picketlink</artifactId>
