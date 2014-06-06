@@ -27,7 +27,7 @@
       <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
       <version.picketlink>2.6.0-SNAPSHOT</version.picketlink>
       <version.furnace>2.6.1-SNAPSHOT</version.furnace>
-      <version.forge.addons>2.6.0.Final</version.forge.addons>
+      <version.forge.addons>2.6.1-SNAPSHOT</version.forge.addons>
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
       <deltaspike.version>0.7</deltaspike.version>
    </properties>

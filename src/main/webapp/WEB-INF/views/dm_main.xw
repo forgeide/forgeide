@@ -25,7 +25,7 @@
     <xw:event type="onresult"><![CDATA[return Forge.parseCommands(result);]]></xw:event>
   </xw:restELBinding>
 
-  <xw:webSocket id="projectListener" url="wss://#{locationObj.host}#{locationObj.pathname}websockets/projects">
+  <xw:webSocket id="projectListener" url="wss://#{locationObj.host}#{locationObj.pathname}websocket/projects">
     <xw:event type="onmessage"><![CDATA[ForgeIDE.processMessage(event.data);]]></xw:event>
   </xw:webSocket>
   
