@@ -24,9 +24,5 @@
     <interceptors>
         <class>org.apache.deltaspike.security.impl.extension.SecurityInterceptor</class>
     </interceptors>
-    
-    <alternatives>
-        <stereotype>org.picketlink.annotations.StatelessIdentity</stereotype>
-    </alternatives>
       
 </beans>
