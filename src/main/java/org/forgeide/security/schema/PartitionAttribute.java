@@ -29,7 +29,9 @@ public class PartitionAttribute
    @AttributeName
    private String attributeName;
 
+   @Lob
    @AttributeValue
+   @Column(name = "ATTRIBUTE_VALUE", length = 2048)
    private String attributeValue;
 
    public Long getId()
@@ -66,9 +68,7 @@ public class PartitionAttribute
    {
       this.attributeName = attributeName;
    }
-
-   @Lob
-   @Column(name = "ATTRIBUTE_VALUE", length = 2048)
+   
    public String getAttributeValue()
    {
       return attributeValue;

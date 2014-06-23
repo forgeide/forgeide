@@ -25,6 +25,7 @@ import org.jboss.forge.furnace.addons.Addon;
 import org.jboss.forge.furnace.addons.AddonRegistry;
 import org.jboss.forge.furnace.proxy.ClassLoaderAdapterBuilder;
 import org.jboss.forge.furnace.repositories.AddonRepositoryMode;
+import org.jboss.forge.furnace.se.FurnaceFactory;
 import org.jboss.forge.furnace.util.Sets;
 
 /**
@@ -46,7 +47,7 @@ public class FurnaceProducer
 
    public void setup(File repoDir)
    {
-      furnace = getFurnaceInstance(Thread.currentThread().getContextClassLoader());
+      furnace = FurnaceFactory.getInstance(Thread.currentThread().getContextClassLoader(), Thread.currentThread().getContextClassLoader());
       furnace.addRepository(AddonRepositoryMode.IMMUTABLE, repoDir);
       Future<Furnace> future = furnace.startAsync();
 
@@ -109,55 +110,6 @@ public class FurnaceProducer
    public void destroy()
    {
       furnace.stop();
-   }
-
-   private static Furnace getFurnaceInstance(final ClassLoader loader)
-   {
-      try
-      {
-         Class<?> furnaceType = loader.loadClass("org.jboss.forge.furnace.impl.FurnaceImpl");
-         final Object instance = furnaceType.newInstance();
-
-         final Furnace furnace = (Furnace) ClassLoaderAdapterBuilder
-                  .callingLoader(FurnaceProducer.class.getClassLoader())
-                  .delegateLoader(loader).enhance(instance, Furnace.class);
-
-         Callable<Set<ClassLoader>> whitelistCallback = new Callable<Set<ClassLoader>>()
-         {
-            volatile long lastRegistryVersion = -1;
-            final Set<ClassLoader> result = Sets.getConcurrentSet();
-
-            @Override
-            public Set<ClassLoader> call() throws Exception
-            {
-               if (furnace.getStatus().isStarted())
-               {
-                  long registryVersion = furnace.getAddonRegistry().getVersion();
-                  if (registryVersion != lastRegistryVersion)
-                  {
-                     result.clear();
-                     lastRegistryVersion = registryVersion;
-                     for (Addon addon : furnace.getAddonRegistry().getAddons())
-                     {
-                        ClassLoader classLoader = addon.getClassLoader();
-                        if (classLoader != null)
-                           result.add(classLoader);
-                     }
-                  }
-               }
-
-               return result;
-            }
-         };
-
-         return (Furnace) ClassLoaderAdapterBuilder.callingLoader(FurnaceProducer.class.getClassLoader())
-                  .delegateLoader(loader).whitelist(whitelistCallback)
-                  .enhance(instance, Furnace.class);
-      }
-      catch (Exception e)
-      {
-         throw new RuntimeException(e);
-      }
    }
 
 }

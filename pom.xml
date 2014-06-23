@@ -161,21 +161,12 @@
         <version>${deltaspike.version}</version>
       </dependency>
       
+      
+      <!-- Furnace -->
+      
       <dependency>
          <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace</artifactId>
-         <version>${version.furnace}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.furnace</groupId>
-         <artifactId>furnace-proxy</artifactId>
-         <version>${version.furnace}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.furnace</groupId>
-         <artifactId>furnace-api</artifactId>
          <version>${version.furnace}</version>
       </dependency>
       
@@ -185,53 +176,13 @@
          <version>${version.furnace}</version>
       </dependency>
       
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>ui-api</artifactId>
-         <version>${version.forge.addons}</version>
-         <exclusions>
-            <exclusion>
-               <artifactId>environment</artifactId>
-               <groupId>org.jboss.forge.addon</groupId>
-            </exclusion>
-            <exclusion>
-               <artifactId>facets</artifactId>
-               <groupId>org.jboss.forge.addon</groupId>
-            </exclusion>
-         </exclusions>
-      </dependency>
+      <!-- Forge APIs -->
       
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
          <artifactId>environment-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>facets-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency>
-      
-      <!--dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>convert</artifactId>
-         <classifier>forge-addon</classifier>
-         <version>${version.forge.addons}</version>
-      </dependency-->
-      
-      <!-- Addons API needed -->
-      <!--dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>shell-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>shell-spi</artifactId>
-         <version>${version.forge.addons}</version>
-         <classifier>forge-addon</classifier>
-      </dependency-->
       
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
@@ -275,12 +226,6 @@
          <artifactId>projects-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
-
-      <!--dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>database-tools-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency-->
       
       <dependency>
         <groupId>org.jboss.spec.javax.websocket</groupId>
