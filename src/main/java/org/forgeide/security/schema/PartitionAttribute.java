@@ -32,8 +32,6 @@ public class PartitionAttribute
    @AttributeValue
    private String attributeValue;
 
-   @Id
-   @GeneratedValue
    public Long getId()
    {
       return id;
