@@ -15,6 +15,8 @@ import org.forgeide.security.schema.IdentityAttribute;
 import org.forgeide.security.schema.IdentityType;
 import org.forgeide.security.schema.Partition;
 import org.forgeide.security.schema.PartitionAttribute;
+import org.forgeide.security.schema.RelationshipIdentity;
+import org.forgeide.security.schema.RelationshipType;
 import org.forgeide.security.schema.UserTokenCredential;
 import org.forgeide.security.schema.UserPasswordCredential;
 import org.forgeide.security.schema.UserIdentity;
@@ -82,12 +84,11 @@ public class SecurityConfigurationProducer
                         IdentityAttribute.class,
                         UserIdentity.class,
                         UserPasswordCredential.class,
-                        UserTokenCredential.class)
+                        UserTokenCredential.class,
+                        RelationshipType.class,
+                        RelationshipIdentity.class)
                .supportGlobalRelationship(Relationship.class)
                .addContextInitializer(this.contextInitializer)
-               .setCredentialHandlerProperty(CredentialHandler.SUPPORTED_ACCOUNT_TYPES_PROPERTY,
-                        new Class[] { User.class })
-               .setCredentialHandlerProperty(CredentialHandler.LOGIN_NAME_PROPERTY, "username")
                .setCredentialHandlerProperty(TokenCredentialHandler.TOKEN_PROVIDER, tokenProvider)
                .supportType(User.class)
                .supportAllFeatures();

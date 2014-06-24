@@ -25,11 +25,11 @@
    <properties>
       <version.xwidgets>1.0-SNAPSHOT</version.xwidgets>
       <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
-      <version.picketlink>2.6.0.CR4</version.picketlink>
+      <version.picketlink>2.6.0.Final</version.picketlink>
       <version.furnace>2.6.1-SNAPSHOT</version.furnace>
       <version.forge.addons>2.6.1-SNAPSHOT</version.forge.addons>
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
-      <deltaspike.version>0.7</deltaspike.version>
+      <deltaspike.version>1.0.0</deltaspike.version>
    </properties>
    <dependencyManagement>
       <dependencies>
@@ -114,6 +114,10 @@
             <exclusion>
                <artifactId>resteasy-jaxrs</artifactId>
                <groupId>org.jboss.resteasy</groupId>
+            </exclusion>
+            <exclusion>
+               <groupId>org.codehaus.jackson</groupId>
+               <artifactId>jackson-jaxrs</artifactId>            
             </exclusion>
          </exclusions>
       </dependency>
