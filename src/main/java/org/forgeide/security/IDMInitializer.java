@@ -4,7 +4,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
+import org.forgeide.model.Project;
+import org.forgeide.model.ProjectAccess;
+import org.forgeide.model.ProjectAccess.AccessLevel;
 import org.forgeide.security.model.User;
 import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.PartitionManager;
@@ -24,6 +28,9 @@ public class IDMInitializer
    @Inject
    private PartitionManager partitionManager;
 
+   @Inject
+   private EntityManager entityManager;
+
    @PostConstruct
    public void create()
    {
@@ -40,5 +47,17 @@ public class IDMInitializer
       u.setUsername("sbryzak");
       im.add(u);
       im.updateCredential(u, new Password("password"));
+
+      Project p = new Project();
+      p.setName("Meeting Planner");
+
+      entityManager.persist(p);
+
+      ProjectAccess pa = new ProjectAccess();
+      pa.setProject(p);
+      pa.setAccessLevel(AccessLevel.OWNER);
+      pa.setUserId(u.getId());
+
+      entityManager.persist(pa);
    }
 }

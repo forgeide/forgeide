@@ -34,6 +34,10 @@ body {
   display: none;
 }
 
+.header {
+  padding: 4px 4px 2px 4px;
+}
+
 div.title {
   float: left;
   font-size: 65%;
@@ -42,7 +46,7 @@ div.title {
 div.header_menu {
   height: 37px;
   margin-bottom: 4px;
-  color: #a0a0a0;
+  color: #bbbbbb;
   background: -moz-linear-gradient(top,  rgba(132,132,132,1) 0%, rgba(109,109,109,1) 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(100%,rgba(109,109,109,1))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top,  rgba(132,132,132,1) 0%,rgba(109,109,109,1) 100%); /* Chrome10+,Safari5.1+ */
@@ -62,6 +66,7 @@ div.header_menu_item {
   border-right: 1px solid #ffffff;
   height: 37px;
   line-height: 37px;
+  font-weight: bold;
 }
 
 div.header_menu_item_selected {
@@ -113,6 +118,19 @@ div.ace_editor {
 
 #headerMenu {
   float: right;
+}
+
+#content {
+  clear: both;
+}
+
+.projects_content {
+  padding: 20px 20px 20px 20px;
+}
+
+.content_title {
+  font-size: 120%;
+  color: #333333;
 }
 
 .splitter {

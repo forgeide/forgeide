@@ -75,7 +75,7 @@ public class ResourceController
             owner = (User) identity.get().getAccount();
          } else
          {
-            owner = identityManager.get().lookupIdentityById(User.class, results.get(0).getUser().getId());
+            owner = identityManager.get().lookupIdentityById(User.class, results.get(0).getUserId());
          }
 
          ServerLogic serverLogic = new ServerLogicImpl(

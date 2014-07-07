@@ -53,12 +53,7 @@ public class ProjectController
       pa.setProject(project);
       pa.setAccessLevel(AccessLevel.OWNER);
       pa.setOpen(true);
-
-      IdentityType id = em.<IdentityType>createQuery(
-               "select i from IdentityType i where i.id = :id", IdentityType.class)
-               .setParameter("id", identity.getAccount().getId())
-               .getSingleResult();
-      pa.setUser(id);
+      pa.setUserId(identity.getAccount().getId());
 
       em.persist(pa);
 
@@ -134,6 +129,21 @@ public class ProjectController
    {
       TypedQuery<ProjectAccess> q = entityManager.get().<ProjectAccess>createQuery("select p from ProjectAccess p where p.open = true", 
                ProjectAccess.class);
+
+      List<Project> projects = new ArrayList<Project>();
+      for (ProjectAccess a : q.getResultList())
+      {
+         projects.add(a.getProject());
+      }
+
+      return projects;
+   }
+
+   public List<Project> listProjects()
+   {
+      TypedQuery<ProjectAccess> q = entityManager.get().<ProjectAccess>createQuery("select p from ProjectAccess p where p.userId = :userId", 
+               ProjectAccess.class);
+      q.setParameter("userId", identity.getAccount().getId());
 
       List<Project> projects = new ArrayList<Project>();
       for (ProjectAccess a : q.getResultList())

@@ -2,12 +2,14 @@ package org.forgeide.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.forgeide.security.schema.IdentityType;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Controls access levels for projects
@@ -16,6 +18,9 @@ import org.forgeide.security.schema.IdentityType;
  *
  */
 @Entity
+@Table(name = "PROJECT_ACCESS", uniqueConstraints = {
+         @UniqueConstraint(columnNames={"PROJECT_ID", "userId"})
+})
 public class ProjectAccess implements Serializable
 {
    private static final long serialVersionUID = 6539427720605504095L;
@@ -26,10 +31,10 @@ public class ProjectAccess implements Serializable
    private Long id;
 
    @ManyToOne
+   @JoinColumn(name = "PROJECT_ID")
    private Project project;
 
-   @ManyToOne
-   private IdentityType user;
+   private String userId;
 
    // Indicates whether the user currently has this project open
    private boolean open;
@@ -57,14 +62,14 @@ public class ProjectAccess implements Serializable
       this.project = project;
    }
 
-   public IdentityType getUser()
+   public String getUserId()
    {
-      return user;
+      return userId;
    }
 
-   public void setUser(IdentityType user)
+   public void setUserId(String userId)
    {
-      this.user = user;
+      this.userId = userId;
    }
 
    public boolean isOpen()

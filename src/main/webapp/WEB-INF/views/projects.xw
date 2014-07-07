@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+ 
+  <xw:eLBinding binding="location">
+    <xw:event type="onbind"><![CDATA[return window.location.origin + window.location.pathname;]]></xw:event>
+  </xw:eLBinding>
+  
+  <xw:eLBinding binding="locationObj">
+    <xw:event type="onbind"><![CDATA[return window.location;]]></xw:event>
+  </xw:eLBinding>
+  
+  <xw:restEndpoint id="projectListService" url="#{location}rest/projects/list" decorator="#{requestAuthenticator}" method="POST"/>  
+  
+  <xw:restELBinding binding="projects" mode="JSON" restEndpoint="#{projectListService}">
+    <!--xw:event type="onresult"><![CDATA[return Forge.parseCommands(result);]]></xw:event-->
+  </xw:restELBinding>
+
+  <div class="projects_content">
+    <div>
+      <span class="content_title">Projects</span>
+      
+      <div style="float:right">
+        <xw:button label="Create Project">
+          <xw:event type="onclick"><![CDATA[alert('creating new project');]]></xw:event>
+        </xw:button>
+      </div>
+    </div>
+
+    <xw:repeat value="#{projects}" var="project">
+      #{project.name}
+    </xw:repeat>
+  </div>
+
+</xw:view>

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -46,6 +47,14 @@ public class ProjectServices
       projectController.createProject(p);
 
       return p;
+   }
+
+   @GET
+   @Path("/list")
+   @Produces(MediaType.APPLICATION_JSON)
+   public List<Project> listProjects()
+   {
+      return projectController.listProjects();
    }
 
    @POST
