@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+
+  <div id="menu">
+
+    <xw:menuBar styleClass="header_menu">
+      <xw:menuItem styleClass="header_menu_item" label="Projects"/>
+      <xw:menuItem styleClass="header_menu_item" label="Deployment"/>
+      <xw:menuItem styleClass="header_menu_item" label="Administration"/>
+    </xw:menuBar>
+
+  </div>
+
+</xw:view>

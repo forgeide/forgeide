@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+  <xw:datamodule name="dm_ide.xw"></xw:datamodule>
+
   <div id="menu">
     <xw:menuBar>
       <xw:event type="onclick"><![CDATA[

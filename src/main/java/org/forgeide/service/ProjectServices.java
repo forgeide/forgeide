@@ -28,7 +28,7 @@ import org.forgeide.model.ProjectResource.ResourceType;
 public class ProjectServices
 {
    @Inject ProjectController projectController;
-   @Inject ResourceController resourceController;
+   //@Inject ResourceController resourceController;
 
    @POST
    @Path("/create")

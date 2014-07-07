@@ -1,16 +1,15 @@
 html, body {
   height: 100%;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 body { 
   margin:0px;
+  margin-left: 12px;
+  margin-right: 12px;
   background-color: #ffffff;
   font-size: 1em;
   color: #777;
-}
-
-.header {
-  height: 40px;
 }
 
 #auth {
@@ -33,6 +32,50 @@ body {
   width: 20px;
   height: 20px;
   display: none;
+}
+
+div.title {
+  float: left;
+  font-size: 65%;
+}
+
+div.header_menu {
+  height: 37px;
+  margin-bottom: 4px;
+  color: #a0a0a0;
+  background: -moz-linear-gradient(top,  rgba(132,132,132,1) 0%, rgba(109,109,109,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(100%,rgba(109,109,109,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(132,132,132,1) 0%,rgba(109,109,109,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(132,132,132,1) 0%,rgba(109,109,109,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(132,132,132,1) 0%,rgba(109,109,109,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(132,132,132,1) 0%,rgba(109,109,109,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#848484ff', endColorstr='#6d6d6dff',GradientType=0 ); /* IE6-9 */  
+  vertical-align: middle;
+  clear: both;
+}
+
+div.header_menu_item {
+  float: left;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 85%;
+  border-right: 1px solid #ffffff;
+  height: 37px;
+  line-height: 37px;
+}
+
+div.header_menu_item_selected {
+  float: left;
+  padding: 1px 2px 1px 2px;
+  margin-right: 4px; 
+  background: rgba(94,94,94,1);
+  cursor: pointer;
+  font-size: 85%;
+}
+
+div.header_menu_item:hover {
+  background: rgba(94,94,94,1);
+  cursor: pointer;
 }
 
 .buttonBar {
