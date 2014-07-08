@@ -14,8 +14,8 @@ body {
 
 #auth {
   float: right;
-  margin-top: 4px;
   margin-right: 32px;
+  font-size: 75%;
 }
 
 #auth a, #auth a:visited, #auth a:hover {

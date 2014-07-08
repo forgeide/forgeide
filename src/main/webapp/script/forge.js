@@ -8,8 +8,6 @@ xw.Ajax.loadingCallback = function(requests) {
   }
 };
 
-pl.basePath = "/forge-ide/rest";
-
 /* Set the Log level */
 xw.Log.logLevel = "DEBUG";
 

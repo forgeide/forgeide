@@ -7,7 +7,6 @@ import java.security.UnrecoverableKeyException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.forgeide.security.model.User;
@@ -17,17 +16,15 @@ import org.forgeide.security.schema.Partition;
 import org.forgeide.security.schema.PartitionAttribute;
 import org.forgeide.security.schema.RelationshipIdentity;
 import org.forgeide.security.schema.RelationshipType;
-import org.forgeide.security.schema.UserTokenCredential;
-import org.forgeide.security.schema.UserPasswordCredential;
 import org.forgeide.security.schema.UserIdentity;
+import org.forgeide.security.schema.UserPasswordCredential;
+import org.forgeide.security.schema.UserTokenCredential;
 import org.picketlink.config.SecurityConfiguration;
 import org.picketlink.config.SecurityConfigurationBuilder;
 import org.picketlink.event.PartitionManagerCreateEvent;
+import org.picketlink.event.SecurityConfigurationEvent;
 import org.picketlink.idm.PartitionManager;
-import org.picketlink.idm.config.IdentityConfiguration;
-import org.picketlink.idm.config.IdentityConfigurationBuilder;
 import org.picketlink.idm.config.SecurityConfigurationException;
-import org.picketlink.idm.credential.handler.CredentialHandler;
 import org.picketlink.idm.credential.handler.TokenCredentialHandler;
 import org.picketlink.idm.model.Attribute;
 import org.picketlink.idm.model.Relationship;
@@ -55,20 +52,10 @@ public class SecurityConfigurationProducer
 
    private KeyStore keyStore;
 
-   @Produces
-   SecurityConfiguration createConfig()
-   {
-      if (securityConfig == null)
-      {
-         initConfig();
-      }
-      return securityConfig;
-   }
-
    @SuppressWarnings("unchecked")
-   private void initConfig()
+   public void initConfig(@Observes SecurityConfigurationEvent event)
    {
-      SecurityConfigurationBuilder builder = new SecurityConfigurationBuilder();
+      SecurityConfigurationBuilder builder = event.getBuilder();
       builder.identity().stateless();
 
       builder
