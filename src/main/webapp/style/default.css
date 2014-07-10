@@ -185,7 +185,15 @@ div.ace_editor {
   margin-top: 6px;
   margin-left: 12px;
   margin-right: 12px;
-  font-size: 80%;
+  font-size: 75%;
+}
+
+.project_stats {
+  text-align: center;
+  font-size: 70%;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-weight: bold;
 }
 
 .content_title {

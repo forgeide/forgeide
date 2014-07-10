@@ -53,6 +53,8 @@ public class IDMInitializer
       p.setDescription("Simplified meeting and event planning, provides comprehensive features for venue, resource and attendee management.");
       p.setStage("Dev");
       p.setImageUrl("images/planner.jpg");
+      p.setUpdates(16);
+      p.setViews(3);
       entityManager.persist(p);
 
       ProjectAccess pa = new ProjectAccess();
@@ -67,6 +69,8 @@ public class IDMInitializer
       p.setDescription("Basic customer contact directory, with highly customisable attributes and RESTful interface for managing and querying entities.");
       p.setStage("Production");
       p.setImageUrl("images/directory.jpg");
+      p.setUpdates(73);
+      p.setViews(22);
       entityManager.persist(p);
 
       pa = new ProjectAccess();

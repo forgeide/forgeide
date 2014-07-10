@@ -29,6 +29,10 @@ public class Project implements Serializable
 
    private String imageUrl;
 
+   private int updates;
+
+   private int views;
+
    private String topLevelPackage;
 
    private String version;
@@ -86,6 +90,26 @@ public class Project implements Serializable
    public void setImageUrl(String imageUrl)
    {
       this.imageUrl = imageUrl;
+   }
+
+   public int getUpdates()
+   {
+      return updates;
+   }
+
+   public void setUpdates(int updates)
+   {
+      this.updates = updates;
+   }
+
+   public int getViews()
+   {
+      return views;
+   }
+
+   public void setViews(int views)
+   {
+      this.views = views;
    }
 
    public String getTopLevelPackage()

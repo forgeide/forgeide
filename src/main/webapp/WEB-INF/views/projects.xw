@@ -35,6 +35,7 @@
         <div class="project_stage">#{project.stage}</div>
         <div class="project_name">#{project.name}</div>
         <div class="project_description">#{project.description}</div>
+        <div class="project_stats">#{project.updates} updates | #{project.views} views</div>
       
       </div>
 
