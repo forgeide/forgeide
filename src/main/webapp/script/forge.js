@@ -191,6 +191,9 @@ var Forge = {
     
     return definition;
   },
+  parseProjects: function(result) {
+    return result;
+  },
   commandMetadataCallback: function(command, meta) {
     xw.Popup.open("commandui.xw", {
       title: command,

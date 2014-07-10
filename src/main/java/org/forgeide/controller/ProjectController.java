@@ -18,10 +18,10 @@ import org.forgeide.events.SessionCreatedEvent;
 import org.forgeide.model.Project;
 import org.forgeide.model.ProjectAccess;
 import org.forgeide.model.ProjectAccess.AccessLevel;
-import org.forgeide.model.ProjectResource.ResourceType;
 import org.forgeide.model.ProjectResource;
+import org.forgeide.model.ProjectResource.ResourceType;
 import org.forgeide.model.ResourceContent;
-import org.forgeide.security.schema.IdentityType;
+import org.forgeide.security.annotations.LoggedIn;
 import org.forgeide.service.websockets.Message;
 import org.picketlink.Identity;
 
@@ -43,7 +43,7 @@ public class ProjectController
    @Inject
    private Identity identity;
 
-   //@LoggedIn
+   @LoggedIn
    public void createProject(Project project)
    {
       EntityManager em = entityManager.get();
@@ -60,7 +60,7 @@ public class ProjectController
       newProjectEvent.fire(new NewProjectEvent(project));
    }
 
-   //@LoggedIn
+   @LoggedIn
    public void createResource(ProjectResource resource)
    {
       EntityManager em = entityManager.get();
