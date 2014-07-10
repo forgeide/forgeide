@@ -128,6 +128,32 @@ div.ace_editor {
   padding: 20px 20px 20px 20px;
 }
 
+.project_detail {
+  float: left;
+  width: 230px;
+  height: 310px;
+  text-align: center;
+  border: 1px solid #d9d9d9;
+  margin-top: 12px;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+}
+
+.project_name {
+  color: #333333;
+  text-align: center;
+  font-size: 120%;
+}
+
+.project_description {
+  text-align: center;
+  margin-top: 12px;
+  margin-left: 12px;
+  margin-right: 12px;
+  font-size: 80%;
+}
+
 .content_title {
   font-size: 120%;
   color: #333333;
