@@ -138,17 +138,39 @@ div.ace_editor {
   margin-left: 12px;
   margin-right: 12px;
   margin-bottom: 12px;
+  position: relative;
 }
 
 .project_image {
-  margin-top: 18px;
-  margin-bottom: 18px;
+  margin-top: 12px;
+  margin-bottom: 12px;
   margin-left: auto;
   margin-right: auto;
   width: 160px;
   height: 90px;
-  background-color: #e0e0e0;
   border: 1px solid #d5d5d5;
+  overflow: hidden;
+}
+
+.project_stage_banner {
+  background: url(corner_banner.png) top right no-repeat;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 88px;
+  height: 86px;
+}
+
+.project_stage {
+  position: absolute;
+  text-align: center;
+  top: 26px;
+  right: 0px;
+  width: 74px;
+  font-size: 75%;
+  -webkit-transform: rotate(45deg); 
+  -moz-transform: rotate(45deg);  
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=5); /*for IE*/
 }
 
 .project_name {
@@ -160,7 +182,7 @@ div.ace_editor {
 
 .project_description {
   text-align: center;
-  margin-top: 12px;
+  margin-top: 6px;
   margin-left: 12px;
   margin-right: 12px;
   font-size: 80%;

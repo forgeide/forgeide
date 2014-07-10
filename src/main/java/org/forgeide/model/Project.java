@@ -25,6 +25,10 @@ public class Project implements Serializable
 
    private String description;
 
+   private String stage;
+
+   private String imageUrl;
+
    private String topLevelPackage;
 
    private String version;
@@ -62,6 +66,26 @@ public class Project implements Serializable
    public void setDescription(String description)
    {
       this.description = description;
+   }
+
+   public String getStage()
+   {
+      return stage;
+   }
+
+   public void setStage(String stage)
+   {
+      this.stage = stage;
+   }
+
+   public String getImageUrl()
+   {
+      return imageUrl;
+   }
+
+   public void setImageUrl(String imageUrl)
+   {
+      this.imageUrl = imageUrl;
    }
 
    public String getTopLevelPackage()

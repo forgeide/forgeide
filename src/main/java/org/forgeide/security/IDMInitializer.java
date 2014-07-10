@@ -51,7 +51,8 @@ public class IDMInitializer
       Project p = new Project();
       p.setName("Meeting Planner");
       p.setDescription("Simplified meeting and event planning, provides comprehensive features for venue, resource and attendee management.");
-
+      p.setStage("Dev");
+      p.setImageUrl("images/planner.jpg");
       entityManager.persist(p);
 
       ProjectAccess pa = new ProjectAccess();
@@ -64,7 +65,8 @@ public class IDMInitializer
       p = new Project();
       p.setName("Customer Directory");
       p.setDescription("Basic customer contact directory, with highly customisable attributes and RESTful interface for managing and querying entities.");
-
+      p.setStage("Production");
+      p.setImageUrl("images/directory.jpg");
       entityManager.persist(p);
 
       pa = new ProjectAccess();

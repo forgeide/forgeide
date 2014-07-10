@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
   <xw:event type="afterRender"><![CDATA[projectListService.invoke();]]></xw:event>
+  
+  <xw:eventObserver event="org.picketlink.identity.loggedIn">
+    <xw:event type="onfire"><![CDATA[projectListService.invoke();]]></xw:event>
+  </xw:eventObserver>
 
   <xw:restEndpoint id="projectListService" url="#{location}rest/projects/list" decorator="#{requestAuthenticator}" method="GET"/>  
   
@@ -24,7 +28,11 @@
 
     <xw:repeat value="#{projects}" var="project">
       <div class="project_detail">
-        <div class="project_image"></div>
+        <div class="project_image">
+          <img src="#{project.imageUrl}"></img>
+        </div>
+        <div class="project_stage_banner"></div>
+        <div class="project_stage">#{project.stage}</div>
         <div class="project_name">#{project.name}</div>
         <div class="project_description">#{project.description}</div>
       
