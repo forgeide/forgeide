@@ -140,7 +140,19 @@ div.ace_editor {
   margin-bottom: 12px;
 }
 
+.project_image {
+  margin-top: 18px;
+  margin-bottom: 18px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 160px;
+  height: 90px;
+  background-color: #e0e0e0;
+  border: 1px solid #d5d5d5;
+}
+
 .project_name {
+  clear: both;
   color: #333333;
   text-align: center;
   font-size: 120%;

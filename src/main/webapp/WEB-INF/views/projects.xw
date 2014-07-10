@@ -24,6 +24,7 @@
 
     <xw:repeat value="#{projects}" var="project">
       <div class="project_detail">
+        <div class="project_image"></div>
         <div class="project_name">#{project.name}</div>
         <div class="project_description">#{project.description}</div>
       
