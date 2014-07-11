@@ -10,7 +10,14 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.forgeide.events.NewProjectEvent;
 import org.forgeide.events.NewResourceEvent;
@@ -20,10 +27,15 @@ import org.forgeide.model.ProjectAccess;
 import org.forgeide.model.ProjectAccess.AccessLevel;
 import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ProjectResource.ResourceType;
+import org.forgeide.model.Project_;
 import org.forgeide.model.ResourceContent;
 import org.forgeide.security.annotations.LoggedIn;
 import org.forgeide.service.websockets.Message;
 import org.picketlink.Identity;
+import org.picketlink.common.properties.Property;
+import org.picketlink.idm.jpa.annotations.Identifier;
+import org.picketlink.idm.jpa.annotations.PartitionClass;
+import org.picketlink.idm.model.Partition;
 
 /**
  * Performs persistence operations for projects
@@ -139,11 +151,27 @@ public class ProjectController
       return projects;
    }
 
-   public List<Project> listProjects()
+   public List<Project> listProjects(String searchTerm)
    {
-      TypedQuery<ProjectAccess> q = entityManager.get().<ProjectAccess>createQuery("select p from ProjectAccess p where p.userId = :userId", 
-               ProjectAccess.class);
-      q.setParameter("userId", identity.getAccount().getId());
+      EntityManager em = entityManager.get();
+
+      CriteriaBuilder cb = em.getCriteriaBuilder();
+      CriteriaQuery<ProjectAccess> cq = cb.createQuery(ProjectAccess.class);
+      Root<ProjectAccess> from = cq.from(ProjectAccess.class);
+      Join<ProjectAccess,Project> project = from.join("project");
+
+      List<Predicate> predicates = new ArrayList<Predicate>();
+
+      predicates.add(cb.equal(from.get("userId"), identity.getAccount().getId()));
+
+      if (searchTerm != null && !"".equals(searchTerm))
+      {
+         predicates.add(cb.like(cb.lower(project.get(Project_.name)), "%" + searchTerm.toLowerCase() + "%"));
+      }
+
+      cq.where(predicates.toArray(new Predicate[predicates.size()]));
+
+      TypedQuery<ProjectAccess> q = em.createQuery(cq);
 
       List<Project> projects = new ArrayList<Project>();
       for (ProjectAccess a : q.getResultList())
