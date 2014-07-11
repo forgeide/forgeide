@@ -16,13 +16,17 @@
     <div>
       <span class="content_title">Projects</span>
       
-      <div style="float:right">
+      <div class="project_controls">        
+        <div class="project_search">
+          <div class="icon_search"><i class="fa fa-search"></i></div>
+          <xw:inputSearch placeholder="Search projects...">
+            <xw:event type="onsearch"><![CDATA[alert('searching for: ' + searchTerm);]]></xw:event>
+          </xw:inputSearch>
+        </div>
+      
         <xw:button label="Create Project">
           <xw:event type="onclick"><![CDATA[alert('creating new project');]]></xw:event>
         </xw:button>
-        <xw:inputSearch>
-          <xw:event type="onsearch"><![CDATA[alert('searching for: ' + searchTerm);]]></xw:event>
-        </xw:inputSearch>
       </div>
     </div>
 

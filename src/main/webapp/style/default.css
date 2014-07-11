@@ -128,6 +128,51 @@ div.ace_editor {
   padding: 20px 20px 20px 20px;
 }
 
+.project_controls {
+  float: right;
+}
+
+.project_controls button {
+  float: right;
+  margin-right: 24px;
+  font-size: 75%;
+  width: 140px;
+  height: 24px;
+}
+
+.project_search {
+  position: relative;
+  float: right;
+}
+
+.icon_search {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  min-width: 16px;
+  padding: 2px 5px;
+  font-size: 90%;
+  line-height: 20px;
+  text-align: center;
+  text-shadow: 0 1px 0 #ffffff;
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  z-index: 3;
+}
+
+.project_search input {
+  font-size: 75%;
+  padding: 4px 6px 4px 24px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  -moz-box-shadow: 1px 1px 1px #999;
+  -webkit-box-shadow: 1px 1px 1px #999;
+  box-shadow: 1px 1px 1px #999;
+  border: 1px solid #aaa;
+}
+
 .project_detail {
   float: left;
   width: 230px;
