@@ -37,6 +37,16 @@
         <div class="project_description">#{project.description}</div>
         <div class="project_stats">#{project.updates} updates | #{project.views} views</div>
       
+        <div class="project_actions">
+          <xw:button label="View">
+            <xw:event type="onclick"><![CDATA[alert('viewing project ');]]></xw:event>
+          </xw:button>
+          
+          <xw:button label="Other Actions">
+            <i class="fa fa-caret-down"></i>
+            <xw:event type="onclick"><![CDATA[alert('other actions...');]]></xw:event>
+          </xw:button>
+        </div>
       </div>
 
     </xw:repeat>

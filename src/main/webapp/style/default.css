@@ -196,6 +196,28 @@ div.ace_editor {
   font-weight: bold;
 }
 
+.project_actions {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 70px;
+  text-align: center;
+}
+
+.project_actions button {
+  width: 140px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  font-size: 70%;
+  color: #555555;
+}
+
+.project_actions button i {
+  margin-left: 12px;
+  font-size: 120%;
+}
+
 .content_title {
   font-size: 120%;
   color: #333333;
