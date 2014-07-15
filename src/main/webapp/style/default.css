@@ -273,6 +273,8 @@ div.ace_editor {
 
 .project_options {
   clear: both;
+  font-size: 75%;
+  margin-top: 12px;
 }
 
 .project_image_select {
@@ -318,8 +320,29 @@ div.ace_editor {
 }
 
 .content_title {
-  font-size: 120%;
+  font-size: 140%;
   color: #333333;
+}
+
+.project_template_selection div.container {
+  float: left;
+  width: 180px;
+  height: 80px;
+  border: 1px solid #cccccc;
+  overflow: hidden;
+  margin-top: 8px;
+  margin-left: 8px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.project_template_selection div.container .title {
+  font-size: 140%;
+  font-weight: bold;
+}
+
+.project_template_selection div.container div {
+  margin-top: 4px;
 }
 
 .splitter {
