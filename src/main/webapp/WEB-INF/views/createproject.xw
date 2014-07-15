@@ -46,6 +46,7 @@
         
           <xw:multiSelectOption value="webapp" styleClass="project_template_selection">
             <div class="container">
+              <div class="selected_check"><i class="fa fa-check-square"></i></div>
               <span class="title">Web App</span>
               <div>
                 Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi.
@@ -74,6 +75,40 @@
         Select the services you would like to use in this project.  This will enable tooling and capabilities you
         can utilize in this project.  You can always add more later.
       </div>
+      
+      <div>
+        <xw:multiSelection name="templates" multi="false">
+        
+          <xw:multiSelectOption value="eeapp" styleClass="project_template_selection">
+            <div class="container">
+              <div class="selected_check"><i class="fa fa-check-square"></i></div>
+              <span class="title">EE App Platform</span>
+              <div>
+                A regular web and app platform to host your applications and utilize EE capabilities.
+              </div>
+            </div>
+          </xw:multiSelectOption>
+
+          <xw:multiSelectOption value="datacache" styleClass="project_template_selection">
+            <div class="container">
+              <span class="title">Data Caching</span>
+              <div>
+                Easily cache your data in memory for fast access.
+              </div>
+            </div>
+          </xw:multiSelectOption>
+          
+          <xw:multiSelectOption value="service_name" styleClass="project_template_selection">
+            <div class="container">
+              <span class="title">Service Name</span>
+              <div>
+                Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi.
+              </div>
+            </div>
+          </xw:multiSelectOption>
+        
+        </xw:multiSelection>
+      </div>   
     </div>
     
     <br style="clear:both"/>

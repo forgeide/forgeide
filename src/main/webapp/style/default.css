@@ -325,6 +325,7 @@ div.ace_editor {
 }
 
 .project_template_selection div.container {
+  position: relative;
   float: left;
   width: 180px;
   height: 80px;
@@ -343,6 +344,16 @@ div.ace_editor {
 
 .project_template_selection div.container div {
   margin-top: 4px;
+}
+
+.project_template_selection div.container div.selected_check {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 180%;
+  color: #189ad1;
+  width: 24px;
+  height: 24px;
 }
 
 .splitter {
