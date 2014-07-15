@@ -25,7 +25,7 @@
         </div>
       
         <xw:button label="Create Project">
-          <xw:event type="onclick"><![CDATA[alert('creating new project');]]></xw:event>
+          <xw:event type="onclick"><![CDATA[xw.open("createproject.xw", null, content);]]></xw:event>
         </xw:button>
       </div>
     </div>

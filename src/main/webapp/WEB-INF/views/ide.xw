@@ -10,12 +10,12 @@
       <xw:menuItem label="Project">
         <xw:menuItem label="New Project...">
           <xw:event type="onclick"><![CDATA[
-              xw.Popup.open("createproject.xw", {title: "Create Project", params: {height: 300}});              
+              xw.Popup.open("ide_createproject.xw", {title: "Create Project", params: {height: 300}});              
             ]]></xw:event>
         </xw:menuItem>
         <xw:menuItem label="Open Project...">
           <xw:event type="onclick"><![CDATA[
-              xw.Popup.open("openproject.xw", {title: "Open Project", params: {height: 300}});              
+              xw.Popup.open("ide_openproject.xw", {title: "Open Project", params: {height: 300}});              
             ]]></xw:event>
         </xw:menuItem>
         <xw:menuItem label="Close Project...">
@@ -40,14 +40,14 @@
         <xw:menuItem label="Package"></xw:menuItem>
         <xw:menuItem label="Class">
           <xw:event type="onclick"><![CDATA[
-            xw.Popup.open("newclass.xw", {title: "New Java Class", params: {height: 300}}); 
+            xw.Popup.open("ide_newclass.xw", {title: "New Java Class", params: {height: 300}}); 
           ]]></xw:event>
         </xw:menuItem>
         <xw:menuDivider></xw:menuDivider>
         <xw:menuItem label="Interface"></xw:menuItem>
         <xw:menuItem label="Folder">
           <xw:event type="onclick"><![CDATA[
-            xw.Popup.open("newfolder.xw", {title: "New Project Folder", params: {height: 300}}); 
+            xw.Popup.open("ide_newfolder.xw", {title: "New Project Folder", params: {height: 300}}); 
           ]]></xw:event>
         </xw:menuItem>
         <xw:menuItem label="File"></xw:menuItem>

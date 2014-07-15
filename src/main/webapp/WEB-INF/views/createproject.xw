@@ -2,49 +2,60 @@
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
 
   <xw:formData id="projectParams"/>
-
-  <div class="popupFooter">
-    <div class="buttonBar">
-      <xw:button id="projectCreate" styleClass="pure-button pure-button-primary" label="Create">
-        <xw:event type="onclick">
-          <xw:action type="script"><![CDATA[ForgeIDE.createProject(projectParams.value, _owner);]]></xw:action>
-        </xw:event>
-      </xw:button>
-
-      <xw:button styleClass="pure-button" label="Cancel">
-        <xw:event type="onclick">
-          <xw:action type="script"><![CDATA[xw.Popup.close();]]></xw:action>
-        </xw:event>
-      </xw:button>
+  
+  <div class="projects_content">
+    <div>
+      <span class="content_title">Create Project</span>
     </div>
   </div>
+  
+  <div>
+    <div class="project_image_select">
+      <div class="project_image">
+        <img src="images/placeholder.png"></img>
+      </div>
+      <xw:link caption="Select image..."></xw:link>
+    </div>
+    
+    <div class="create_project_details">
+      <xw:form styleClass="pure-form pure-form-stacked">
+        <fieldset>
+          <div class="pure-control-group">
+            <label for="name">Name</label>
+            <xw:inputText formData="#{projectParams}" styleClass="pure-input-1-4" name="name"/>
+          </div>
+          
+          <div class="pure-control-group">
+            <label for="description">Description</label>
+            <xw:textArea formData="#{projectParams}" name="description"/>
+          </div>
+        </fieldset>
+      </xw:form>
+    </div>
+  
+  </div>
+  
+  <div class="project_options">
+  
+  </div>
+  
+  <div class="project_options">
+  
+  
+  </div>
 
-  <div class="popupUI">
-    <xw:form styleClass="pure-form pure-form-aligned">
-      <fieldset>
+  <div class="view_actions">
+    <xw:button id="projectCreate" styleClass="primary" label="Create Project">
+      <xw:event type="onclick">
+        <xw:action type="script"><![CDATA[ForgeIDE.createProject(projectParams.value, _owner);]]></xw:action>
+      </xw:event>
+    </xw:button>
 
-        <div class="pure-control-group">
-          <label for="name">Name</label>
-          <xw:inputText formData="#{projectParams}" styleClass="pure-input-1-2" name="name"/>
-        </div>
-
-        <div class="pure-control-group">
-          <label for="topLevelPackage">Top Level Package</label>
-          <xw:inputText formData="#{projectParams}" styleClass="pure-input-1-2" name="topLevelPackage"/>
-        </div>
-        
-        <div class="pure-control-group">
-          <label for="version">Version</label>
-          <xw:inputText formData="#{projectParams}" styleClass="pure-input-1-2" name="version"/>
-        </div>
-        
-        <div class="pure-control-group">
-          <label for="finalName">Final Name</label>
-          <xw:inputText formData="#{projectParams}" styleClass="pure-input-1-2" name="finalName"/>
-        </div>
-
-      </fieldset>
-    </xw:form>    
+    <xw:button label="Cancel">
+      <xw:event type="onclick">
+        <xw:action type="script"><![CDATA[xw.open("projects.xw", null, "content");]]></xw:action>
+      </xw:event>
+    </xw:button>
   </div>
 
 </xw:view>

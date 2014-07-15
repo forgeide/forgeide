@@ -60,8 +60,8 @@ div.header_menu {
 
 div.header_menu_item {
   float: left;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
   font-size: 85%;
   border-right: 1px solid #ffffff;
   height: 37px;
@@ -138,6 +138,7 @@ div.ace_editor {
   font-size: 75%;
   width: 140px;
   height: 24px;
+  color: #555555;
 }
 
 .project_search {
@@ -171,6 +172,13 @@ div.ace_editor {
   -webkit-box-shadow: 1px 1px 1px #999;
   box-shadow: 1px 1px 1px #999;
   border: 1px solid #aaa;
+  outline: none;
+}
+
+.project_search input:focus {
+  -moz-box-shadow: 1px 1px 1px #dd5;
+  -webkit-box-shadow: 1px 1px 1px #dd5;
+  box-shadow: 1px 1px 1px #dd5;
 }
 
 .project_detail {
@@ -261,6 +269,52 @@ div.ace_editor {
 .project_actions button i {
   margin-left: 12px;
   font-size: 120%;
+}
+
+.project_options {
+  clear: both;
+}
+
+.project_image_select {
+  float: left;
+  text-align: center;
+  width: 160px;
+}
+
+.project_image_select a {
+  text-decoration: none;
+  color: #189ad1;
+  font-size: 70%;
+}
+
+.create_project_details {
+  margin-left: 180px;
+}
+
+.create_project_details textarea {
+  width: 480px;
+}
+
+.view_actions {
+  margin-top: 8px;
+  clear: both;
+}
+
+.view_actions button {
+  color: #555555;
+  width: 140px;
+  font-size: 75%;
+  margin-right: 16px;
+  height: 28px;
+}
+
+.view_actions button.primary {
+  background-color: #189ad1;
+  color: #ffffff;
+  border-top: 1px solid #b3e9ff;
+  border-left: 1px solid #b3e9ff;
+  border-right: 1px solid #164e66;
+  border-bottom: 1px solid #164e66;
 }
 
 .content_title {
