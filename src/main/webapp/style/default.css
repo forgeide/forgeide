@@ -337,6 +337,10 @@ div.ace_editor {
   cursor: pointer;
 }
 
+.project_template_selection div.selected {
+  border: 2px solid #189ad1;
+}
+
 .project_template_selection div.container .title {
   font-size: 140%;
   font-weight: bold;

@@ -3,6 +3,17 @@
 
   <xw:formData id="projectParams"/>
   
+  <xw:eLBinding binding="templates">
+    <xw:event type="onbind"><![CDATA[return [
+      {value: "webapp", title: "Web App", description: "Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi."},
+      {value: "mobapp", title: "Mobile App", description: "Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi."}
+      ];]]></xw:event>
+  </xw:eLBinding>
+  
+  <xw:eLBinding binding="services">
+    <xw:event type="onbind"><![CDATA[return {};]]></xw:event>
+  </xw:eLBinding>  
+  
   <div class="projects_content">
     <div>
       <span class="content_title">Create Project</span>
@@ -44,8 +55,20 @@
       <div>
         <xw:multiSelection name="templates" multi="false">
         
+          <xw:repeat value="#{templates}" var="option">
+            <xw:multiSelectOption value="#{option.value}" styleClass="project_template_selection" selected="true">
+              <div class="container selected">
+                <xw:fragment rendered="#{selected}">
+                  <div class="selected_check"><i class="fa fa-check-square"></i></div>
+                </xw:fragment>
+                <span class="title">#{option.title}</span>
+                <div>#{option.description}</div>
+              </div>
+            </xw:multiSelectOption>          
+          </xw:repeat>
+        
           <xw:multiSelectOption value="webapp" styleClass="project_template_selection">
-            <div class="container">
+            <div class="container selected">
               <div class="selected_check"><i class="fa fa-check-square"></i></div>
               <span class="title">Web App</span>
               <div>
@@ -77,7 +100,7 @@
       </div>
       
       <div>
-        <xw:multiSelection name="templates" multi="false">
+        <xw:multiSelection name="services" multi="false">
         
           <xw:multiSelectOption value="eeapp" styleClass="project_template_selection">
             <div class="container">
