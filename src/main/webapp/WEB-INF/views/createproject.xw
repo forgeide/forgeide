@@ -67,25 +67,6 @@
             </xw:multiSelectOption>          
           </xw:repeat>
         
-          <xw:multiSelectOption value="webapp" styleClass="project_template_selection">
-            <div class="container selected">
-              <div class="selected_check"><i class="fa fa-check-square"></i></div>
-              <span class="title">Web App</span>
-              <div>
-                Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi.
-              </div>
-            </div>
-          </xw:multiSelectOption>
-
-          <xw:multiSelectOption value="mobile" styleClass="project_template_selection">
-            <div class="container">
-              <span class="title">Mobile App</span>
-              <div>
-                Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi.
-              </div>
-            </div>
-          </xw:multiSelectOption>
-        
         </xw:multiSelection>
       
       </div>
