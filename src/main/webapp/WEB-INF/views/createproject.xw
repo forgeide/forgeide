@@ -11,7 +11,11 @@
   </xw:eLBinding>
   
   <xw:eLBinding binding="services">
-    <xw:event type="onbind"><![CDATA[return {};]]></xw:event>
+    <xw:event type="onbind"><![CDATA[return [
+      {value: "eeapp", title: "EE App Platform", description: "A regular web and app platform to host your applications and utilize EE capabilities."},
+      {value: "datacache", title: "Data Caching", description: "Easily cache your data in memory for fast access."},
+      {value: "service", title: "Service Name", description: "Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi."}
+      ];]]></xw:event>
   </xw:eLBinding>  
   
   <div class="projects_content">
@@ -53,11 +57,14 @@
       </div>
       
       <div>
-        <xw:multiSelection name="templates" multi="false">
+        <xw:multiSelect name="templates" multi="false">
         
           <xw:repeat value="#{templates}" var="option">
-            <xw:multiSelectOption value="#{option.value}" styleClass="project_template_selection" selected="true">
-              <div class="container selected">
+            <xw:multiSelectOption value="#{option.value}" styleClass="project_template_selection">
+              <div class="container">
+                <xw:eLListener binding="#{selected}">
+                  <xw:event type="onvaluechanged"><![CDATA[this.parent.control.className = value ? "container selected" : "container";]]></xw:event>
+                </xw:eLListener>
                 <xw:fragment rendered="#{selected}">
                   <div class="selected_check"><i class="fa fa-check-square"></i></div>
                 </xw:fragment>
@@ -67,7 +74,7 @@
             </xw:multiSelectOption>          
           </xw:repeat>
         
-        </xw:multiSelection>
+        </xw:multiSelect>
       
       </div>
       <br style="clear:both"/>
@@ -81,37 +88,23 @@
       </div>
       
       <div>
-        <xw:multiSelection name="services" multi="false">
+        <xw:multiSelect name="services" multi="true">
+          <xw:repeat value="#{services}" var="option">
+            <xw:multiSelectOption value="#{option.value}" styleClass="project_template_selection">
+              <div class="container">
+                <xw:eLListener binding="#{selected}">
+                  <xw:event type="onvaluechanged"><![CDATA[this.parent.control.className = value ? "container selected" : "container";]]></xw:event>
+                </xw:eLListener>              
+                <xw:fragment rendered="#{selected}">
+                  <div class="selected_check"><i class="fa fa-check-square"></i></div>
+                </xw:fragment>
+                <span class="title">#{option.title}</span>
+                <div>#{option.description}</div>
+              </div>
+            </xw:multiSelectOption>
+          </xw:repeat>
         
-          <xw:multiSelectOption value="eeapp" styleClass="project_template_selection">
-            <div class="container">
-              <div class="selected_check"><i class="fa fa-check-square"></i></div>
-              <span class="title">EE App Platform</span>
-              <div>
-                A regular web and app platform to host your applications and utilize EE capabilities.
-              </div>
-            </div>
-          </xw:multiSelectOption>
-
-          <xw:multiSelectOption value="datacache" styleClass="project_template_selection">
-            <div class="container">
-              <span class="title">Data Caching</span>
-              <div>
-                Easily cache your data in memory for fast access.
-              </div>
-            </div>
-          </xw:multiSelectOption>
-          
-          <xw:multiSelectOption value="service_name" styleClass="project_template_selection">
-            <div class="container">
-              <span class="title">Service Name</span>
-              <div>
-                Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi.
-              </div>
-            </div>
-          </xw:multiSelectOption>
-        
-        </xw:multiSelection>
+        </xw:multiSelect>
       </div>   
     </div>
     
