@@ -4,7 +4,9 @@
   <div id="menu">
 
     <xw:menuBar styleClass="header_menu">
-      <xw:menuItem styleClass="header_menu_item" label="Projects"/>
+      <xw:menuItem styleClass="header_menu_item" label="Projects">
+        <xw:event type="onclick"><![CDATA[xw.open("projects.xw", null, "content");]]></xw:event>
+      </xw:menuItem>
       <xw:menuItem styleClass="header_menu_item" label="Deployment"/>
       <xw:menuItem styleClass="header_menu_item" label="Administration"/>
     </xw:menuBar>
