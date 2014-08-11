@@ -127,15 +127,14 @@ var ForgeIDE = {
   },
   openResource: function(id) {
     xw.Sys.getWidget("projectListener").send(ForgeIDE.createMessage("resource", "open", {id:(id + "")}));
+  },
+  createMessage: function(cat, op, payload) {
+    return JSON.stringify({
+      cat: cat,
+      op: op,
+      payload: payload
+    });
   }
-};
-
-ForgeIDE.createMessage = function(cat, op, payload) {
-  return JSON.stringify({
-    cat: cat,
-    op: op,
-    payload: payload
-  });
 };
 
 ForgeIDE.resourceManager = {
@@ -195,7 +194,7 @@ var Forge = {
     return result;
   },
   commandMetadataCallback: function(command, meta) {
-    xw.Popup.open("commandui.xw", {
+    xw.Popup.open("ide_commandui.xw", {
       title: command,
       params: {
         command: command, 

@@ -43,7 +43,7 @@
       
         <div class="project_actions">
           <xw:button label="View">
-            <xw:event type="onclick"><![CDATA[alert('viewing project ');]]></xw:event>
+            <xw:event type="onclick"><![CDATA[xw.open("projectdetails.xw", {id: #{project.id}}, content}]]></xw:event>
           </xw:button>
           
           <xw:button label="Other Actions">

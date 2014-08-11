@@ -1,4 +1,4 @@
-package org.forgeide.security;
+package org.forgeide.security.authorizer;
 
 import javax.enterprise.context.ApplicationScoped;
 

@@ -11,7 +11,7 @@
       <param-value>true</param-value>
     </init-param>
 	</filter>
-
+	
   <!-- Protect RESTful endpoints -->
   <filter-mapping>
     <filter-name>AuthenticationFilter</filter-name>
@@ -19,6 +19,54 @@
     <url-pattern>/rest/projects/*</url-pattern>
     <url-pattern>/rest/auth/*</url-pattern>
   </filter-mapping>
+  
+  <!-- CORS Filter to enable CORS for REST service endpoints -->
+  
+  <filter>
+    <filter-name>CORS</filter-name>
+    <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+    
+    <init-param>
+      <param-name>cors.allowGenericHttpRequests</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    
+    <init-param>
+      <param-name>cors.allowOrigin</param-name>
+      <param-value>*</param-value>
+    </init-param>
+    
+    <init-param>
+      <param-name>cors.allowSubdomains</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    
+    <init-param>
+      <param-name>cors.supportedMethods</param-name>
+      <param-value>GET, HEAD, POST, DELETE, PUT, OPTIONS</param-value>
+    </init-param>
+
+    <init-param>
+      <param-name>cors.supportedHeaders</param-name>
+      <param-value>*</param-value>
+    </init-param>
+
+    <init-param>
+      <param-name>cors.supportsCredentials</param-name>
+      <param-value>true</param-value>
+    </init-param>
+
+    <init-param>
+      <param-name>cors.maxAge</param-name>
+      <param-value>3600</param-value>
+    </init-param>
+  </filter>
+  
+  <filter-mapping>
+    <!-- CORS Filter mapping -->
+    <filter-name>CORS</filter-name>
+    <url-pattern>/rest/*</url-pattern>
+  </filter-mapping>  
 
 	<!-- Force SSL usage -->
 	<security-constraint>

@@ -1,33 +1,25 @@
 package org.forgeide.producer;
 
-import javax.ejb.Stateless;
+import java.util.logging.Logger;
+
 import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.picketlink.annotations.PicketLink;
 
 /**
  * Produces important application resources
  * 
  * @author Shane Bryzak
  */
-@Stateless
 public class Resources
 {
+   @Produces
    @PersistenceContext(unitName = "forgeide-default")
    private EntityManager em;
 
    @Produces
-   public EntityManager getEntityManager()
-   {
-      return em;
-   }
-
-   @Produces
-   @PicketLink
-   public EntityManager getPicketLinkEntityManager()
-   {
-      return em;
+   public Logger produceLog(InjectionPoint injectionPoint) {
+       return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
    }
 }

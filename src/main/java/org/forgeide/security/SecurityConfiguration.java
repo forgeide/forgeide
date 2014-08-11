@@ -7,29 +7,19 @@ import java.security.UnrecoverableKeyException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.forgeide.security.model.User;
-import org.forgeide.security.schema.IdentityAttribute;
-import org.forgeide.security.schema.IdentityType;
-import org.forgeide.security.schema.Partition;
-import org.forgeide.security.schema.PartitionAttribute;
-import org.forgeide.security.schema.RelationshipIdentity;
-import org.forgeide.security.schema.RelationshipType;
-import org.forgeide.security.schema.UserIdentity;
-import org.forgeide.security.schema.UserPasswordCredential;
-import org.forgeide.security.schema.UserTokenCredential;
-import org.picketlink.config.SecurityConfiguration;
+import org.picketlink.annotations.PicketLink;
+import org.picketlink.authentication.web.TokenAuthenticationScheme;
 import org.picketlink.config.SecurityConfigurationBuilder;
 import org.picketlink.event.PartitionManagerCreateEvent;
 import org.picketlink.event.SecurityConfigurationEvent;
 import org.picketlink.idm.PartitionManager;
 import org.picketlink.idm.config.SecurityConfigurationException;
-import org.picketlink.idm.credential.handler.TokenCredentialHandler;
 import org.picketlink.idm.model.Attribute;
-import org.picketlink.idm.model.Relationship;
 import org.picketlink.idm.model.basic.Realm;
-import org.picketlink.internal.EEJPAContextInitializer;
 
 /**
  * Initialize the security configuration
@@ -38,17 +28,18 @@ import org.picketlink.internal.EEJPAContextInitializer;
  * 
  */
 @ApplicationScoped
-public class SecurityConfigurationProducer
+public class SecurityConfiguration
 {
    public static final String KEYSTORE_FILE_PATH = "/keystore.jks";
 
    @Inject
-   private EEJPAContextInitializer contextInitializer;
+   private TokenAuthenticationScheme tokenAuthenticationScheme;
 
-   @Inject
-   private JWSTokenProvider tokenProvider;
-
-   private SecurityConfiguration securityConfig = null;
+   @Produces
+   @PicketLink
+   public TokenAuthenticationScheme configureTokenAuthenticationScheme() {
+       return this.tokenAuthenticationScheme;
+   }
 
    private KeyStore keyStore;
 
@@ -62,26 +53,10 @@ public class SecurityConfigurationProducer
          .identity()
             .idmConfig()
                .named("default")
-               .stores()
-               .jpa()
-               .mappedEntity(
-                        Partition.class,
-                        PartitionAttribute.class,
-                        IdentityType.class,
-                        IdentityAttribute.class,
-                        UserIdentity.class,
-                        UserPasswordCredential.class,
-                        UserTokenCredential.class,
-                        RelationshipType.class,
-                        RelationshipIdentity.class)
-               .supportGlobalRelationship(Relationship.class)
-               .addContextInitializer(this.contextInitializer)
-               .setCredentialHandlerProperty(TokenCredentialHandler.TOKEN_PROVIDER, tokenProvider)
-               .supportType(User.class)
-               .supportAllFeatures();
-
-
-      securityConfig = builder.build();
+                  .stores()
+                     .jpa()
+                        .supportType(User.class)
+                        .supportAllFeatures();
    }
 
    public void configureDefaultPartition(@Observes PartitionManagerCreateEvent event) {

@@ -52,18 +52,17 @@
     <div class="project_options">
       <div>
         <b>Choose Templates</b><br/>
-        Select templates you would like to bring into the project that will help you easily build out your project.
-        You can always add more later.
+        Select a template that will help you easily build out your project.
       </div>
       
       <div>
         <xw:multiSelect name="templates" multi="false">
         
           <xw:repeat value="#{templates}" var="option">
-            <xw:multiSelectOption value="#{option.value}" styleClass="project_template_selection">
+            <xw:multiSelectOption value="#{option.value}" styleClass="project_template_selection" selected="#{meta.first}">
               <div class="container">
                 <xw:eLListener binding="#{selected}">
-                  <xw:event type="onvaluechanged"><![CDATA[this.parent.control.className = value ? "container selected" : "container";]]></xw:event>
+                  <xw:event type="onvaluechanged"><![CDATA[this.parent.control.className = (value ? "container selected" : "container");]]></xw:event>
                 </xw:eLListener>
                 <xw:fragment rendered="#{selected}">
                   <div class="selected_check"><i class="fa fa-check-square"></i></div>
@@ -93,7 +92,7 @@
             <xw:multiSelectOption value="#{option.value}" styleClass="project_template_selection">
               <div class="container">
                 <xw:eLListener binding="#{selected}">
-                  <xw:event type="onvaluechanged"><![CDATA[this.parent.control.className = value ? "container selected" : "container";]]></xw:event>
+                  <xw:event type="onvaluechanged"><![CDATA[this.parent.control.className = (value ? "container selected" : "container");]]></xw:event>
                 </xw:eLListener>              
                 <xw:fragment rendered="#{selected}">
                   <div class="selected_check"><i class="fa fa-check-square"></i></div>
