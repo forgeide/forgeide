@@ -56,7 +56,7 @@
       </div>
       
       <div>
-        <xw:multiSelect name="templates" multi="false">
+        <xw:multiSelect name="template" multi="false" formData="#{projectParams}">
         
           <xw:repeat value="#{templates}" var="option">
             <xw:multiSelectOption value="#{option.value}" styleClass="project_template_selection" selected="#{meta.first}">
@@ -87,7 +87,7 @@
       </div>
       
       <div>
-        <xw:multiSelect name="services" multi="true">
+        <xw:multiSelect name="services" multi="true" formData="#{projectParams}">
           <xw:repeat value="#{services}" var="option">
             <xw:multiSelectOption value="#{option.value}" styleClass="project_template_selection">
               <div class="container">

@@ -70,7 +70,7 @@ public class UserTokenCredential implements Serializable
    @Column
    private String type;
 
-   @CredentialProperty(name = "value")
+   @CredentialProperty
    @Column(columnDefinition = "TEXT")
    private String token;
 
