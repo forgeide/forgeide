@@ -33,17 +33,57 @@ public class ProjectServices
    @Inject ProjectController projectController;
    //@Inject ResourceController resourceController;
 
+   //@JsonTypeInfo
+   class ProjectParams
+   {
+      private String name;
+      private String description;
+      private String template;
+
+      public String getTemplate()
+      {
+         return template;
+      }
+
+      public void setTemplate(String template)
+      {
+         this.template = template;
+      }
+
+      public String getName() 
+      {
+         return name;
+      }
+
+      public void setName(String name)
+      {
+         this.name = name;
+      }
+
+      public String getDescription()
+      {
+         return description;
+      }
+
+      public void setDescription(String description)
+      {
+         this.description = description;
+      }
+   }
+
    @POST
    @Path("/create")
    @Consumes("application/json")
    @Produces(MediaType.APPLICATION_JSON)
-   public Project createProject(Map<String,String> properties)
+   public Project createProject(ProjectParams params)
    {
       Project p = new Project();
-      p.setName(properties.get("name"));
-      p.setTopLevelPackage(properties.get("topLevelPackage"));
-      p.setVersion(properties.get("version"));
-      p.setFinalName(properties.get("finalName"));
+      p.setName(params.getName());
+      p.setDescription(params.getDescription());
+
+      //p.setTopLevelPackage(properties.get("topLevelPackage"));
+      //p.setVersion(properties.get("version"));
+      //p.setFinalName(properties.get("finalName"));
       //p.setType(type);
 
       projectController.createProject(p);

@@ -12,10 +12,10 @@ import javax.inject.Inject;
 
 import org.forgeide.security.model.User;
 import org.picketlink.annotations.PicketLink;
-import org.picketlink.authentication.web.TokenAuthenticationScheme;
 import org.picketlink.config.SecurityConfigurationBuilder;
 import org.picketlink.event.PartitionManagerCreateEvent;
 import org.picketlink.event.SecurityConfigurationEvent;
+import org.picketlink.http.internal.authentication.schemes.TokenAuthenticationScheme;
 import org.picketlink.idm.PartitionManager;
 import org.picketlink.idm.config.SecurityConfigurationException;
 import org.picketlink.idm.model.Attribute;
@@ -32,14 +32,14 @@ public class SecurityConfiguration
 {
    public static final String KEYSTORE_FILE_PATH = "/keystore.jks";
 
-   @Inject
+   /*@Inject
    private TokenAuthenticationScheme tokenAuthenticationScheme;
 
    @Produces
    @PicketLink
    public TokenAuthenticationScheme configureTokenAuthenticationScheme() {
        return this.tokenAuthenticationScheme;
-   }
+   }*/
 
    private KeyStore keyStore;
 
@@ -47,8 +47,23 @@ public class SecurityConfiguration
    public void initConfig(@Observes SecurityConfigurationEvent event)
    {
       SecurityConfigurationBuilder builder = event.getBuilder();
-      builder.identity().stateless();
 
+      // Http authentication configured here
+      builder
+        .identity()
+            .stateless()
+        .http()
+            .forPath("/rest/commands/execute/*")
+                .authenticateWith()
+                    .token()
+            .forPath("/rest/projects/*")
+                .authenticateWith()
+                    .token()
+            .forPath("/rest/auth/*")
+                .authenticateWith()
+                    .token();
+
+      // IDM configured here
       builder
          .identity()
             .idmConfig()
@@ -59,26 +74,30 @@ public class SecurityConfiguration
                         .supportAllFeatures();
    }
 
-   public void configureDefaultPartition(@Observes PartitionManagerCreateEvent event) {
+   public void configureDefaultPartition(@Observes PartitionManagerCreateEvent event) 
+   {
       PartitionManager partitionManager = event.getPartitionManager();
 
       createDefaultPartition(partitionManager);
-//      createDefaultRoles(partitionManager);
-//      createAdminAccount(partitionManager);
-  }
+   }
 
-   private void createDefaultPartition(PartitionManager partitionManager) {
+   private void createDefaultPartition(PartitionManager partitionManager) 
+   {
       Realm partition = partitionManager.getPartition(Realm.class, Realm.DEFAULT_REALM);
 
-      if (partition == null) {
-          try {
+      if (partition == null) 
+      {
+          try 
+          {
               partition = new Realm(Realm.DEFAULT_REALM);
 
               partition.setAttribute(new Attribute<byte[]>("PublicKey", getPublicKey()));
               partition.setAttribute(new Attribute<byte[]>("PrivateKey", getPrivateKey()));
 
               partitionManager.add(partition);
-          } catch (Exception e) {
+          } 
+          catch (Exception e) 
+          {
               throw new SecurityConfigurationException("Could not create default partition.", e);
           }
       }
