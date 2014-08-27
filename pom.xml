@@ -29,7 +29,8 @@
       <version.furnace>2.7.0.Final</version.furnace>
       <version.forge.addons>2.7.0.Final</version.forge.addons>
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
-      <deltaspike.version>1.0.0</deltaspike.version>
+      <version.deltaspike>1.0.0</version.deltaspike>
+      <version.jackson>2.4.2</version.jackson>
    </properties>
    <dependencyManagement>
       <dependencies>
@@ -128,6 +129,13 @@
          <version>${version.picketlink}</version>
          <scope>compile</scope>
       </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.jaxrs</groupId>
+        <artifactId>jackson-jaxrs-json-provider</artifactId>
+        <version>${version.jackson}</version>
+        <scope>provided</scope>
+      </dependency>
       
       <dependency>
          <groupId>org.xwidgets</groupId>
@@ -156,13 +164,13 @@
       <dependency>
         <groupId>org.apache.deltaspike.core</groupId>
         <artifactId>deltaspike-core-impl</artifactId>
-        <version>${deltaspike.version}</version>
+        <version>${version.deltaspike}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.deltaspike.modules</groupId>
         <artifactId>deltaspike-security-module-impl</artifactId>
-        <version>${deltaspike.version}</version>
+        <version>${version.deltaspike}</version>
       </dependency>
       
       <!-- CORS Filter (to enable CORS for REST endpoints) -->

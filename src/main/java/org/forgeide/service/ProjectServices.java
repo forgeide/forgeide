@@ -12,14 +12,15 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.forgeide.controller.ProjectController;
-import org.forgeide.controller.ResourceController;
 import org.forgeide.model.Project;
 import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ProjectResource.ResourceType;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 /**
  * Project-related RESTful services
@@ -33,12 +34,13 @@ public class ProjectServices
    @Inject ProjectController projectController;
    //@Inject ResourceController resourceController;
 
-   //@JsonTypeInfo
-   class ProjectParams
+   @JsonTypeInfo(use = Id.NONE)
+   public static class ProjectParams
    {
       private String name;
       private String description;
       private String template;
+      private String[] services;
 
       public String getTemplate()
       {
@@ -48,6 +50,16 @@ public class ProjectServices
       public void setTemplate(String template)
       {
          this.template = template;
+      }
+
+      public String[] getServices()
+      {
+         return services;
+      }
+
+      public void setServices(String[] services)
+      {
+         this.services = services;
       }
 
       public String getName() 

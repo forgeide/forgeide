@@ -7,15 +7,11 @@ import java.security.UnrecoverableKeyException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
 
 import org.forgeide.security.model.User;
-import org.picketlink.annotations.PicketLink;
 import org.picketlink.config.SecurityConfigurationBuilder;
 import org.picketlink.event.PartitionManagerCreateEvent;
 import org.picketlink.event.SecurityConfigurationEvent;
-import org.picketlink.http.internal.authentication.schemes.TokenAuthenticationScheme;
 import org.picketlink.idm.PartitionManager;
 import org.picketlink.idm.config.SecurityConfigurationException;
 import org.picketlink.idm.model.Attribute;
@@ -31,15 +27,6 @@ import org.picketlink.idm.model.basic.Realm;
 public class SecurityConfiguration
 {
    public static final String KEYSTORE_FILE_PATH = "/keystore.jks";
-
-   /*@Inject
-   private TokenAuthenticationScheme tokenAuthenticationScheme;
-
-   @Produces
-   @PicketLink
-   public TokenAuthenticationScheme configureTokenAuthenticationScheme() {
-       return this.tokenAuthenticationScheme;
-   }*/
 
    private KeyStore keyStore;
 
