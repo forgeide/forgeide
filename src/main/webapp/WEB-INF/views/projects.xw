@@ -1,60 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
-  <xw:event type="afterRender"><![CDATA[projectListService.invoke({searchTerm: ""});]]></xw:event>
+  <xw:event type="afterRender"><![CDATA[projectListService.get();]]></xw:event>
   
   <xw:eventObserver event="org.picketlink.identity.loggedIn">
-    <xw:event type="onfire"><![CDATA[projectListService.invoke({searchTerm: ""});]]></xw:event>
+    <xw:event type="onfire"><![CDATA[projectListService.get();]]></xw:event>
   </xw:eventObserver>
 
-  <xw:restEndpoint id="projectListService" url="#{servicePath}/projects/list/{searchTerm}" decorator="#{requestAuthenticator}" method="GET"/>  
+  <xw:restEndpoint id="projectListService" url="#{servicePath}/projects" decorator="#{requestAuthenticator}" method="GET"/>  
   
   <xw:restELBinding binding="projects" mode="JSON" restEndpoint="#{projectListService}">
     <xw:event type="onresult"><![CDATA[return Forge.parseProjects(result);]]></xw:event>
   </xw:restELBinding>
   
-  <div class="projects_content">
-    <div>
-      <span class="content_title">Projects</span>
-      
-      <div class="project_controls">        
-        <div class="project_search">
-          <div class="icon_search"><i class="fa fa-search"></i></div>
-          <xw:inputSearch placeholder="Search projects...">
-            <xw:event type="onsearch"><![CDATA[projectListService.invoke({searchTerm:searchTerm});]]></xw:event>
-          </xw:inputSearch>
-        </div>
-      
-        <xw:button label="Create Project">
-          <xw:event type="onclick"><![CDATA[xw.open("createproject.xw", null, content);]]></xw:event>
-        </xw:button>
+  <xw:fragment rendered="#{!identity.loggedIn}">
+    <div class="important_message">
+      <div>
+        <span>Please </span>
+        <xw:link caption="sign in">
+          <xw:event type="onclick">
+            <xw:action type="script">xw.Popup.open("login.xw", {title: "Please Sign In", width: 360, height: 320});</xw:action>
+          </xw:event>
+        </xw:link>
+        <span> to see your projects</span>
       </div>
+    </div>  
+  </xw:fragment>
+  
+  <xw:fragment rendered="#{identity.loggedIn}">
+    <div class="projects_content">
+      <div>
+        <span class="content_title">Projects</span>
+        
+        <div class="project_controls">        
+          <div class="project_search">
+            <div class="icon_search"><i class="fa fa-search"></i></div>
+            <xw:inputSearch placeholder="Search projects...">
+              <xw:event type="onsearch"><![CDATA[projectListService.get({queryParams:{searchTerm:searchTerm}});]]></xw:event>
+            </xw:inputSearch>
+          </div>
+        
+          <xw:button label="Create Project">
+            <xw:event type="onclick"><![CDATA[xw.open("createproject.xw", null, content);]]></xw:event>
+          </xw:button>
+        </div>
+      </div>
+
+      <xw:repeat value="#{projects}" var="project">
+        <div class="project_detail">
+          <div class="project_image">
+            <img src="#{project.imageUrl}"></img>
+          </div>
+          <div class="project_stage_banner"></div>
+          <div class="project_stage">#{project.stage}</div>
+          <div class="project_name">#{project.name}</div>
+          <div class="project_description">#{project.description}</div>
+          <div class="project_stats">#{project.updates} updates | #{project.views} views</div>
+        
+          <div class="project_actions">
+            <xw:button label="View">
+              <xw:event type="onclick">
+                <![CDATA[xw.open("projectdetails.xw", {id: evaluate("#{project.id}")}, content);]]>
+              </xw:event>
+            </xw:button>
+            
+            <xw:button label="Other Actions">
+              <i class="fa fa-caret-down"></i>
+              <xw:event type="onclick"><![CDATA[alert('other actions...');]]></xw:event>
+            </xw:button>
+          </div>
+        </div>
+
+      </xw:repeat>
+
     </div>
-
-    <xw:repeat value="#{projects}" var="project">
-      <div class="project_detail">
-        <div class="project_image">
-          <img src="#{project.imageUrl}"></img>
-        </div>
-        <div class="project_stage_banner"></div>
-        <div class="project_stage">#{project.stage}</div>
-        <div class="project_name">#{project.name}</div>
-        <div class="project_description">#{project.description}</div>
-        <div class="project_stats">#{project.updates} updates | #{project.views} views</div>
-      
-        <div class="project_actions">
-          <xw:button label="View">
-            <xw:event type="onclick"><![CDATA[xw.open("projectdetails.xw", {id: #{project.id}}, content}]]></xw:event>
-          </xw:button>
-          
-          <xw:button label="Other Actions">
-            <i class="fa fa-caret-down"></i>
-            <xw:event type="onclick"><![CDATA[alert('other actions...');]]></xw:event>
-          </xw:button>
-        </div>
-      </div>
-
-    </xw:repeat>
-
-  </div>
+  </xw:fragment>
 
 </xw:view>

@@ -1,6 +1,7 @@
 package org.forgeide.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -153,6 +154,10 @@ public class ProjectController
 
    public List<Project> listProjects(String searchTerm)
    {
+      if (!identity.isLoggedIn()) {
+         return Collections.emptyList();
+      }
+
       EntityManager em = entityManager.get();
 
       CriteriaBuilder cb = em.getCriteriaBuilder();

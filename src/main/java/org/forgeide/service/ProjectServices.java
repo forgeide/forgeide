@@ -10,8 +10,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.forgeide.controller.ProjectController;
@@ -84,7 +84,6 @@ public class ProjectServices
    }
 
    @POST
-   @Path("/create")
    @Consumes("application/json")
    @Produces(MediaType.APPLICATION_JSON)
    public Project createProject(ProjectParams params)
@@ -104,19 +103,14 @@ public class ProjectServices
    }
 
    @GET
-   @Path("/list{searchTerm:(/[^/]+?)?}")
    @Produces(MediaType.APPLICATION_JSON)
-   public List<Project> listProjects(@PathParam("searchTerm") String searchTerm)
+   public List<Project> listProjects(@QueryParam("searchTerm") String searchTerm)
    {
-      if (searchTerm.startsWith("/"))
-      {
-         searchTerm = searchTerm.substring(1);
-      }
       return projectController.listProjects(searchTerm);
    }
 
    @POST
-   @Path("/newfolder")
+   @Path("/foo/newfolder")
    @Consumes("application/json")
    @Produces(MediaType.APPLICATION_JSON)
    public ProjectResource[] createProjectFolder(Map<String,String> properties)
@@ -153,7 +147,7 @@ public class ProjectServices
    }
 
    @POST
-   @Path("/newclass")
+   @Path("/foo/newclass")
    @Consumes("application/json")
    @Produces(MediaType.APPLICATION_JSON)
    public ProjectResource createProjectClass(Map<String,String> properties)

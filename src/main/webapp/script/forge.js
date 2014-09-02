@@ -48,7 +48,7 @@ var ForgeIDE = {
     var cb = function(response) {
       ForgeIDE.createProjectCallback(JSON.parse(response));
     };
-    xw.Sys.getWidget("projectService").invoke({command: "create"}, JSON.stringify(props), cb);
+    xw.Sys.getWidget("projectService").post({content:JSON.stringify(props), callback: cb});
   },
   setProjectExplorer: function(tree) {
     ForgeIDE.projectExplorer = tree;
@@ -77,7 +77,7 @@ var ForgeIDE = {
     if (r != null) {
       props.parentResourceId = r.id;
     }
-    xw.Sys.getWidget("projectService").invoke({command: "newfolder"}, JSON.stringify(props), cb);
+    xw.Sys.getWidget("projectService").get({command: "newfolder"}, JSON.stringify(props), cb);
   },
   createClassCallback: function(response) {
     xw.Popup.close();
@@ -87,7 +87,7 @@ var ForgeIDE = {
       ForgeIDE.createClassCallback(JSON.parse(response));
     };
     props.projectId = ForgeIDE.selectedProject().id;
-    xw.Sys.getWidget("projectService").invoke({command: "newclass"}, JSON.stringify(props), cb);
+    xw.Sys.getWidget("projectService").get({command: "newclass"}, JSON.stringify(props), cb);
   
   },
   addProjectNode: function(project, select) {

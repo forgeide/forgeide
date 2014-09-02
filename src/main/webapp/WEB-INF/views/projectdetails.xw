@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+  <xw:event type="afterRender"><![CDATA[projectService.invoke({id: params.id});]]></xw:event>
 
-  <xw:event type="afterRender"><![CDATA[projectListService.invoke({id: params.id});]]></xw:event>
-
-  <xw:restEndpoint id="projectService" url="#{location}rest/projects/{id}" decorator="#{requestAuthenticator}" method="GET"/>  
+  <xw:restEndpoint id="projectService" url="#{servicePath}/projects/{id}" decorator="#{requestAuthenticator}" method="GET"/>  
 
   <xw:restELBinding binding="project" mode="JSON" restEndpoint="#{projectService}">
     <!--xw:event type="onresult"><![CDATA[return Forge.parseProject(result);]]></xw:event-->
