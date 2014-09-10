@@ -14,9 +14,5 @@
   <pl:identity id="identity" basePath="#{servicePath}"/>
   
   <pl:requestAuthenticator id="requestAuthenticator"/>
-  
-  <xw:restEndpoint id="projectService" url="#{servicePath}/projects" decorator="#{requestAuthenticator}">
-    <xw:endpointMethod method="GET" url="#{servicePath}/projects/{projectId}"/>
-  </xw:restEndpoint>
-  
+ 
 </xw:dataModule>
