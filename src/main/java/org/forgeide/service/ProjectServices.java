@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -107,6 +108,14 @@ public class ProjectServices
    public List<Project> listProjects(@QueryParam("searchTerm") String searchTerm)
    {
       return projectController.listProjects(searchTerm);
+   }
+
+   @GET
+   @Path("/{projectId}")
+   @Produces(MediaType.APPLICATION_JSON)
+   public Project getProject(@PathParam("projectId") String projectId)
+   {
+      return projectController.lookupProject(Long.valueOf(projectId));
    }
 
    @POST

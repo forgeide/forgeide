@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
-  <xw:event type="afterRender"><![CDATA[projectListService.get();]]></xw:event>
+  <xw:event type="afterRender"><![CDATA[if (identity.isLoggedIn()) { projectListService.get();}]]></xw:event>
   
   <xw:eventObserver event="org.picketlink.identity.loggedIn">
     <xw:event type="onfire"><![CDATA[projectListService.get();]]></xw:event>
