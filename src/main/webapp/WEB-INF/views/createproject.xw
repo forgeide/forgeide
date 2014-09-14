@@ -3,6 +3,7 @@
 
   <xw:formData id="projectParams"/>
   
+ 
   <xw:eLBinding binding="templates">
     <xw:event type="onbind"><![CDATA[return [
       {value: "webapp", title: "Web App", description: "Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi."},
@@ -112,7 +113,7 @@
     <div class="view_actions">
       <xw:button id="projectCreate" styleClass="primary" label="Create Project">
         <xw:event type="onclick">
-          <xw:action type="script"><![CDATA[ForgeIDE.createProject(projectParams.value, _owner);]]></xw:action>
+          <xw:action type="script"><![CDATA[xp.createProject(projectParams.value, _owner);]]></xw:action>
         </xw:event>
       </xw:button>
 

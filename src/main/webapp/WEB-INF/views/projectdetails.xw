@@ -8,8 +8,12 @@
     <!--xw:event type="onresult"><![CDATA[return Forge.parseProject(result);]]></xw:event-->
   </xw:restELBinding>
   
-  #{project.name}
+  <div>
+    <span class="content_title">#{project.name}</span>
+  </div>
   
-  #{project.description}
+  <div>
+    #{project.description}
+  </div>
   
 </xw:view>
