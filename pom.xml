@@ -25,7 +25,7 @@
    <properties>
       <version.xwidgets>1.0-SNAPSHOT</version.xwidgets>
       <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
-      <version.picketlink>2.7.0.Beta1</version.picketlink>
+      <version.picketlink>2.7.0-SNAPSHOT</version.picketlink>
       <version.furnace>2.7.0.Final</version.furnace>
       <version.forge.addons>2.7.0.Final</version.forge.addons>
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
