@@ -6,14 +6,14 @@
  
   <xw:eLBinding binding="templates">
     <xw:event type="onbind"><![CDATA[return [
-      {value: "webapp", title: "Web App", description: "Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi."},
+      {value: "javaee", title: "Java EE App", description: "Java EE application based on HTML5 and REST."},
       {value: "mobapp", title: "Mobile App", description: "Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi."}
       ];]]></xw:event>
   </xw:eLBinding>
   
   <xw:eLBinding binding="services">
     <xw:event type="onbind"><![CDATA[return [
-      {value: "eeapp", title: "EE App Platform", description: "A regular web and app platform to host your applications and utilize EE capabilities."},
+      {value: "eeapp", title: "EE App Platform", description: "asdasdf"},
       {value: "datacache", title: "Data Caching", description: "Easily cache your data in memory for fast access."},
       {value: "service", title: "Service Name", description: "Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi."}
       ];]]></xw:event>

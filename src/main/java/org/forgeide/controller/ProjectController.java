@@ -23,6 +23,9 @@ import javax.persistence.criteria.Root;
 import org.forgeide.events.NewProjectEvent;
 import org.forgeide.events.NewResourceEvent;
 import org.forgeide.events.SessionCreatedEvent;
+import org.forgeide.forge.UIRuntimeImpl;
+import org.forgeide.forge.metadata.ResultMetadata;
+import org.forgeide.forge.ui.IDEUIContext;
 import org.forgeide.model.Project;
 import org.forgeide.model.ProjectAccess;
 import org.forgeide.model.ProjectAccess.AccessLevel;
@@ -30,8 +33,16 @@ import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ProjectResource.ResourceType;
 import org.forgeide.model.Project_;
 import org.forgeide.model.ResourceContent;
+import org.forgeide.qualifiers.Forge;
 import org.forgeide.security.annotations.LoggedIn;
+import org.forgeide.service.ProjectServices.ProjectParams;
 import org.forgeide.service.websockets.Message;
+import org.jboss.forge.addon.ui.command.CommandFactory;
+import org.jboss.forge.addon.ui.command.UICommand;
+import org.jboss.forge.addon.ui.controller.CommandController;
+import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
+import org.jboss.forge.addon.ui.result.Failed;
+import org.jboss.forge.addon.ui.result.Result;
 import org.picketlink.Identity;
 import org.picketlink.common.properties.Property;
 import org.picketlink.idm.jpa.annotations.Identifier;
@@ -56,8 +67,17 @@ public class ProjectController
    @Inject
    private Identity identity;
 
+   @Inject
+   @Forge
+   Instance<CommandFactory> commandFactory;
+
+   @Inject
+   @Forge
+   Instance<CommandControllerFactory> controllerFactory;
+
    @LoggedIn
-   public void createProject(Project project)
+   public void createProject(Project project, ProjectParams params)
+       throws Exception
    {
       EntityManager em = entityManager.get();
       em.persist(project);
@@ -69,6 +89,46 @@ public class ProjectController
       pa.setUserId(identity.getAccount().getId());
 
       em.persist(pa);
+
+      if ("javaee".equals(params.getTemplate())) 
+      {
+         IDEUIContext context = new IDEUIContext();
+         UICommand cmd = commandFactory.get().getCommandByName(context, "");
+
+         CommandController controller = controllerFactory.get().createSingleController(
+                  context, new UIRuntimeImpl(), cmd);
+         controller.initialize();
+
+         //for (String key : parameters.keySet()) {
+         //   controller.setValueFor(key, parameters.get(key));
+         //}
+
+         //controller.setValueFor("targetLocation", new ResourcePath());
+
+         ResultMetadata rm = new ResultMetadata();
+         try
+         {
+            Result result = controller.execute();
+            if (result instanceof Failed) {
+               rm.setPassed(false);
+               rm.setMessage(result.getMessage());
+               if (((Failed) result).getException() != null) 
+               {
+                  rm.setException(((Failed) result).getException().getMessage());
+               }
+            }
+            else
+            {
+               rm.setPassed(true);
+               rm.setMessage(result.getMessage());
+            }
+         }
+         catch (Exception ex)
+         {
+            rm.setPassed(false);
+            rm.setException(ex.getMessage());
+         }
+      }
 
       newProjectEvent.fire(new NewProjectEvent(project));
    }

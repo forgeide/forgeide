@@ -87,7 +87,7 @@ public class ProjectServices
    @POST
    @Consumes("application/json")
    @Produces(MediaType.APPLICATION_JSON)
-   public Project createProject(ProjectParams params)
+   public Project createProject(ProjectParams params) throws Exception
    {
       Project p = new Project();
       p.setName(params.getName());
@@ -98,7 +98,7 @@ public class ProjectServices
       //p.setFinalName(properties.get("finalName"));
       //p.setType(type);
 
-      projectController.createProject(p);
+      projectController.createProject(p, params);
 
       return p;
    }
