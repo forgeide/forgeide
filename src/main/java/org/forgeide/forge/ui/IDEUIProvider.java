@@ -44,6 +44,34 @@ public enum IDEUIProvider implements UIProvider
          {
             return System.err;
          }
+
+         @Override
+         public void error(PrintStream arg0, String arg1)
+         {
+            // TODO Auto-generated method stub
+            
+         }
+
+         @Override
+         public void info(PrintStream arg0, String arg1)
+         {
+            // TODO Auto-generated method stub
+            
+         }
+
+         @Override
+         public void success(PrintStream arg0, String arg1)
+         {
+            // TODO Auto-generated method stub
+            
+         }
+
+         @Override
+         public void warn(PrintStream arg0, String arg1)
+         {
+            // TODO Auto-generated method stub
+            
+         }
       };
    }
 

@@ -11,11 +11,9 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -44,10 +42,6 @@ import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
 import org.jboss.forge.addon.ui.result.Failed;
 import org.jboss.forge.addon.ui.result.Result;
 import org.picketlink.Identity;
-import org.picketlink.common.properties.Property;
-import org.picketlink.idm.jpa.annotations.Identifier;
-import org.picketlink.idm.jpa.annotations.PartitionClass;
-import org.picketlink.idm.model.Partition;
 
 /**
  * Performs persistence operations for projects
@@ -93,15 +87,17 @@ public class ProjectController
       if ("javaee".equals(params.getTemplate())) 
       {
          IDEUIContext context = new IDEUIContext();
-         UICommand cmd = commandFactory.get().getCommandByName(context, "");
+         UICommand cmd = commandFactory.get().getCommandByName(context, "project-new");
 
          CommandController controller = controllerFactory.get().createSingleController(
                   context, new UIRuntimeImpl(), cmd);
          controller.initialize();
 
-         //for (String key : parameters.keySet()) {
-         //   controller.setValueFor(key, parameters.get(key));
-         //}
+         controller.setValueFor("named", project.getName());
+         controller.setValueFor("type", "from-archetype");
+         controller.setValueFor("archetypeGroupId", "org.jboss.tools.archetypes");
+         controller.setValueFor("archetypeArtifactId", "jboss-forge-html5");
+         controller.setValueFor("archetypeVersion", "1.0.0-SNAPSHOT");
 
          //controller.setValueFor("targetLocation", new ResourcePath());
 

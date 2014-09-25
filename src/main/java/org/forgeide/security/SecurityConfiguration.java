@@ -46,7 +46,7 @@ public class SecurityConfiguration
             .forPath("/rest/projects/*")
                 .authenticateWith()
                     .token()
-            .forPath("/rest/auth/status")
+            .forPath("/rest/auth/*")
                 .authenticateWith()
                     .token();
 
