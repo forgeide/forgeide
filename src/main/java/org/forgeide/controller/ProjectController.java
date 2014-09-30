@@ -51,6 +51,8 @@ import org.picketlink.Identity;
 @ApplicationScoped
 public class ProjectController
 {
+   private static final String COMMAND_PROJECT_NEW = "Project: New";
+
    @Inject
    private Instance<EntityManager> entityManager;
 
@@ -87,7 +89,12 @@ public class ProjectController
       if ("javaee".equals(params.getTemplate())) 
       {
          IDEUIContext context = new IDEUIContext();
-         UICommand cmd = commandFactory.get().getCommandByName(context, "project-new");
+         UICommand cmd = commandFactory.get().getCommandByName(context, COMMAND_PROJECT_NEW);
+
+         if (cmd == null) 
+         {
+            throw new RuntimeException("Could not locate [Project: New] Forge command");
+         }
 
          CommandController controller = controllerFactory.get().createSingleController(
                   context, new UIRuntimeImpl(), cmd);
