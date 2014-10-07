@@ -39,8 +39,10 @@ import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
 import org.jboss.forge.addon.ui.controller.CommandController;
 import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
+import org.jboss.forge.addon.ui.controller.WizardCommandController;
 import org.jboss.forge.addon.ui.result.Failed;
 import org.jboss.forge.addon.ui.result.Result;
+import org.jboss.forge.addon.ui.wizard.UIWizard;
 import org.picketlink.Identity;
 
 /**
@@ -96,12 +98,15 @@ public class ProjectController
             throw new RuntimeException("Could not locate [Project: New] Forge command");
          }
 
-         CommandController controller = controllerFactory.get().createSingleController(
-                  context, new UIRuntimeImpl(), cmd);
+         WizardCommandController controller = controllerFactory.get().createWizardController(
+                  context, new UIRuntimeImpl(), (UIWizard) cmd);
          controller.initialize();
 
          controller.setValueFor("named", project.getName());
          controller.setValueFor("type", "from-archetype");
+
+         controller.next().initialize();
+
          controller.setValueFor("archetypeGroupId", "org.jboss.tools.archetypes");
          controller.setValueFor("archetypeArtifactId", "jboss-forge-html5");
          controller.setValueFor("archetypeVersion", "1.0.0-SNAPSHOT");

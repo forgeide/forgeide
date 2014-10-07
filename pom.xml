@@ -32,6 +32,14 @@
       <version.deltaspike>1.0.0</version.deltaspike>
       <version.jackson>2.4.2</version.jackson>
    </properties>
+   
+   <repositories>
+     <repository>
+       <id>jgit-repository</id>
+       <url>https://repo.eclipse.org/content/groups/releases/</url>
+     </repository>
+   </repositories>
+   
    <dependencyManagement>
       <dependencies>
          <dependency>
@@ -270,6 +278,13 @@
         <groupId>backport-util-concurrent</groupId>
         <artifactId>backport-util-concurrent</artifactId>
         <version>1.1_01</version>
+      </dependency>
+
+      <!-- JGIT dependency -->      
+      <dependency>
+        <groupId>org.eclipse.jgit</groupId>
+        <artifactId>org.eclipse.jgit</artifactId>
+        <version>3.5.0.201409260305-r</version>
       </dependency>
 
    </dependencies>
