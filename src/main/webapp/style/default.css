@@ -483,48 +483,6 @@ div.ace_editor {
   margin-top: 4px;
 }
 
-div.xwPopupBackground {
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;  
-}
-
-div.xwPopupWindow  {
-  border: 2px solid #777;
-  -webkit-border-radius:12px;
-  -moz-border-radius:12px;
-  border-radius:12px;
-  padding: 0px;
-}
-
-div.xwPopupTitle {
-  font-size: 20px;
-  color: #ffffff;  
-  background-color: #777;
-  font-weight: normal;
-  padding: 4px;
-  border-bottom: 1px solid #999999;
-  height: 32px;
-  
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  -moz-top-left-border-radius: 8px;
-  -moz-top-right-border-radius: 8px;
-  -webkit-top-left-border-radius: 8px;
-  -webkit-top-right-border-radius: 8px;  
-}
-
-div.xwPopupCloseButton {
-  position: absolute;
-  top: -12px;
-  right: -15px;
-  height: 30px;
-  width: 30px;
-  cursor: pointer;
-  background: url('close_button.png') top left no-repeat;
-}
-
 .pure-button {
   border-radius: 8px;
 }

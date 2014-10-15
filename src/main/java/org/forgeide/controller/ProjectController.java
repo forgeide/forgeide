@@ -91,7 +91,7 @@ public class ProjectController
       if ("javaee".equals(params.getTemplate())) 
       {
          IDEUIContext context = new IDEUIContext();
-         UICommand cmd = commandFactory.get().getCommandByName(context, COMMAND_PROJECT_NEW);
+         UICommand cmd = commandFactory.get().getNewCommandByName(context, COMMAND_PROJECT_NEW);
 
          if (cmd == null) 
          {
@@ -103,7 +103,7 @@ public class ProjectController
          controller.initialize();
 
          controller.setValueFor("named", project.getName());
-         controller.setValueFor("type", "from-archetype");
+         controller.setValueFor("type", "From Archetype");
 
          controller.next().initialize();
 
