@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
-  Settings
   
-  <xw:verticalMenu>
-    <xw:menuItem label="Security"/>
-    <xw:menuItem label="Version Control">
-      <xw:menuItem label="GitHub"/>
-    </xw:menuItem>
-  </xw:verticalMenu>
+  <div class="projects_content">
+    <div>
+      <span class="content_title">Settings</span>
+    </div>
+  
+    <xw:verticalMenu>
+      <xw:menuItem label="Security"/>
+      <xw:menuItem label="Version Control">
+        <xw:menuItem label="GitHub"/>
+      </xw:menuItem>
+    </xw:verticalMenu>
 
+  </div>
 
 </xw:view>
