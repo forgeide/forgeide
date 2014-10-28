@@ -50,6 +50,8 @@ public class SettingsServices
    @Produces(MediaType.APPLICATION_JSON)
    public GitHubAuth listGitHubAuth()
    {
+      GitHubAuth auth = new GitHubAuth();
+
       List<GitHubAuthorization> results = entityManager.createQuery(
                "select a from GitHubAuthorization a where a.userId = :userId", GitHubAuthorization.class)
           .setParameter("userId", identity.getAccount().getId())
@@ -58,12 +60,9 @@ public class SettingsServices
       if (results.size() == 1)
       {
          GitHubAuthorization value = results.get(0);
-
-         GitHubAuth auth = new GitHubAuth();
          auth.setScopes(value.getScopes());
-         return auth;
-      } else {
-         return null;
       }
+
+      return auth;
    }
 }
