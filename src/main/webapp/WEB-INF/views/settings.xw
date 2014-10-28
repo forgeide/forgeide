@@ -9,9 +9,17 @@
     <xw:verticalMenu>
       <xw:menuItem label="Security"/>
       <xw:menuItem label="Version Control">
-        <xw:menuItem label="GitHub"/>
+        <xw:menuItem label="GitHub">
+          <xw:event type="onclick"><![CDATA[
+            xw.open("github.xw", null, "settings-content");
+          ]]></xw:event>
+        </xw:menuItem>
       </xw:menuItem>
     </xw:verticalMenu>
+    
+    <div id="settings-content">
+    
+    </div>
 
   </div>
 

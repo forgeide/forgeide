@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+
+  <xw:restEndpoint id="gitHubService" url="#{servicePath}/settings" decorator="#{requestAuthenticator}"/>
+
+  <xw:restELBinding binding="gitHubAuth" mode="JSON" restEndpoint="#{gitHubService}"/>
+  
+  <div>
+    <span class="content_title">GitHub</span>
+
+    <div>Scopes authorized:</div>
+
+    <div>
+      #{gitHubAuth.scopes}
+    </div>
+    
+    <a href="">Configure GitHub Authorization</a>   
+    
+  </div>
+
+</xw:view>

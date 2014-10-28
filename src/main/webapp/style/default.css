@@ -398,6 +398,17 @@ div.ace_editor {
   cursor: ew-resize;
 }
 
+.xw_verticalmenu {
+  float: left;
+}
+
+#settings-content {
+  float: left;
+  width: 800px;
+  min-height: 100px;
+  margin-left: 12px;
+}
+
 .tabHeader {
   z-index: 1;
 }
