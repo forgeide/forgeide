@@ -54,9 +54,9 @@ You will also need to configure WildFly to support HTTPS connections:
 
             <https-listener name="https" socket-binding="https" security-realm="ForgeIDERealm"/>
 
-5. Still in the same file, update the socket-binding values within the <socket-binding-group> element with these new values for http and https:
+5. Also in the same file, update the socket-binding values within the <socket-binding-group> element with these new values for http and https:
 
-        <socket-binding name="http" port="80"/>
-        <socket-binding name="https" port="443"/>
+        <socket-binding name="http" port="${jboss.http.port:80}"/>
+        <socket-binding name="https" port="${jboss.https.port:443}"/>
 
 6. Save the configuration file and restart WildFly
