@@ -42,21 +42,28 @@ You will also need to configure WildFly to support HTTPS connections:
 
 3. Configure WildFly to accept HTTPS connections.  Edit wildfly/standalone/configuration/standalone.xml and add the following under the <management><security-realms> section:
 
-            <security-realm name="ForgeIDERealm">
-                <server-identities>
-                    <ssl>
-                        <keystore path="forgeide.keystore" relative-to="jboss.server.config.dir" keystore-password="secret"/>
-                    </ssl>
-                </server-identities>
-            </security-realm>
+  <security-realm name="ForgeIDERealm">
+      <server-identities>
+          <ssl>
+              <keystore path="forgeide.keystore" relative-to="jboss.server.config.dir" keystore-password="secret"/>
+          </ssl>
+      </server-identities>
+  </security-realm>
 
 4. In the same file, locate the subsystem configuration for undertow (<subsystem xmlns="urn:jboss:domain:undertow:1.1">) and add the following under the <server> element:
 
-            <https-listener name="https" socket-binding="https" security-realm="ForgeIDERealm"/>
+  <https-listener name="https" socket-binding="https" security-realm="ForgeIDERealm"/>           
+  <host name="forgeide-host" alias="forgeide.org"/>            
 
-5. Also in the same file, update the socket-binding values within the <socket-binding-group> element with these new values for http and https:
+
+5. Also in the same file, update the socket-binding values within the <socket-binding-group> element with these new values for http and https - this is assuming you wish to serve the application via the standard ports (80 and 443):
 
         <socket-binding name="http" port="${jboss.http.port:80}"/>
         <socket-binding name="https" port="${jboss.https.port:443}"/>
 
-6. Save the configuration file and restart WildFly
+6. Save the configuration file and restart WildFly.  If you wish to use the standard ports (as in step 5) you may need to run WildFly with elevated privileges:
+
+  sudo bin/standalone.sh
+  
+7. Browse to http://forgeide.org to access the application.
+

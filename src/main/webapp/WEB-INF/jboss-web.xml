@@ -1,0 +1,5 @@
+<jboss-web>
+    <server-instance>default-server</server-instance>
+    <virtual-host>forgeide-host</virtual-host>
+    <context-root>/</context-root>
+</jboss-web>

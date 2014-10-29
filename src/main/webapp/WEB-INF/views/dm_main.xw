@@ -4,7 +4,7 @@
   xmlns:pl="http://picketlink.org">
   
   <xw:eLBinding binding="servicePath">
-    <xw:event type="onbind"><![CDATA[return window.location.origin + "/forge-ide/rest";]]></xw:event>
+    <xw:event type="onbind"><![CDATA[return window.location.origin + "/rest";]]></xw:event>
   </xw:eLBinding>
   
   <xw:eLBinding binding="locationObj">
