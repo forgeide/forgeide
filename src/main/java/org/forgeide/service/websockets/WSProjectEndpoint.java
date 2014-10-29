@@ -15,7 +15,7 @@ import org.forgeide.system.SessionRegistry;
  * @author Shane Bryzak
  */
 @ServerEndpoint(value = "/websocket/projects", encoders = {MessageEncoder.class}, decoders = {MessageDecoder.class})
-public class WSEndpointService
+public class WSProjectEndpoint
 {
    @Inject SessionRegistry registry;
    @Inject MessageHandlerFactory handlerFactory;
