@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Shane Bryzak
  */
-@WebServlet("/github-auth-redirect")
+@WebServlet("/github_auth_callback")
 public class GitHubRedirectServlet extends HttpServlet
 {
    private static final long serialVersionUID = 1689782533950057765L;
@@ -25,6 +25,6 @@ public class GitHubRedirectServlet extends HttpServlet
       String code = request.getParameter("code");
       String state = request.getParameter("state");
 
-      response.sendRedirect("/success.html");
+      response.sendRedirect("/github_callback.html");
    }
 }

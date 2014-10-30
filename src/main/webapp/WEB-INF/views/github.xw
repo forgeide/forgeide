@@ -6,6 +6,10 @@
 
   <xw:restELBinding binding="gitHubAuth" mode="JSON" restEndpoint="#{gitHubService}"/>
   
+  <xw:webSocket id="gitHubListener" url="wss://#{locationObj.host}#{locationObj.pathname}websocket/gitHub">
+    <xw:event type="onmessage"><![CDATA[GHReg.processMessage(event.data);]]></xw:event>
+  </xw:webSocket>
+  
   <div>
     <span class="content_title">GitHub</span>
 
@@ -17,31 +21,7 @@
     
     <div class="view_actions">
       <xw:button styleClass="primary" label="Configure">
-        <xw:event type="onclick"><![CDATA[
-          var genState = function() {
-            var text = "";
-            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-            for(var i = 0; i < 10; i++) {
-              text += possible.charAt(Math.floor(Math.random() * possible.length));
-            }
-
-            return text;
-          };
-          
-          var state = genState();
-          
-          var redirectUri = "https://forgeide.org/github_auth_callback.html";
-
-          var url = "https://github.com/login/oauth/authorize?" +        
-            "client_id=dcd7edcdc0b37c91f37d" +
-            "&scope=public_repo" +
-            "&state=" + state +
-            "&redirect_url=" + encodeURIComponent(redirectUri);
-                 
-          var features = "location=yes,height=650,width=1020,scrollbars=yes,status=yes";
-          var win = window.open(url, "_blank", features);
-        ]]></xw:event>    
+        <xw:event type="onclick"><![CDATA[GH.register();]]></xw:event>    
       </xw:button>
     </div>
        
