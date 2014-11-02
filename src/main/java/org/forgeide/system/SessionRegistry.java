@@ -17,7 +17,7 @@ import org.forgeide.events.SessionCreatedEvent;
 import org.forgeide.service.websockets.Message;
 
 /**
- * Registers the websocket client sessions
+ * Registers websocket client sessions
  *
  * @author Shane Bryzak
  *

@@ -11,11 +11,12 @@ import javax.websocket.server.ServerEndpoint;
 import org.forgeide.system.SessionRegistry;
 
 /**
+ * Endpoint for websocket services
  *
  * @author Shane Bryzak
  */
-@ServerEndpoint(value = "/websocket/projects", encoders = {MessageEncoder.class}, decoders = {MessageDecoder.class})
-public class WSProjectEndpoint
+@ServerEndpoint(value = "/websocket/services", encoders = {MessageEncoder.class}, decoders = {MessageDecoder.class})
+public class WSServiceEndpoint
 {
    @Inject SessionRegistry registry;
    @Inject MessageHandlerFactory handlerFactory;
