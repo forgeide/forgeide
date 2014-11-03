@@ -32,6 +32,7 @@
       <version.deltaspike>1.0.0</version.deltaspike>
       <version.jackson>2.4.2</version.jackson>
       <version.guava>18.0</version.guava>
+      <version.httpclient>4.4-beta1</version.httpclient>
    </properties>
    
    <repositories>
@@ -212,6 +213,14 @@
          <version>${version.guava}</version>
       </dependency>
       
+      <!-- Apache HTTPClient -->
+
+      <dependency>
+         <groupId>org.apache.httpcomponents</groupId>
+         <artifactId>httpclient</artifactId>
+         <version>${version.httpclient}</version>
+      </dependency>
+
       <!-- Forge APIs -->
       
       <dependency>

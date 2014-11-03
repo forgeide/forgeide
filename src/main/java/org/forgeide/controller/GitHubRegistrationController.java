@@ -6,7 +6,11 @@ import java.util.concurrent.TimeUnit;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.forgeide.service.websockets.Message;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.forgeide.service.websockets.SessionRegistry;
 
 import com.google.common.cache.Cache;
@@ -41,12 +45,32 @@ public class GitHubRegistrationController
       return state;
    }
 
-   public void processCode(String state, String code)
+   public void processCode(String state, String code) throws Exception
    {
       // lookup the session ID
       String sessionId = stateCache.getIfPresent(state);
-      Message msg = new Message("github", "receivedCode");
-      msg.setPayloadValue("code", code);
-      registry.getSession(sessionId).getAsyncRemote().sendObject(msg);
+      //Message msg = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_CODE);
+      //msg.setPayloadValue("code", code);
+      //msg.setPayloadValue("state", state);
+      //registry.getSession(sessionId).getAsyncRemote().sendObject(msg);
+
+      // TODO Send a status message
+
+      CloseableHttpClient httpClient = HttpClients.createDefault();
+      HttpPost post = new HttpPost("https://github.com/login/oauth/access_token");
+      CloseableHttpResponse response = httpClient.execute(post);
+
+      // TODO set the necessary parameters
+
+      try
+      {
+         HttpEntity entity = response.getEntity();
+
+         // TODO Do something with this
+      }
+      finally
+      {
+         response.close();
+      }
    }
 }

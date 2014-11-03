@@ -1,6 +1,7 @@
 var GH = {
   regWindow: null,
   stateVar: null,
+  code: null,
   wss: null,
   registerWSService: function(wss) {
     GH.wss = wss;
@@ -10,7 +11,18 @@ var GH = {
        
     if (msg.cat == "GITHUB") {
       if (msg.op == "STATE") {
-        alert("Received state value: " + msg.payload.state);      
+        GH.stateVar = msg.payload.state;
+        GH.redirectToGitHub();
+      } else if (msg.op == "CODE") {
+        GH.regWindow.close();
+        var state = msg.payload.state;
+        if (state != GH.stateVar) {
+          alert("Error - state values do not match! Your request may have been tampered with, aborting process.");
+        } else {
+          GH.code = msg.payload.code;
+          // TODO process the code
+          
+        }
       }
     }
   },
@@ -27,7 +39,7 @@ var GH = {
     var url = "https://github.com/login/oauth/authorize?" +
       "client_id=dcd7edcdc0b37c91f37d" +
       "&scope=public_repo" +
-      "&state=" + state +
+      "&state=" + GH.stateVar +
       "&redirect_url=" + encodeURIComponent(redirectUri);
            
     var features = "location=yes,height=650,width=1020,scrollbars=yes,status=yes";

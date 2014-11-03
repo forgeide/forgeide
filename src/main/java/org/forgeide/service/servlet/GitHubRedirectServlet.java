@@ -30,8 +30,14 @@ public class GitHubRedirectServlet extends HttpServlet
       String code = request.getParameter("code");
       String state = request.getParameter("state");
 
-      controller.processCode(state, code);
-
-      response.sendRedirect("/github_callback.html");
+      try 
+      {
+         controller.processCode(state, code);
+         response.sendRedirect("/github_callback.html");
+      }
+      catch (Exception ex)
+      {
+         response.sendRedirect("/github_error.html");
+      }
    }
 }

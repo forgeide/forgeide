@@ -21,6 +21,7 @@ public class Message implements Serializable
    public static final String OP_RESOURCE_NEW = "NEW";
 
    public static final String OP_GITHUB_STATE = "STATE";
+   public static final String OP_GITHUB_CODE = "CODE";
 
    private static final long serialVersionUID = -7283438779264064519L;
 
