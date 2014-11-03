@@ -31,6 +31,7 @@
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
       <version.deltaspike>1.0.0</version.deltaspike>
       <version.jackson>2.4.2</version.jackson>
+      <version.guava>18.0</version.guava>
    </properties>
    
    <repositories>
@@ -201,6 +202,14 @@
          <groupId>org.jboss.forge.furnace</groupId>
          <artifactId>furnace-se</artifactId>
          <version>${version.furnace}</version>
+      </dependency>
+
+      <!-- Guava (Google Collections) -->
+
+      <dependency>
+         <groupId>com.google.guava</groupId>
+         <artifactId>guava</artifactId>
+         <version>${version.guava}</version>
       </dependency>
       
       <!-- Forge APIs -->

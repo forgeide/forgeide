@@ -6,8 +6,9 @@
 
   <xw:restELBinding binding="gitHubAuth" mode="JSON" restEndpoint="#{gitHubService}"/>
   
-  <xw:webSocket id="gitHubListener" url="wss://#{locationObj.host}#{locationObj.pathname}websocket/gitHub">
-    <xw:event type="onmessage"><![CDATA[GHReg.processMessage(event.data);]]></xw:event>
+  <xw:webSocket id="webSocketService" url="wss://#{locationObj.host}#{locationObj.pathname}websocket/services">
+    <xw:event type="oncreate"><![CDATA[GH.registerWSService(this);]]></xw:event>
+    <xw:event type="onmessage"><![CDATA[GH.processMessage(event.data);]]></xw:event>
   </xw:webSocket>
   
   <div>
@@ -24,7 +25,6 @@
         <xw:event type="onclick"><![CDATA[GH.register();]]></xw:event>    
       </xw:button>
     </div>
-       
   </div>
 
 </xw:view>

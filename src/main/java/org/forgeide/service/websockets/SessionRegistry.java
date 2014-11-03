@@ -1,4 +1,4 @@
-package org.forgeide.system;
+package org.forgeide.service.websockets;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,6 @@ import org.forgeide.controller.ProjectController;
 import org.forgeide.events.NewProjectEvent;
 import org.forgeide.events.NewResourceEvent;
 import org.forgeide.events.SessionCreatedEvent;
-import org.forgeide.service.websockets.Message;
 
 /**
  * Registers websocket client sessions

@@ -13,11 +13,14 @@ public class Message implements Serializable
 {
    public static final String CAT_PROJECT = "PROJECT";
    public static final String CAT_RESOURCE = "RESOURCE";
+   public static final String CAT_GITHUB = "GITHUB";
 
    public static final String OP_PROJECT_NEW = "NEW";
    public static final String OP_PROJECT_LIST = "LIST";
 
    public static final String OP_RESOURCE_NEW = "NEW";
+
+   public static final String OP_GITHUB_STATE = "STATE";
 
    private static final long serialVersionUID = -7283438779264064519L;
 
