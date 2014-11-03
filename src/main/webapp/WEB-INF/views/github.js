@@ -7,11 +7,17 @@ var GH = {
   },
   processMessage: function(data) {
     var msg = JSON.parse(data);
-    
-    alert("Received message: " + msg);
+       
+    if (msg.cat == "GITHUB") {
+      if (msg.op == "STATE") {
+        alert("Received state value: " + msg.payload.state);      
+      }
+    }
   },
   register: function() {
-     alert("Fetching state value");
+     if (!GH.wss.isConnected()) {
+       GH.wss.connect();
+     }
      
      GH.wss.send(GH.createMessage("github", "generateState", {}));
   },
@@ -35,3 +41,5 @@ var GH = {
     });
   }
 };
+
+//# sourceURL=github.js

@@ -1,19 +1,15 @@
 package org.forgeide.service.websockets;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
-import javax.inject.Inject;
 import javax.websocket.Session;
 
-import org.forgeide.controller.ProjectController;
 import org.forgeide.events.NewProjectEvent;
 import org.forgeide.events.NewResourceEvent;
-import org.forgeide.events.SessionCreatedEvent;
 
 /**
  * Registers websocket client sessions
@@ -24,16 +20,16 @@ import org.forgeide.events.SessionCreatedEvent;
 @ApplicationScoped
 public class SessionRegistry
 {
-   private List<Session> sessions = Collections.synchronizedList(new ArrayList<Session>());
-
-   @Inject ProjectController projectController;
-
-   @Inject Event<SessionCreatedEvent> sessionCreatedEvent;
+   private Map<String,Session> sessions = Collections.synchronizedMap(new HashMap<String,Session>());
 
    public void registerSession(Session session)
    {
-      sessions.add(session);
-      sessionCreatedEvent.fire(new SessionCreatedEvent(session));
+      sessions.put(session.getId(), session);
+   }
+
+   public Session getSession(String id)
+   {
+      return sessions.get(id);
    }
 
    public void unregisterSession(Session session)
@@ -43,7 +39,7 @@ public class SessionRegistry
 
    public void sendMessage(Session session, Message msg)
    {
-      for (Session s : sessions)
+      for (Session s : sessions.values())
       {
          if (s.equals(session)) 
          {
@@ -55,7 +51,7 @@ public class SessionRegistry
 
    public void broadcastMessage(Message message)
    {
-      for (Session session : sessions)
+      for (Session session : sessions.values())
       {
          session.getAsyncRemote().sendObject(message);
       }

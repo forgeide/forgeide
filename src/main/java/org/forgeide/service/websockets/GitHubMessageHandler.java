@@ -19,12 +19,15 @@ public class GitHubMessageHandler
 {
    @Inject GitHubRegistrationController controller;
 
+   @Inject SessionRegistry registry;
+
    @MessageOperation("generateState")
    public void generateState(Message msg, Session session)
    {
-      String state = controller.generateState(session);
+      String state = controller.generateState(session.getId());
       Message m = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_STATE);
       m.setPayloadValue("state", state);
       session.getAsyncRemote().sendObject(m);
    }
+
 }

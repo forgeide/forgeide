@@ -20,7 +20,6 @@ import javax.persistence.criteria.Root;
 
 import org.forgeide.events.NewProjectEvent;
 import org.forgeide.events.NewResourceEvent;
-import org.forgeide.events.SessionCreatedEvent;
 import org.forgeide.forge.UIRuntimeImpl;
 import org.forgeide.forge.metadata.ResultMetadata;
 import org.forgeide.forge.ui.IDEUIContext;
@@ -188,7 +187,8 @@ public class ProjectController
       }
    }
 
-   public void sessionCreated(@Observes SessionCreatedEvent event)
+   // TODO refactor this so it's a polled request
+   /**public void sessionCreated(@Observes SessionCreatedEvent event)
    {
       List<Project> projects = listOpenProjects();
 
@@ -203,7 +203,7 @@ public class ProjectController
       m.setPayloadValue("resources", resources);
 
       event.getSession().getAsyncRemote().sendObject(m);
-   }
+   }*/
 
    public List<Project> listOpenProjects()
    {
