@@ -14,6 +14,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.forgeide.qualifiers.Configuration;
+import org.forgeide.service.websockets.Message;
 import org.forgeide.service.websockets.SessionRegistry;
 
 import com.google.common.cache.Cache;
@@ -34,6 +35,8 @@ public class GitHubRegistrationController
 
    @Inject @Configuration(key = "github.client_id") String clientId;
 
+   @Inject @Configuration(key = "github.client_secret") String clientSecret;
+
    public GitHubRegistrationController()
    {
       stateCache = CacheBuilder.newBuilder()
@@ -52,38 +55,40 @@ public class GitHubRegistrationController
 
    public void processCode(String state, String code) throws Exception
    {
-      // lookup the session ID
-      String sessionId = stateCache.getIfPresent(state);
-      //Message msg = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_CODE);
-      //msg.setPayloadValue("code", code);
-      //msg.setPayloadValue("state", state);
-      //registry.getSession(sessionId).getAsyncRemote().sendObject(msg);
-
-      // TODO Send a status message
-
-      URI uri = new URIBuilder()
-         .setScheme("https")
-         .setHost("github.com")
-         .setPath("/login/oauth/access_token")
-         .setParameter("client_id", clientId)
-         .build();
-
-      CloseableHttpClient httpClient = HttpClients.createDefault();
-      HttpPost post = new HttpPost(uri);
-
-      CloseableHttpResponse response = httpClient.execute(post);
-
-      // 
-
-      try
+      // Check the state against the state stored
+      if (stateCache.asMap().containsKey(state))
       {
-         HttpEntity entity = response.getEntity();
+         // lookup the session ID
+         String sessionId = stateCache.getIfPresent(state);
+         Message msg = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_AUTHORIZING);
+         registry.getSession(sessionId).getAsyncRemote().sendObject(msg);
 
-         // TODO Do something with this
-      }
-      finally
-      {
-         response.close();
+         URI uri = new URIBuilder()
+            .setScheme("https")
+            .setHost("github.com")
+            .setPath("/login/oauth/access_token")
+            .setParameter("client_id", clientId)
+            .setParameter("client_secret", clientSecret)
+            .setParameter("code", code)
+            .build();
+
+         CloseableHttpClient httpClient = HttpClients.createDefault();
+         HttpPost post = new HttpPost(uri);
+
+         CloseableHttpResponse response = httpClient.execute(post);
+
+         // 
+
+         try
+         {
+            HttpEntity entity = response.getEntity();
+
+            // TODO Do something with this
+         }
+         finally
+         {
+            response.close();
+         }
       }
    }
 }
