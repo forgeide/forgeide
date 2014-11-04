@@ -1,5 +1,6 @@
 package org.forgeide.controller;
 
+import java.net.URI;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -9,8 +10,10 @@ import javax.inject.Inject;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.forgeide.qualifiers.Configuration;
 import org.forgeide.service.websockets.SessionRegistry;
 
 import com.google.common.cache.Cache;
@@ -28,6 +31,8 @@ public class GitHubRegistrationController
    private Cache<String,String> stateCache;
 
    @Inject SessionRegistry registry;
+
+   @Inject @Configuration(key = "github.client_id") String clientId;
 
    public GitHubRegistrationController()
    {
@@ -56,11 +61,19 @@ public class GitHubRegistrationController
 
       // TODO Send a status message
 
+      URI uri = new URIBuilder()
+         .setScheme("https")
+         .setHost("github.com")
+         .setPath("/login/oauth/access_token")
+         .setParameter("client_id", clientId)
+         .build();
+
       CloseableHttpClient httpClient = HttpClients.createDefault();
-      HttpPost post = new HttpPost("https://github.com/login/oauth/access_token");
+      HttpPost post = new HttpPost(uri);
+
       CloseableHttpResponse response = httpClient.execute(post);
 
-      // TODO set the necessary parameters
+      // 
 
       try
       {
