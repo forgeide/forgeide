@@ -38,6 +38,7 @@ public class GitHubRedirectServlet extends HttpServlet
       catch (Exception ex)
       {
          response.sendRedirect("/github_error.html");
+         throw new RuntimeException(ex);
       }
    }
 }

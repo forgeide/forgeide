@@ -1,22 +1,23 @@
 package org.forgeide.controller;
 
-import java.net.URI;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.forgeide.qualifiers.Configuration;
 import org.forgeide.service.websockets.Message;
 import org.forgeide.service.websockets.SessionRegistry;
 
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -36,6 +37,9 @@ public class GitHubRegistrationController
    @Inject @Configuration(key = "github.client_id") String clientId;
 
    @Inject @Configuration(key = "github.client_secret") String clientSecret;
+
+   private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+   private final JsonFactory JSON_FACTORY = new JacksonFactory();
 
    public GitHubRegistrationController()
    {
@@ -63,32 +67,33 @@ public class GitHubRegistrationController
          Message msg = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_AUTHORIZING);
          registry.getSession(sessionId).getAsyncRemote().sendObject(msg);
 
-         URI uri = new URIBuilder()
-            .setScheme("https")
-            .setHost("github.com")
-            .setPath("/login/oauth/access_token")
-            .setParameter("client_id", clientId)
-            .setParameter("client_secret", clientSecret)
-            .setParameter("code", code)
-            .build();
+         HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory();
 
-         CloseableHttpClient httpClient = HttpClients.createDefault();
-         HttpPost post = new HttpPost(uri);
+         GenericUrl url = new GenericUrl();
+         url.setScheme("https");
+         url.setHost("github.com");
+         url.setRawPath("/login/oauth/access_token");
+         url.set("client_id", clientId);
+         url.set("client_secret", clientSecret);
+         url.set("code", code);
 
-         CloseableHttpResponse response = httpClient.execute(post);
+         String value = url.build();
 
-         // 
+         HttpRequest request = requestFactory.buildPostRequest(url, null);
+         HttpResponse response = request.execute();
 
          try
          {
-            HttpEntity entity = response.getEntity();
-
-            // TODO Do something with this
+            String content = response.parseAsString();
          }
          finally
          {
-            response.close();
+            response.disconnect();
          }
+      }
+      else
+      {
+         throw new IllegalStateException("State values do not match for GitHub authorization request");
       }
    }
 }
