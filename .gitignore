@@ -3,3 +3,4 @@ target/
 .project
 .settings
 src/main/webapp/WEB-INF/addon-repository/*
+src/main/webapp/WEB-INF/classes/forgeide.properties
