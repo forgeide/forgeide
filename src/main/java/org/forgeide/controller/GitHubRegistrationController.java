@@ -17,7 +17,9 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.Key;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -40,6 +42,33 @@ public class GitHubRegistrationController
 
    private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
    private final JsonFactory JSON_FACTORY = new JacksonFactory();
+
+   public static class AuthorizationResponse 
+   {
+      @Key("access_token")
+      private String accessToken;
+
+      @Key("scope")
+      private String scope;
+
+      @Key("token_type")
+      private String tokenType;
+
+      public String getAccessToken() 
+      {
+        return accessToken;
+      }
+
+      public String getScope()
+      {
+         return scope;
+      }
+
+      public String getTokenType()
+      {
+         return tokenType;
+      }
+   }
 
    public GitHubRegistrationController()
    {
@@ -77,14 +106,17 @@ public class GitHubRegistrationController
          url.set("client_secret", clientSecret);
          url.set("code", code);
 
-         String value = url.build();
-
          HttpRequest request = requestFactory.buildPostRequest(url, null);
+         request.getHeaders().setAccept("application/json");
+         request.setParser(new JsonObjectParser(new JacksonFactory()));
+
          HttpResponse response = request.execute();
 
          try
          {
-            String content = response.parseAsString();
+            AuthorizationResponse authResponse = response.parseAs(AuthorizationResponse.class);
+
+            String accessToken = authResponse.getAccessToken();
          }
          finally
          {
