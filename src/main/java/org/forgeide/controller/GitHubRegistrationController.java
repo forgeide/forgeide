@@ -6,6 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.websocket.Session;
 
 import org.forgeide.model.GitHubAuthorization;
 import org.forgeide.qualifiers.Configuration;
@@ -99,8 +100,10 @@ public class GitHubRegistrationController
                   , GitHubAuthorization.class)
                   .getSingleResult();
 
+         Session session = registry.getSession(auth.getSessionId());
+
          Message msg = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_AUTHORIZING);
-         registry.getSession(auth.getSessionId()).getAsyncRemote().sendObject(msg);
+         session.getAsyncRemote().sendObject(msg);
 
          HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory();
 
@@ -124,6 +127,9 @@ public class GitHubRegistrationController
             auth.setAccessToken(authResponse.getAccessToken());
             auth.setScopes(authResponse.getScope());
             entityManager.merge(auth);
+
+            msg = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_AUTHORIZED);
+            session.getAsyncRemote().sendObject(msg);
          }
          finally
          {
@@ -132,7 +138,7 @@ public class GitHubRegistrationController
       }
       catch (NoResultException ex)
       {
-         throw new IllegalStateException("State values do not match for GitHub authorization request");
+         throw new IllegalStateException("No authorization request found with specified state value.");
       }
    }
 }

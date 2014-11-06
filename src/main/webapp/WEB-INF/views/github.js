@@ -1,8 +1,7 @@
 var GH = {
   regWindow: null,
   stateVar: null,
-  code: null,
-  wss: null,
+  wss: null, // The websocket service
   registerWSService: function(wss) {
     GH.wss = wss;
   },
@@ -13,16 +12,11 @@ var GH = {
       if (msg.op == "STATE") {
         GH.stateVar = msg.payload.state;
         GH.redirectToGitHub();
-      } else if (msg.op == "CODE") {
+      } else if (msg.op == "AUTHORIZING") {
         GH.regWindow.close();
-        var state = msg.payload.state;
-        if (state != GH.stateVar) {
-          alert("Error - state values do not match! Your request may have been tampered with, aborting process.");
-        } else {
-          GH.code = msg.payload.code;
-          // TODO process the code
-          
-        }
+        alert("Authorizing...");
+      } else if (msg.op == "AUTHORIZED") {
+        alert("Authorization complete.");      
       }
     }
   },
