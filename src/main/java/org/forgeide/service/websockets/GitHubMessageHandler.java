@@ -7,6 +7,7 @@ import javax.websocket.Session;
 import org.forgeide.annotations.MessageHandler;
 import org.forgeide.annotations.MessageOperation;
 import org.forgeide.controller.GitHubRegistrationController;
+import org.picketlink.Identity;
 
 /**
  * Handles various GitHub registration tasks
@@ -21,10 +22,12 @@ public class GitHubMessageHandler
 
    @Inject SessionRegistry registry;
 
+   @Inject Identity identity;
+
    @MessageOperation("generateState")
    public void generateState(Message msg, Session session)
    {
-      String state = controller.generateState(session.getId());
+      String state = controller.generateState(session.getId(), identity.getAccount().getId());
       Message m = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_STATE);
       m.setPayloadValue("state", state);
       session.getAsyncRemote().sendObject(m);

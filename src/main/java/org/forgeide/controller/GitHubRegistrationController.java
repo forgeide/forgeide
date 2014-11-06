@@ -1,11 +1,13 @@
 package org.forgeide.controller;
 
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
+import org.forgeide.model.GitHubAuthorization;
 import org.forgeide.qualifiers.Configuration;
 import org.forgeide.service.websockets.Message;
 import org.forgeide.service.websockets.SessionRegistry;
@@ -20,8 +22,6 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.Key;
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 
 /**
  * Handles GitHub registration state
@@ -31,14 +31,13 @@ import com.google.common.cache.CacheBuilder;
 @ApplicationScoped
 public class GitHubRegistrationController
 {
-   // state:session ID cache
-   private Cache<String,String> stateCache;
-
    @Inject SessionRegistry registry;
 
    @Inject @Configuration(key = "github.client_id") String clientId;
 
    @Inject @Configuration(key = "github.client_secret") String clientSecret;
+
+   @Inject EntityManager entityManager;
 
    private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
    private final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -70,31 +69,38 @@ public class GitHubRegistrationController
       }
    }
 
-   public GitHubRegistrationController()
-   {
-      stateCache = CacheBuilder.newBuilder()
-         .concurrencyLevel(4)
-         .maximumSize(1000)
-         .expireAfterWrite(10, TimeUnit.MINUTES)
-         .build();
-   }
-
-   public String generateState(String sessionId)
+   public String generateState(String sessionId, String userId)
    {
       String state = UUID.randomUUID().toString().replaceAll("-", "");
-      stateCache.put(state, sessionId);
+      GitHubAuthorization auth = entityManager.find(GitHubAuthorization.class, userId);
+      if (auth == null)
+      {
+         auth = new GitHubAuthorization();
+         auth.setUserId(userId);
+         auth.setSessionId(sessionId);
+         auth.setAccessState(state);
+         entityManager.persist(auth);
+      }
+      else
+      {
+         auth.setSessionId(sessionId);
+         auth.setAccessState(state);
+         entityManager.merge(auth);
+      }
       return state;
    }
 
    public void processCode(String state, String code) throws Exception
    {
-      // Check the state against the state stored
-      if (stateCache.asMap().containsKey(state))
+      try
       {
-         // lookup the session ID
-         String sessionId = stateCache.getIfPresent(state);
+         GitHubAuthorization auth = entityManager.createQuery(
+                  "select a from GitHubAuthorization a where a.accessState = :accessState"
+                  , GitHubAuthorization.class)
+                  .getSingleResult();
+
          Message msg = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_AUTHORIZING);
-         registry.getSession(sessionId).getAsyncRemote().sendObject(msg);
+         registry.getSession(auth.getSessionId()).getAsyncRemote().sendObject(msg);
 
          HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory();
 
@@ -108,22 +114,23 @@ public class GitHubRegistrationController
 
          HttpRequest request = requestFactory.buildPostRequest(url, null);
          request.getHeaders().setAccept("application/json");
-         request.setParser(new JsonObjectParser(new JacksonFactory()));
+         request.setParser(new JsonObjectParser(JSON_FACTORY));
 
          HttpResponse response = request.execute();
 
          try
          {
             AuthorizationResponse authResponse = response.parseAs(AuthorizationResponse.class);
-
-            String accessToken = authResponse.getAccessToken();
+            auth.setAccessToken(authResponse.getAccessToken());
+            auth.setScopes(authResponse.getScope());
+            entityManager.merge(auth);
          }
          finally
          {
             response.disconnect();
          }
       }
-      else
+      catch (NoResultException ex)
       {
          throw new IllegalStateException("State values do not match for GitHub authorization request");
       }

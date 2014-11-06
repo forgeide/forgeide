@@ -1,5 +1,6 @@
 package org.forgeide.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -22,7 +23,13 @@ public class GitHubAuthorization
    /**
     * Unguessable random string used for setting up oAuth
     */
+   @Column(unique = true)
    private String accessState;
+
+   /**
+    * The websocket session ID of the user requesting authorization
+    */
+   private String sessionId;
 
    public String getUserId() {
       return userId;
@@ -54,6 +61,16 @@ public class GitHubAuthorization
 
    public void setAccessState(String accessState) {
       this.accessState = accessState;
+   }
+
+   public String getSessionId()
+   {
+      return sessionId;
+   }
+
+   public void setSessionId(String sessionId)
+   {
+      this.sessionId = sessionId;
    }
 
 }

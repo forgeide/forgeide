@@ -31,8 +31,6 @@
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
       <version.deltaspike>1.0.0</version.deltaspike>
       <version.jackson>2.4.2</version.jackson>
-      <version.guava>18.0</version.guava>
-      <!--version.httpclient>4.4-beta1</version.httpclient-->
       <version.google.httpclient>1.18.0-rc</version.google.httpclient>
    </properties>
    
@@ -205,22 +203,6 @@
          <artifactId>furnace-se</artifactId>
          <version>${version.furnace}</version>
       </dependency>
-
-      <!-- Guava (Google Collections) -->
-
-      <dependency>
-         <groupId>com.google.guava</groupId>
-         <artifactId>guava</artifactId>
-         <version>${version.guava}</version>
-      </dependency>
-      
-      <!-- Apache HTTPClient -->
-
-      <!--dependency>
-         <groupId>org.apache.httpcomponents</groupId>
-         <artifactId>httpclient</artifactId>
-         <version>${version.httpclient}</version>
-      </dependency-->
 
       <!-- Google HTTP Client -->
 
