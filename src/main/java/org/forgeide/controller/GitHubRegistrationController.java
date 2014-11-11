@@ -3,6 +3,7 @@ package org.forgeide.controller;
 import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -10,8 +11,9 @@ import javax.websocket.Session;
 
 import org.forgeide.model.GitHubAuthorization;
 import org.forgeide.qualifiers.Configuration;
-import org.forgeide.service.websockets.Message;
 import org.forgeide.service.websockets.SessionRegistry;
+import org.picketlink.Identity;
+import org.xwidgets.websocket.Message;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
@@ -39,6 +41,8 @@ public class GitHubRegistrationController
    @Inject @Configuration(key = "github.client_secret") String clientSecret;
 
    @Inject EntityManager entityManager;
+
+   @Inject Instance<Identity> identityInstance;
 
    private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
    private final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -70,14 +74,15 @@ public class GitHubRegistrationController
       }
    }
 
-   public String generateState(String sessionId, String userId)
+   public String generateState(String sessionId)
    {
       String state = UUID.randomUUID().toString().replaceAll("-", "");
-      GitHubAuthorization auth = entityManager.find(GitHubAuthorization.class, userId);
+      GitHubAuthorization auth = entityManager.find(GitHubAuthorization.class, 
+               identityInstance.get().getAccount().getId());
       if (auth == null)
       {
          auth = new GitHubAuthorization();
-         auth.setUserId(userId);
+         auth.setUserId(identityInstance.get().getAccount().getId());
          auth.setSessionId(sessionId);
          auth.setAccessState(state);
          entityManager.persist(auth);

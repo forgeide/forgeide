@@ -4,9 +4,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.websocket.Session;
 
-import org.forgeide.annotations.MessageHandler;
-import org.forgeide.annotations.MessageOperation;
 import org.forgeide.controller.ResourceController;
+import org.xwidgets.websocket.Message;
+import org.xwidgets.websocket.MessageHandler;
 
 /**
  * Message handler for resource operations
@@ -14,12 +14,11 @@ import org.forgeide.controller.ResourceController;
  * @author Shane Bryzak
  */
 @ApplicationScoped
-@MessageHandler("resource")
 public class ResourceMessageHandler
 {
    @Inject ResourceController controller;
 
-   @MessageOperation("open")
+   @MessageHandler("resource.open")
    public void handleOpen(Message msg, Session session)
    {
       Long resourceId = Long.valueOf(msg.getPayload().get("id").toString());

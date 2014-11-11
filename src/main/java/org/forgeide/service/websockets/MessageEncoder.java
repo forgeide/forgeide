@@ -4,6 +4,8 @@ import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
+import org.xwidgets.websocket.Message;
+
 import com.google.gson.Gson;
 
 /**

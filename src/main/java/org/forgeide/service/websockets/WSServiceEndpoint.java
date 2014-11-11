@@ -8,6 +8,9 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.xwidgets.websocket.Message;
+import org.xwidgets.websocket.MessageHandlerFactory;
+
 /**
  * Endpoint for websocket services
  *

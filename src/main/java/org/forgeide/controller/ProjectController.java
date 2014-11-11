@@ -33,7 +33,6 @@ import org.forgeide.model.ResourceContent;
 import org.forgeide.qualifiers.Forge;
 import org.forgeide.security.annotations.LoggedIn;
 import org.forgeide.service.ProjectServices.ProjectParams;
-import org.forgeide.service.websockets.Message;
 import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
 import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
@@ -42,6 +41,7 @@ import org.jboss.forge.addon.ui.result.Failed;
 import org.jboss.forge.addon.ui.result.Result;
 import org.jboss.forge.addon.ui.wizard.UIWizard;
 import org.picketlink.Identity;
+import org.xwidgets.websocket.Message;
 
 /**
  * Performs persistence operations for projects

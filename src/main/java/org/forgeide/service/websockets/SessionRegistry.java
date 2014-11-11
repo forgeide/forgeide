@@ -10,6 +10,7 @@ import javax.websocket.Session;
 
 import org.forgeide.events.NewProjectEvent;
 import org.forgeide.events.NewResourceEvent;
+import org.xwidgets.websocket.Message;
 
 /**
  * Registers websocket client sessions
