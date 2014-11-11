@@ -48,7 +48,7 @@ public class ConfigurationProducer
       {
          if (config.required())
          {
-            throw new IllegalStateException();
+            throw new IllegalStateException(ex);
          }
          return "Invalid key";
       }

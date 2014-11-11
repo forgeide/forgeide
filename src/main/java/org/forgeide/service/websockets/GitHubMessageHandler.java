@@ -4,10 +4,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.websocket.Session;
 
-import org.forgeide.annotations.MessageOperation;
 import org.forgeide.controller.GitHubRegistrationController;
 import org.xwidgets.websocket.Message;
 import org.xwidgets.websocket.MessageHandler;
+import org.xwidgets.websocket.SessionRegistry;
 
 /**
  * Handles various GitHub registration tasks
@@ -15,19 +15,19 @@ import org.xwidgets.websocket.MessageHandler;
  * @author Shane Bryzak
  */
 @ApplicationScoped
-@MessageHandler("github")
 public class GitHubMessageHandler
 {
    @Inject GitHubRegistrationController controller;
 
    @Inject SessionRegistry registry;
 
-   @MessageOperation("generateState")
+   @MessageHandler("github.generateState")
    public void generateState(Message msg, Session session)
    {
       String state = controller.generateState(session.getId());
-      Message m = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_STATE);
+      Message m = new Message("github.state");
       m.setPayloadValue("state", state);
+      m.setPayloadValue("redirectUri", "https://forgeide.org/github_auth_callback.html");
       session.getAsyncRemote().sendObject(m);
    }
 

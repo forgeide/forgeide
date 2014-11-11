@@ -42,6 +42,7 @@ import org.jboss.forge.addon.ui.result.Result;
 import org.jboss.forge.addon.ui.wizard.UIWizard;
 import org.picketlink.Identity;
 import org.xwidgets.websocket.Message;
+import org.xwidgets.websocket.SessionRegistry;
 
 /**
  * Performs persistence operations for projects
@@ -70,6 +71,8 @@ public class ProjectController
    @Inject
    @Forge
    Instance<CommandControllerFactory> controllerFactory;
+
+   @Inject SessionRegistry sessionRegistry;
 
    @LoggedIn
    public void createProject(Project project, ProjectParams params)
@@ -297,5 +300,12 @@ public class ProjectController
    {
 
       return null;
+   }
+
+   public void newProjectEventObserver(@Observes NewProjectEvent event)
+   {
+      Message m = new Message("project.new");
+      m.setPayloadValue("project", event.getProject());
+      sessionRegistry.broadcastMessage(m);
    }
 }

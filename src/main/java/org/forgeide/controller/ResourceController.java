@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
+import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -14,11 +15,14 @@ import javax.websocket.Session;
 
 import org.forgeide.ace.ParticipantConnectionImpl;
 import org.forgeide.ace.RemoteUserProxyImpl;
+import org.forgeide.events.NewResourceEvent;
 import org.forgeide.model.ProjectAccess;
 import org.forgeide.model.ResourceContent;
 import org.forgeide.security.model.User;
 import org.picketlink.Identity;
 import org.picketlink.idm.IdentityManager;
+import org.xwidgets.websocket.Message;
+import org.xwidgets.websocket.SessionRegistry;
 
 import ch.iserver.ace.DocumentDetails;
 import ch.iserver.ace.DocumentModel;
@@ -48,6 +52,9 @@ public class ResourceController
 
    @Inject
    private Instance<EntityManager> entityManager;
+
+   @Inject
+   private SessionRegistry registry;
 
    @Lock(LockType.READ)
    public void openResource(Long resourceId, Session subscriber)
@@ -113,5 +120,12 @@ public class ResourceController
    private synchronized void unsubscribe(Long resourceId, Session subscriber)
    {
       //subscribers.get(resourceId).remove(subscriber);
+   }
+
+   public void newProjectResourceEventObserver(@Observes NewResourceEvent event)
+   {
+      Message m = new Message("resource.new");
+      m.setPayloadValue("resource", event.getResource());
+      registry.broadcastMessage(m);
    }
 }

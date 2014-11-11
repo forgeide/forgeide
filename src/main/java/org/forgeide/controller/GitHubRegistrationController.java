@@ -11,9 +11,9 @@ import javax.websocket.Session;
 
 import org.forgeide.model.GitHubAuthorization;
 import org.forgeide.qualifiers.Configuration;
-import org.forgeide.service.websockets.SessionRegistry;
 import org.picketlink.Identity;
 import org.xwidgets.websocket.Message;
+import org.xwidgets.websocket.SessionRegistry;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
@@ -107,7 +107,7 @@ public class GitHubRegistrationController
 
          Session session = registry.getSession(auth.getSessionId());
 
-         Message msg = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_AUTHORIZING);
+         Message msg = new Message("github.authorizing");
          session.getAsyncRemote().sendObject(msg);
 
          HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory();
@@ -133,7 +133,7 @@ public class GitHubRegistrationController
             auth.setScopes(authResponse.getScope());
             entityManager.merge(auth);
 
-            msg = new Message(Message.CAT_GITHUB, Message.OP_GITHUB_AUTHORIZED);
+            msg = new Message("github.authorized");
             session.getAsyncRemote().sendObject(msg);
          }
          finally
