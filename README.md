@@ -67,3 +67,7 @@ You will also need to configure WildFly to support HTTPS connections:
   
 7. Browse to http://forgeide.org to access the application.
 
+Setting oAuth properties for GitHub authorization
+-------------------------------------------------
+Edit the file src/main/webappp/WEB-INF/classes/forgeide.properties and set the github.client_id and github.client_secret values to enable oAuth authorization for GitHub.
+
