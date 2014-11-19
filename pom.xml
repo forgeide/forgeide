@@ -170,7 +170,7 @@
          <scope>provided</scope>
       </dependency>
       
-      <!--dependency>
+      <dependency>
         <groupId>org.apache.deltaspike.core</groupId>
         <artifactId>deltaspike-core-impl</artifactId>
         <version>${version.deltaspike}</version>
@@ -180,7 +180,7 @@
         <groupId>org.apache.deltaspike.modules</groupId>
         <artifactId>deltaspike-security-module-impl</artifactId>
         <version>${version.deltaspike}</version>
-      </dependency-->
+      </dependency>
       
       <!-- CORS Filter (to enable CORS for REST endpoints) -->
       
