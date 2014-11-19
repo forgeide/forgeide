@@ -44,6 +44,8 @@ public class GitHubRegistrationController
 
    @Inject Instance<Identity> identityInstance;
 
+   @Inject Foo foo;
+
    private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
    private final JsonFactory JSON_FACTORY = new JacksonFactory();
 
@@ -77,12 +79,16 @@ public class GitHubRegistrationController
    public String generateState(String sessionId)
    {
       String state = UUID.randomUUID().toString().replaceAll("-", "");
-      GitHubAuthorization auth = entityManager.find(GitHubAuthorization.class, 
-               identityInstance.get().getAccount().getId());
+      
+      GitHubAuthorization auth = null;
+      //GitHubAuthorization auth = entityManager.find(GitHubAuthorization.class, 
+      //         identityInstance.get().getAccount().getId());
+      
       if (auth == null)
       {
          auth = new GitHubAuthorization();
-         auth.setUserId(identityInstance.get().getAccount().getId());
+         auth.setUserId(foo.getValue());
+         //auth.setUserId(identityInstance.get().getAccount().getId());
          auth.setSessionId(sessionId);
          auth.setAccessState(state);
          entityManager.persist(auth);

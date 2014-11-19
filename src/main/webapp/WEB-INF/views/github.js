@@ -5,6 +5,7 @@ var GH = {
   wss: null, // The websocket service
   registerWSService: function(wss) {
     GH.wss = wss;
+    GH.wss.send(GH.createMessage("identity.login", {jwtToken: pl.getToken()}));
   },
   processMessage: function(data) {
     var msg = JSON.parse(data);

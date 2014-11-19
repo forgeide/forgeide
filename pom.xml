@@ -25,7 +25,7 @@
    <properties>
       <version.xwidgets>1.0-SNAPSHOT</version.xwidgets>
       <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
-      <version.picketlink>2.7.0.CR1-20140924</version.picketlink>
+      <version.picketlink>2.7.0.CR2</version.picketlink>
       <version.furnace>2.12.1.Final</version.furnace>
       <version.forge.addons>2.12.1.Final</version.forge.addons>
       <jboss.logging.version>3.1.1.GA</jboss.logging.version>
@@ -105,7 +105,7 @@
          <groupId>org.picketlink</groupId>
          <artifactId>picketlink-api</artifactId>
          <version>${version.picketlink}</version>
-         <scope>compile</scope>
+         <scope>compile</scope>      
       </dependency>
       
       <dependency>
@@ -114,7 +114,14 @@
          <version>${version.picketlink}</version>
          <scope>compile</scope>
       </dependency>
-
+      
+      <dependency>
+         <groupId>org.picketlink</groupId>
+         <artifactId>picketlink-json</artifactId>
+         <version>${version.picketlink}</version>
+         <scope>compile</scope>
+      </dependency> 
+      
       <dependency>
          <groupId>org.picketlink</groupId>
          <artifactId>picketlink-rest</artifactId>
@@ -132,13 +139,6 @@
          </exclusions>
       </dependency>
       
-      <dependency>
-         <groupId>org.picketlink</groupId>
-         <artifactId>picketlink-json</artifactId>
-         <version>${version.picketlink}</version>
-         <scope>compile</scope>
-      </dependency>
-
       <dependency>
         <groupId>com.fasterxml.jackson.jaxrs</groupId>
         <artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -170,7 +170,7 @@
          <scope>provided</scope>
       </dependency>
       
-      <dependency>
+      <!--dependency>
         <groupId>org.apache.deltaspike.core</groupId>
         <artifactId>deltaspike-core-impl</artifactId>
         <version>${version.deltaspike}</version>
@@ -180,7 +180,7 @@
         <groupId>org.apache.deltaspike.modules</groupId>
         <artifactId>deltaspike-security-module-impl</artifactId>
         <version>${version.deltaspike}</version>
-      </dependency>
+      </dependency-->
       
       <!-- CORS Filter (to enable CORS for REST endpoints) -->
       
