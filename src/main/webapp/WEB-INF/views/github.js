@@ -5,6 +5,10 @@ var GH = {
   wss: null, // The websocket service
   registerWSService: function(wss) {
     GH.wss = wss;
+    
+    if (!GH.wss.isConnected()) {
+      GH.wss.connect();
+    }    
     GH.wss.send(GH.createMessage("identity.login", {jwtToken: pl.getToken()}));
   },
   processMessage: function(data) {
@@ -22,11 +26,11 @@ var GH = {
     }
   },
   register: function() {
-     if (!GH.wss.isConnected()) {
-       GH.wss.connect();
-     }
+    if (!GH.wss.isConnected()) {
+      GH.wss.connect();
+    }
      
-     GH.wss.send(GH.createMessage("github.generateState", {}));
+    GH.wss.send(GH.createMessage("github.generateState", {}));
   },
   redirectToGitHub: function() {   
     var url = "https://github.com/login/oauth/authorize?" +
