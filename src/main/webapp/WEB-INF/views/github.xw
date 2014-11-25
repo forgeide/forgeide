@@ -3,6 +3,8 @@
   <xw:event type="afterRender"><![CDATA[if (identity.isLoggedIn()) { gitHubService.get();}]]></xw:event>
 
   <xw:restEndpoint id="gitHubService" url="#{servicePath}/settings/github" decorator="#{requestAuthenticator}"/>
+  
+  <xw:restEndpoint id="gitHubStateService" url="#{servicePath}/github/generateState" decorator="#{requestAuthenticator}"/>
 
   <xw:restELBinding binding="gitHubAuth" mode="JSON" restEndpoint="#{gitHubService}"/>
   
@@ -22,7 +24,7 @@
     
     <div class="view_actions">
       <xw:button styleClass="primary" label="Configure">
-        <xw:event type="onclick"><![CDATA[GH.register();]]></xw:event>    
+        <xw:event type="onclick"><![CDATA[GH.register(gitHubStateService);]]></xw:event>    
       </xw:button>
     </div>
   </div>

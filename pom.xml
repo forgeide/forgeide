@@ -181,7 +181,21 @@
         <artifactId>deltaspike-security-module-impl</artifactId>
         <version>${version.deltaspike}</version>
       </dependency>
-      
+     
+      <dependency>
+          <groupId>org.apache.deltaspike.modules</groupId>
+          <artifactId>deltaspike-jpa-module-api</artifactId>
+          <version>${version.deltaspike}</version>
+          <scope>compile</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.deltaspike.modules</groupId>
+          <artifactId>deltaspike-jpa-module-impl</artifactId>
+          <version>${version.deltaspike}</version>
+          <scope>runtime</scope>
+      </dependency>
+ 
       <!-- CORS Filter (to enable CORS for REST endpoints) -->
       
       <dependency>

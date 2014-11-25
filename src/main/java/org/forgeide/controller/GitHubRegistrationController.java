@@ -2,15 +2,16 @@ package org.forgeide.controller;
 
 import java.util.UUID;
 
+import javax.ejb.Stateful;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.websocket.Session;
 
 import org.forgeide.model.GitHubAuthorization;
 import org.forgeide.qualifiers.Configuration;
+import org.forgeide.security.annotations.LoggedIn;
 import org.picketlink.Identity;
 import org.xwidgets.websocket.Message;
 import org.xwidgets.websocket.SessionRegistry;
@@ -31,6 +32,7 @@ import com.google.api.client.util.Key;
  *
  * @author Shane Bryzak
  */
+@Stateful
 @ApplicationScoped
 public class GitHubRegistrationController
 {
@@ -40,11 +42,9 @@ public class GitHubRegistrationController
 
    @Inject @Configuration(key = "github.client_secret") String clientSecret;
 
-   @Inject EntityManager entityManager;
+   @Inject Instance<EntityManager> entityManagerInstance;
 
-   @Inject Instance<Identity> identityInstance;
-
-   @Inject Foo foo;
+   @Inject Instance<Identity> identity;
 
    private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
    private final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -76,45 +76,43 @@ public class GitHubRegistrationController
       }
    }
 
-   public String generateState(String sessionId)
+   //@LoggedIn
+   public String generateState()
    {
       String state = UUID.randomUUID().toString().replaceAll("-", "");
-      
-      GitHubAuthorization auth = null;
-      //GitHubAuthorization auth = entityManager.find(GitHubAuthorization.class, 
-      //         identityInstance.get().getAccount().getId());
-      
+      String userId = identity.get().getAccount().getId();
+
+      EntityManager em = entityManagerInstance.get();
+      GitHubAuthorization auth = em.find(GitHubAuthorization.class, userId);
+
       if (auth == null)
       {
          auth = new GitHubAuthorization();
-         auth.setUserId(foo.getValue());
-         //auth.setUserId(identityInstance.get().getAccount().getId());
-         auth.setSessionId(sessionId);
+         auth.setUserId(userId);
          auth.setAccessState(state);
-         entityManager.persist(auth);
+         em.persist(auth);
       }
       else
       {
-         auth.setSessionId(sessionId);
          auth.setAccessState(state);
-         entityManager.merge(auth);
+         em.merge(auth);
       }
       return state;
    }
 
    public void processCode(String state, String code) throws Exception
    {
+      EntityManager em = entityManagerInstance.get();
       try
       {
-         GitHubAuthorization auth = entityManager.createQuery(
+         GitHubAuthorization auth = em.createQuery(
                   "select a from GitHubAuthorization a where a.accessState = :accessState"
                   , GitHubAuthorization.class)
+                  .setParameter("accessState", state)
                   .getSingleResult();
 
-         Session session = registry.getSession(auth.getSessionId());
-
          Message msg = new Message("github.authorizing");
-         session.getAsyncRemote().sendObject(msg);
+//         session.getAsyncRemote().sendObject(msg);
 
          HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory();
 
@@ -137,10 +135,10 @@ public class GitHubRegistrationController
             AuthorizationResponse authResponse = response.parseAs(AuthorizationResponse.class);
             auth.setAccessToken(authResponse.getAccessToken());
             auth.setScopes(authResponse.getScope());
-            entityManager.merge(auth);
+            em.merge(auth);
 
             msg = new Message("github.authorized");
-            session.getAsyncRemote().sendObject(msg);
+//            session.getAsyncRemote().sendObject(msg);
          }
          finally
          {

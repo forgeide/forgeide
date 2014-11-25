@@ -5,11 +5,6 @@ var GH = {
   wss: null, // The websocket service
   registerWSService: function(wss) {
     GH.wss = wss;
-    
-    if (!GH.wss.isConnected()) {
-      GH.wss.connect();
-    }    
-    GH.wss.send(GH.createMessage("identity.login", {jwtToken: pl.getToken()}));
   },
   processMessage: function(data) {
     var msg = JSON.parse(data);
@@ -25,12 +20,18 @@ var GH = {
       alert("Authorization complete.");      
     }
   },
-  register: function() {
+  register: function(svc) {
     if (!GH.wss.isConnected()) {
       GH.wss.connect();
     }
      
-    GH.wss.send(GH.createMessage("github.generateState", {}));
+    var cb = function(response) {
+      var result = JSON.parse(response);
+      GH.stateVar = result.state;
+      GH.redirectUri = result.redirectUri;
+      GH.redirectToGitHub();
+    };
+    svc.get({callback: cb});
   },
   redirectToGitHub: function() {   
     var url = "https://github.com/login/oauth/authorize?" +
@@ -40,7 +41,7 @@ var GH = {
       "&redirect_url=" + encodeURIComponent(GH.redirectUri);
            
     var features = "location=yes,height=650,width=1020,scrollbars=yes,status=yes";
-    GH.regWindow = window.open(url, "_blank", features);
+    GH.regWindow = window.open(url, "forgeIDE_github", features);
   },
   createMessage: function(key, payload) {
     return JSON.stringify({
