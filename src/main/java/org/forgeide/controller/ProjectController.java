@@ -19,6 +19,10 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.internal.storage.file.FileRepository;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.forgeide.events.NewProjectEvent;
 import org.forgeide.events.NewResourceEvent;
 import org.forgeide.forge.UIRuntimeImpl;
@@ -109,8 +113,8 @@ public class ProjectController
                   context, new UIRuntimeImpl(), (UIWizard) cmd);
          controller.initialize();
 
-         File projectDir = getProjectDir(project.getName());
-         controller.setValueFor("targetLocation", projectDir);
+         File rootDir = getProjectRootDir(project.getName());
+         controller.setValueFor("targetLocation", rootDir);
 
          controller.setValueFor("named", project.getName());
          controller.setValueFor("type", "From Archetype");
@@ -153,22 +157,51 @@ public class ProjectController
             }
             else
             {
+               // Create and commit the git repo
+               File projectDir = new File(rootDir, project.getName());
+               //Repository localRepo = new FileRepository(projectDir);
+               //Git git = new Git(localRepo);
+               //localRepo.create();
+               //git.add().addFilepattern(".").call();
+               //git.commit().setMessage("initial commit").call();
+
+               Git.init()
+                 .setDirectory(projectDir)
+                 .call();
+
+               Repository repository = FileRepositoryBuilder.create(
+                        new File(projectDir.getAbsolutePath(), ".git"));
+
+               Git git = new Git(repository);
+
+               // run the add
+               git.add()
+                       .addFilepattern(".")
+                       .call();
+
+               // and then commit the changes
+               git.commit()
+                       .setMessage("initial commit")
+                       .call();
+
+               repository.close();
+
                rm.setPassed(true);
-               rm.setMessage(result.getMessage());
+               //rm.setMessage(result.getMessage());
             }
          }
          catch (Exception ex)
          {
             rm.setPassed(false);
             rm.setException(ex.getMessage());
-            //throw new RuntimeException(ex);
+            throw new RuntimeException(ex);
          }
       }
 
       newProjectEvent.fire(new NewProjectEvent(project));
    }
 
-   private File getProjectDir(String projectName)
+   private File getProjectRootDir(String projectName)
    {
       File rootDir = new File(projectRootDir);
       if (!rootDir.exists())
