@@ -1,5 +1,6 @@
 package org.forgeide.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +31,7 @@ import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ProjectResource.ResourceType;
 import org.forgeide.model.Project_;
 import org.forgeide.model.ResourceContent;
+import org.forgeide.qualifiers.Configuration;
 import org.forgeide.qualifiers.Forge;
 import org.forgeide.security.annotations.LoggedIn;
 import org.forgeide.service.ProjectServices.ProjectParams;
@@ -62,8 +64,11 @@ public class ProjectController
 
    @Inject Event<NewResourceEvent> newResourceEvent;
 
+   @Inject @Configuration(key = "project.rootdir", defaultValue = "/tmp")
+   private String projectRootDir;
+
    @Inject
-   private Identity identity;
+   private Instance<Identity> identityInstance;
 
    @Inject
    @Forge
@@ -86,7 +91,7 @@ public class ProjectController
       pa.setProject(project);
       pa.setAccessLevel(AccessLevel.OWNER);
       pa.setOpen(true);
-      pa.setUserId(identity.getAccount().getId());
+      pa.setUserId(identityInstance.get().getAccount().getId());
 
       em.persist(pa);
 
@@ -103,6 +108,9 @@ public class ProjectController
          WizardCommandController controller = controllerFactory.get().createWizardController(
                   context, new UIRuntimeImpl(), (UIWizard) cmd);
          controller.initialize();
+
+         File projectDir = getProjectDir(project.getName());
+         controller.setValueFor("targetLocation", projectDir);
 
          controller.setValueFor("named", project.getName());
          controller.setValueFor("type", "From Archetype");
@@ -131,8 +139,6 @@ public class ProjectController
          controller.setValueFor("archetypeArtifactId", "jboss-forge-html5");
          controller.setValueFor("archetypeVersion", "1.0.0-SNAPSHOT");
 
-         //controller.setValueFor("targetLocation", new ResourcePath());
-
          ResultMetadata rm = new ResultMetadata();
          try
          {
@@ -155,10 +161,22 @@ public class ProjectController
          {
             rm.setPassed(false);
             rm.setException(ex.getMessage());
+            //throw new RuntimeException(ex);
          }
       }
 
       newProjectEvent.fire(new NewProjectEvent(project));
+   }
+
+   private File getProjectDir(String projectName)
+   {
+      File rootDir = new File(projectRootDir);
+      if (!rootDir.exists())
+      {
+         rootDir.mkdirs();
+      }
+
+      return rootDir;
    }
 
    @LoggedIn
@@ -243,7 +261,7 @@ public class ProjectController
 
    public List<Project> listProjects(String searchTerm)
    {
-      if (!identity.isLoggedIn()) {
+      if (!identityInstance.get().isLoggedIn()) {
          return Collections.emptyList();
       }
 
@@ -256,7 +274,7 @@ public class ProjectController
 
       List<Predicate> predicates = new ArrayList<Predicate>();
 
-      predicates.add(cb.equal(from.get("userId"), identity.getAccount().getId()));
+      predicates.add(cb.equal(from.get("userId"), identityInstance.get().getAccount().getId()));
 
       if (searchTerm != null && !"".equals(searchTerm))
       {

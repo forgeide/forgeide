@@ -1,3 +1,4 @@
 # Copy this to forgeide.properties and adjust the values to suit
 github.client_id=
 github.client_secret=
+project.rootdir=/tmp/forgeide_projects/
