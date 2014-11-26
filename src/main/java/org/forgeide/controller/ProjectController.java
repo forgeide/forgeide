@@ -37,6 +37,7 @@ import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
 import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
 import org.jboss.forge.addon.ui.controller.WizardCommandController;
+import org.jboss.forge.addon.ui.output.UIMessage;
 import org.jboss.forge.addon.ui.result.Failed;
 import org.jboss.forge.addon.ui.result.Result;
 import org.jboss.forge.addon.ui.wizard.UIWizard;
@@ -105,6 +106,24 @@ public class ProjectController
 
          controller.setValueFor("named", project.getName());
          controller.setValueFor("type", "From Archetype");
+
+         if (!controller.isValid())
+         {
+            List<UIMessage> messages = controller.validate();
+            StringBuilder sb = new StringBuilder();
+            for (UIMessage msg : messages)
+            {
+               if (sb.length() > 0) {
+                  sb.append(", ");
+               }
+               sb.append("[");
+               sb.append(msg.getDescription());
+               sb.append("]");
+            }
+            throw new RuntimeException(
+                     "Unable to create project, validation error/s in New Project wizard - " +
+                     sb.toString());
+         }
 
          controller.next().initialize();
 
