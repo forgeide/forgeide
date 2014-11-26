@@ -316,6 +316,15 @@
         <version>3.5.0.201409260305-r</version>
       </dependency>
 
+      <!-- mylyn GitHub API -->
+
+      <dependency>
+        <groupId>org.eclipse.mylyn.github</groupId>
+        <artifactId>org.eclipse.egit.github.core</artifactId>
+        <version>2.1.5</version>
+      </dependency>
+
+
    </dependencies>
    <build>
       <finalName>${project.artifactId}</finalName>

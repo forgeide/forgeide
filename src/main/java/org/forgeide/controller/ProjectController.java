@@ -19,15 +19,25 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.StoredConfig;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.RefSpec;
+import org.eclipse.jgit.transport.RemoteConfig;
+import org.eclipse.jgit.transport.URIish;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.forgeide.events.NewProjectEvent;
 import org.forgeide.events.NewResourceEvent;
 import org.forgeide.forge.UIRuntimeImpl;
 import org.forgeide.forge.metadata.ResultMetadata;
 import org.forgeide.forge.ui.IDEUIContext;
+import org.forgeide.model.GitHubAuthorization;
 import org.forgeide.model.Project;
 import org.forgeide.model.ProjectAccess;
 import org.forgeide.model.ProjectAccess.AccessLevel;
@@ -157,22 +167,17 @@ public class ProjectController
             }
             else
             {
-               // Create and commit the git repo
                File projectDir = new File(rootDir, project.getName());
-               //Repository localRepo = new FileRepository(projectDir);
-               //Git git = new Git(localRepo);
-               //localRepo.create();
-               //git.add().addFilepattern(".").call();
-               //git.commit().setMessage("initial commit").call();
 
+               // Create and commit the git repo
                Git.init()
                  .setDirectory(projectDir)
                  .call();
 
-               Repository repository = FileRepositoryBuilder.create(
+               Repository localRepo = FileRepositoryBuilder.create(
                         new File(projectDir.getAbsolutePath(), ".git"));
 
-               Git git = new Git(repository);
+               Git git = new Git(localRepo);
 
                // run the add
                git.add()
@@ -184,7 +189,43 @@ public class ProjectController
                        .setMessage("initial commit")
                        .call();
 
-               repository.close();
+               // Now we push the changes to GitHub 
+               // First lookup the user's GitHub authorization record
+               GitHubAuthorization auth = em.find(GitHubAuthorization.class, 
+                        identityInstance.get().getAccount().getId());
+
+               if (auth != null)
+               {
+                  // Use the GitHub API to create the repository
+                  RepositoryService service = new RepositoryService();
+                  service.getClient().setOAuth2Token(auth.getAccessToken());
+                  org.eclipse.egit.github.core.Repository remoteRepo = new org.eclipse.egit.github.core.Repository();
+                  remoteRepo.setName(project.getName());
+                  remoteRepo = service.createRepository(remoteRepo);
+
+                  // After creating the remote repository, we want to push our local repo to it
+                  // We start by creating a remote configuration
+                  final StoredConfig config = localRepo.getConfig();
+                  RemoteConfig remoteConfig = new RemoteConfig(config, "origin");
+                  URIish uri = new URIish(remoteRepo.getHtmlUrl());
+                  remoteConfig.addURI(uri);
+                  remoteConfig.update(config);
+                  config.save();
+
+                  // Create the credentials provider for jGit
+                  CredentialsProvider cp = new UsernamePasswordCredentialsProvider(
+                           auth.getAccessToken(), "");
+
+                  // Push the repo
+                  RefSpec spec = new RefSpec("refs/heads/master:refs/heads/x");
+                  git.push()
+                     .setCredentialsProvider(cp)
+                     .setRemote("origin")
+                     .setRefSpecs(spec)
+                     .call();
+               }
+
+               localRepo.close();
 
                rm.setPassed(true);
                //rm.setMessage(result.getMessage());
