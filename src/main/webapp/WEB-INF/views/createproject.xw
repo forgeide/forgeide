@@ -13,9 +13,7 @@
   
   <xw:eLBinding binding="services">
     <xw:event type="onbind"><![CDATA[return [
-      {value: "eeapp", title: "EE App Platform", description: "asdasdf"},
-      {value: "datacache", title: "Data Caching", description: "Easily cache your data in memory for fast access."},
-      {value: "service", title: "Service Name", description: "Vestibulum erat wisi, condimentum sed, commodo vitae, omare sit amet, wisi."}
+      {value: "jpa", title: "JPA", description: "Use JPA (Java Persistence API) in your project."},
       ];]]></xw:event>
   </xw:eLBinding>  
   

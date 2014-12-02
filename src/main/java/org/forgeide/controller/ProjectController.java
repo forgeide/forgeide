@@ -19,11 +19,8 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.internal.storage.file.FileRepository;
-import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.StoredConfig;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
@@ -43,19 +40,26 @@ import org.forgeide.model.ProjectAccess;
 import org.forgeide.model.ProjectAccess.AccessLevel;
 import org.forgeide.model.ProjectResource;
 import org.forgeide.model.ProjectResource.ResourceType;
+import org.forgeide.model.ProjectTemplate;
 import org.forgeide.model.Project_;
 import org.forgeide.model.ResourceContent;
+import org.forgeide.model.ServiceParameter;
+import org.forgeide.model.TemplateService;
 import org.forgeide.qualifiers.Configuration;
 import org.forgeide.qualifiers.Forge;
 import org.forgeide.security.annotations.LoggedIn;
 import org.forgeide.service.ProjectServices.ProjectParams;
+import org.jboss.forge.addon.projects.Projects;
 import org.jboss.forge.addon.ui.command.CommandFactory;
 import org.jboss.forge.addon.ui.command.UICommand;
+import org.jboss.forge.addon.ui.context.UISelection;
 import org.jboss.forge.addon.ui.controller.CommandControllerFactory;
+import org.jboss.forge.addon.ui.controller.SingleCommandController;
 import org.jboss.forge.addon.ui.controller.WizardCommandController;
 import org.jboss.forge.addon.ui.output.UIMessage;
 import org.jboss.forge.addon.ui.result.Failed;
 import org.jboss.forge.addon.ui.result.Result;
+import org.jboss.forge.addon.ui.util.Selections;
 import org.jboss.forge.addon.ui.wizard.UIWizard;
 import org.picketlink.Identity;
 import org.xwidgets.websocket.Message;
@@ -94,6 +98,22 @@ public class ProjectController
 
    @Inject SessionRegistry sessionRegistry;
 
+   private class NewProjectContext extends IDEUIContext
+   {
+      private IDEUIContext wrapped;
+
+      public NewProjectContext(IDEUIContext wrapped)
+      {
+         this.wrapped = wrapped;
+      }
+
+      @Override
+      public <SELECTIONTYPE> UISelection<SELECTIONTYPE> getInitialSelection()
+      {
+         return wrapped.getSelection();
+      }
+   }
+
    @LoggedIn
    public void createProject(Project project, ProjectParams params)
        throws Exception
@@ -109,137 +129,190 @@ public class ProjectController
 
       em.persist(pa);
 
-      if ("javaee".equals(params.getTemplate())) 
+      ProjectTemplate template = entityManager.get().createQuery(
+               "select t from ProjectTemplate t where t.code = :code", ProjectTemplate.class)
+               .setParameter("code", params.getTemplate())
+               .getSingleResult();
+
+      IDEUIContext context = new IDEUIContext();
+      UICommand cmd = commandFactory.get().getNewCommandByName(context, COMMAND_PROJECT_NEW);
+
+      if (cmd == null) 
       {
-         IDEUIContext context = new IDEUIContext();
-         UICommand cmd = commandFactory.get().getNewCommandByName(context, COMMAND_PROJECT_NEW);
+         throw new RuntimeException("Could not locate [Project: New] Forge command");
+      }
 
-         if (cmd == null) 
+      WizardCommandController controller = controllerFactory.get().createWizardController(
+               context, new UIRuntimeImpl(), (UIWizard) cmd);
+      controller.initialize();
+
+      File rootDir = getProjectRootDir(project.getName());
+      controller.setValueFor("targetLocation", rootDir);
+
+      controller.setValueFor("named", project.getName());
+      controller.setValueFor("type", "From Archetype");
+
+      if (!controller.isValid())
+      {
+         List<UIMessage> messages = controller.validate();
+         StringBuilder sb = new StringBuilder();
+         for (UIMessage msg : messages)
          {
-            throw new RuntimeException("Could not locate [Project: New] Forge command");
-         }
-
-         WizardCommandController controller = controllerFactory.get().createWizardController(
-                  context, new UIRuntimeImpl(), (UIWizard) cmd);
-         controller.initialize();
-
-         File rootDir = getProjectRootDir(project.getName());
-         controller.setValueFor("targetLocation", rootDir);
-
-         controller.setValueFor("named", project.getName());
-         controller.setValueFor("type", "From Archetype");
-
-         if (!controller.isValid())
-         {
-            List<UIMessage> messages = controller.validate();
-            StringBuilder sb = new StringBuilder();
-            for (UIMessage msg : messages)
-            {
-               if (sb.length() > 0) {
-                  sb.append(", ");
-               }
-               sb.append("[");
-               sb.append(msg.getDescription());
-               sb.append("]");
+            if (sb.length() > 0) {
+               sb.append(", ");
             }
-            throw new RuntimeException(
-                     "Unable to create project, validation error/s in New Project wizard - " +
-                     sb.toString());
+            sb.append("[");
+            sb.append(msg.getDescription());
+            sb.append("]");
          }
+         throw new RuntimeException(
+                  "Unable to create project, validation error/s in New Project wizard - " +
+                  sb.toString());
+      }
 
-         controller.next().initialize();
+      controller.next().initialize();
 
-         controller.setValueFor("archetypeGroupId", "org.jboss.tools.archetypes");
-         controller.setValueFor("archetypeArtifactId", "jboss-forge-html5");
-         controller.setValueFor("archetypeVersion", "1.0.0-SNAPSHOT");
+      controller.setValueFor("archetypeGroupId", template.getArchetypeGroupId());
+      controller.setValueFor("archetypeArtifactId", template.getArchetypeArtifactId());
+      controller.setValueFor("archetypeVersion", template.getArchetypeVersion());
 
-         ResultMetadata rm = new ResultMetadata();
-         try
-         {
-            Result result = controller.execute();
-            if (result instanceof Failed) {
-               rm.setPassed(false);
-               rm.setMessage(result.getMessage());
-               if (((Failed) result).getException() != null) 
-               {
-                  rm.setException(((Failed) result).getException().getMessage());
-               }
-            }
-            else
-            {
-               File projectDir = new File(rootDir, project.getName());
-
-               // Create and commit the git repo
-               Git.init()
-                 .setDirectory(projectDir)
-                 .call();
-
-               Repository localRepo = FileRepositoryBuilder.create(
-                        new File(projectDir.getAbsolutePath(), ".git"));
-
-               Git git = new Git(localRepo);
-
-               // run the add
-               git.add()
-                       .addFilepattern(".")
-                       .call();
-
-               // and then commit the changes
-               git.commit()
-                       .setMessage("initial commit")
-                       .call();
-
-               // Now we push the changes to GitHub 
-               // First lookup the user's GitHub authorization record
-               GitHubAuthorization auth = em.find(GitHubAuthorization.class, 
-                        identityInstance.get().getAccount().getId());
-
-               if (auth != null)
-               {
-                  // Use the GitHub API to create the repository
-                  RepositoryService service = new RepositoryService();
-                  service.getClient().setOAuth2Token(auth.getAccessToken());
-                  org.eclipse.egit.github.core.Repository remoteRepo = new org.eclipse.egit.github.core.Repository();
-                  remoteRepo.setName(project.getName());
-                  remoteRepo = service.createRepository(remoteRepo);
-
-                  // After creating the remote repository, we want to push our local repo to it
-                  // We start by creating a remote configuration
-                  final StoredConfig config = localRepo.getConfig();
-                  RemoteConfig remoteConfig = new RemoteConfig(config, "origin");
-                  URIish uri = new URIish(remoteRepo.getHtmlUrl());
-                  remoteConfig.addURI(uri);
-                  remoteConfig.update(config);
-                  config.save();
-
-                  // Create the credentials provider for jGit
-                  CredentialsProvider cp = new UsernamePasswordCredentialsProvider(
-                           auth.getAccessToken(), "");
-
-                  // Push the repo
-                  RefSpec spec = new RefSpec("refs/heads/master:refs/heads/x");
-                  git.push()
-                     .setCredentialsProvider(cp)
-                     .setRemote("origin")
-                     .setRefSpecs(spec)
-                     .call();
-               }
-
-               localRepo.close();
-
-               rm.setPassed(true);
-               //rm.setMessage(result.getMessage());
-            }
-         }
-         catch (Exception ex)
-         {
+      ResultMetadata rm = new ResultMetadata();
+      try
+      {
+         Result result = controller.execute();
+         if (result instanceof Failed) {
             rm.setPassed(false);
-            rm.setException(ex.getMessage());
-            throw new RuntimeException(ex);
+            rm.setMessage(result.getMessage());
+            if (((Failed) result).getException() != null) 
+            {
+               rm.setException(((Failed) result).getException().getMessage());
+            }
          }
+         else
+         {
+            // Select the newly created project in the context
+            context = new NewProjectContext(context);
+
+            // Run each of the commands for the selected services
+            for (String serviceCode : params.getServices()) {
+               TemplateService service = entityManager.get().createQuery(
+                        "select s from TemplateService s where s.template = :template and s.code = :code",
+                        TemplateService.class)
+                        .setParameter("template", template)
+                        .setParameter("code", serviceCode)
+                        .getSingleResult();
+               executeService(service, context);
+            }
+
+            File projectDir = new File(rootDir, project.getName());
+
+            // Create and commit the git repo
+            Git.init()
+              .setDirectory(projectDir)
+              .call();
+
+            Repository localRepo = FileRepositoryBuilder.create(
+                     new File(projectDir.getAbsolutePath(), ".git"));
+
+            Git git = new Git(localRepo);
+
+            // run the add
+            git.add()
+                    .addFilepattern(".")
+                    .call();
+
+            // and then commit the changes
+            git.commit()
+                    .setMessage("initial commit")
+                    .call();
+
+            // Now we push the changes to GitHub 
+            // First lookup the user's GitHub authorization record
+            GitHubAuthorization auth = em.find(GitHubAuthorization.class, 
+                     identityInstance.get().getAccount().getId());
+
+            if (auth != null)
+            {
+               // Use the GitHub API to create the repository
+               RepositoryService service = new RepositoryService();
+               service.getClient().setOAuth2Token(auth.getAccessToken());
+               org.eclipse.egit.github.core.Repository remoteRepo = new org.eclipse.egit.github.core.Repository();
+               remoteRepo.setName(project.getName());
+               remoteRepo = service.createRepository(remoteRepo);
+
+               // After creating the remote repository, we want to push our local repo to it
+               // We start by creating a remote configuration
+               final StoredConfig config = localRepo.getConfig();
+               RemoteConfig remoteConfig = new RemoteConfig(config, "origin");
+               URIish uri = new URIish(remoteRepo.getHtmlUrl());
+               remoteConfig.addURI(uri);
+               remoteConfig.update(config);
+               config.save();
+
+               // Create the credentials provider for jGit
+               CredentialsProvider cp = new UsernamePasswordCredentialsProvider(
+                        auth.getAccessToken(), "");
+
+               // Push the repo
+               RefSpec spec = new RefSpec("refs/heads/master:refs/heads/x");
+               git.push()
+                  .setCredentialsProvider(cp)
+                  .setRemote("origin")
+                  .setRefSpecs(spec)
+                  .call();
+            }
+
+            localRepo.close();
+
+            rm.setPassed(true);
+            //rm.setMessage(result.getMessage());
+         }
+      }
+      catch (Exception ex)
+      {
+         rm.setPassed(false);
+         rm.setException(ex.getMessage());
+         throw new RuntimeException(ex);
       }
 
       newProjectEvent.fire(new NewProjectEvent(project));
+   }
+
+   private void executeService(TemplateService service, IDEUIContext context)
+            throws Exception
+   {
+      UICommand cmd = commandFactory.get().getNewCommandByName(context, service.getForgeCommand());
+
+      if (cmd == null) 
+      {
+         throw new RuntimeException("Could not locate [" + service.getForgeCommand() + 
+                  "] Forge command");
+      }
+
+      if (service.getSteps() > 1)
+      {
+         WizardCommandController controller = controllerFactory.get().createWizardController(
+                  context, new UIRuntimeImpl(), (UIWizard) cmd);
+         controller.initialize();
+      } 
+      else
+      {
+         SingleCommandController controller = controllerFactory.get().createSingleController(
+                  context, new UIRuntimeImpl(), cmd);
+         controller.initialize();
+
+         List<ServiceParameter> params = entityManager.get().createQuery(
+                  "select p from ServiceParameter p where p.service = :service",
+                  ServiceParameter.class)
+                  .setParameter("service", service)
+                  .getResultList();
+         for (ServiceParameter p : params)
+         {
+            controller.setValueFor(p.getParamName(), p.getParamValue());
+         }
+
+         Result result = controller.execute();
+      }
    }
 
    private File getProjectRootDir(String projectName)
