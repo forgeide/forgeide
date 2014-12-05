@@ -1,63 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  
-  <!-- CORS Filter to enable CORS for REST service endpoints -->
-  
-  <filter>
-    <filter-name>CORS</filter-name>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+<!-- CORS Filter to enable CORS for REST service endpoints --><filter>
+  <filter-name>CORS</filter-name>
     <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
-    
     <init-param>
-      <param-name>cors.allowGenericHttpRequests</param-name>
+    <param-name>cors.allowGenericHttpRequests</param-name>
       <param-value>true</param-value>
     </init-param>
-    
     <init-param>
-      <param-name>cors.allowOrigin</param-name>
+    <param-name>cors.allowOrigin</param-name>
       <param-value>*</param-value>
     </init-param>
-    
     <init-param>
-      <param-name>cors.allowSubdomains</param-name>
+    <param-name>cors.allowSubdomains</param-name>
       <param-value>false</param-value>
     </init-param>
-    
     <init-param>
-      <param-name>cors.supportedMethods</param-name>
+    <param-name>cors.supportedMethods</param-name>
       <param-value>GET, HEAD, POST, DELETE, PUT, OPTIONS</param-value>
     </init-param>
-
     <init-param>
-      <param-name>cors.supportedHeaders</param-name>
+    <param-name>cors.supportedHeaders</param-name>
       <param-value>*</param-value>
     </init-param>
-
     <init-param>
-      <param-name>cors.supportsCredentials</param-name>
+    <param-name>cors.supportsCredentials</param-name>
       <param-value>true</param-value>
     </init-param>
-
     <init-param>
-      <param-name>cors.maxAge</param-name>
+    <param-name>cors.maxAge</param-name>
       <param-value>3600</param-value>
     </init-param>
   </filter>
-  
   <filter-mapping>
-    <!-- CORS Filter mapping -->
-    <filter-name>CORS</filter-name>
+  <!-- CORS Filter mapping --><filter-name>CORS</filter-name>
     <url-pattern>/rest/*</url-pattern>
-  </filter-mapping>  
-
-	<!-- Force SSL usage -->
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>JaxRsActivator</web-resource-name>
-			<url-pattern>/*</url-pattern>
-		</web-resource-collection>
-		<!-- <user-data-constraint>
+  </filter-mapping>
+  <!-- Force SSL usage -->
+  <security-constraint>
+	<web-resource-collection>
+		<web-resource-name>JaxRsActivator</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <!-- <user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint> -->
-	</security-constraint>
+  </security-constraint>
 
 </web-app>

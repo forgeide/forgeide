@@ -14,6 +14,7 @@
   <xw:eLBinding binding="services">
     <xw:event type="onbind"><![CDATA[return [
       {value: "jpa", title: "JPA", description: "Use JPA (Java Persistence API) in your project."},
+      {value: "rest", title: "REST", description: "Enable REST services in your project."},
       ];]]></xw:event>
   </xw:eLBinding>  
   
