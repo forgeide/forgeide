@@ -8,13 +8,16 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.forgeide.forge.UIRuntimeImpl;
 import org.forgeide.forge.metadata.ControlMetadata;
@@ -63,7 +66,6 @@ public class CommandServices
    }
 
    @GET
-   @Path("/list")
    @Produces(MediaType.APPLICATION_JSON)
    public Map<String, List<String>> getCommands()
    {
@@ -71,13 +73,20 @@ public class CommandServices
    }
 
    @GET
-   @Path("/get/{command}")
+   @Path("/{command}")
    @Produces(MediaType.APPLICATION_JSON)
-   public List<ControlMetadata> getCommandMetadata(@PathParam("command") String command) 
+   public List<ControlMetadata> getCommandMetadata(@PathParam("command") String command,
+            @Context final HttpServletResponse response)
        throws Exception 
    {
       IDEUIContext context = new IDEUIContext();
       UICommand cmd = commandFactory.get().getCommandByName(context, command);
+
+      if (cmd == null)
+      {
+         response.sendError(Response.Status.NOT_FOUND.getStatusCode());
+         return null;
+      }
 
       CommandController controller = controllerFactory.get().createSingleController(
                context, new UIRuntimeImpl(), cmd);
