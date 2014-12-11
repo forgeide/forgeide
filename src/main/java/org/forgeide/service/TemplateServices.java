@@ -35,6 +35,17 @@ public class TemplateServices
    }
 
    @GET
+   @Path("/{code}")
+   @Produces(MediaType.APPLICATION_JSON)
+   public ProjectTemplate getTemplate(@PathParam("code") String code)
+   {
+       return entityManager.createQuery(
+                "select t from ProjectTemplate t where t.code = :code", ProjectTemplate.class)
+                .setParameter("code", code)
+                .getSingleResult();
+   }
+
+   @GET
    @Path("/{code}/services")
    @Produces(MediaType.APPLICATION_JSON)
    public List<TemplateService> listServices(@PathParam("code") String code)
@@ -49,5 +60,24 @@ public class TemplateServices
                TemplateService.class)
                .setParameter("template", t)
                .getResultList();
+   }
+
+   @GET
+   @Path("/{code}/services/{serviceCode}")
+   @Produces(MediaType.APPLICATION_JSON)
+   public TemplateService getService(@PathParam("code") String code,
+            @PathParam("serviceCode") String serviceCode)
+   {
+      ProjectTemplate t = entityManager.createQuery(
+               "select t from ProjectTemplate t where t.code = :code", ProjectTemplate.class)
+               .setParameter("code", code)
+               .getSingleResult();
+
+      return entityManager.createQuery(
+               "select s from TemplateService s where s.template = :template and s.code = :code", 
+               TemplateService.class)
+               .setParameter("template", t)
+               .setParameter("code", serviceCode)
+               .getSingleResult();
    }
 }

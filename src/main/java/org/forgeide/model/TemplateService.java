@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Defines a service that may be activated for a specific project template
@@ -35,6 +38,7 @@ public class TemplateService implements Serializable
 
    private int steps;
 
+   @JsonIgnore
    public Long getId()
    {
       return id;
@@ -45,6 +49,7 @@ public class TemplateService implements Serializable
       this.id = id;
    }
 
+   @JsonIgnore
    public ProjectTemplate getTemplate()
    {
       return template;

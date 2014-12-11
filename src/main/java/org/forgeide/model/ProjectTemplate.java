@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Defines an individual project template, based on a specific Maven archetype
  *
@@ -32,6 +34,7 @@ public class ProjectTemplate implements Serializable
 
    private String archetypeVersion;
 
+   @JsonIgnore
    public Long getId()
    {
       return id;
