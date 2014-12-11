@@ -34,9 +34,9 @@ import org.jboss.forge.furnace.Furnace;
 
 /**
  * Provides RESTful services for querying Forge commands
- * 
+ *
  * @author Shane Bryzak
- * 
+ *
  */
 @Path("/commands")
 @Stateless
