@@ -147,13 +147,13 @@
       </dependency>
       
       <dependency>
-         <groupId>xwidgets</groupId>
+         <groupId>org.xwidgets</groupId>
          <artifactId>xwidgets</artifactId>
          <version>${version.xwidgets}</version>
       </dependency>
 
       <dependency>
-         <groupId>xwidgets</groupId>
+         <groupId>org.xwidgets</groupId>
          <artifactId>xwidgets-picketlink</artifactId>
          <version>${version.xwidgets}</version>
       </dependency>      
