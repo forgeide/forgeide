@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
+
+  <xw:formData id="registerParams"/>
+
+  <xw:restEndpoint id="registerService" url="#{servicePath}/register"/>
+  
+  <xw:eLBinding id="state" binding="viewState" value="register"/>
+  
+  <div>
+    <span class="content_title">Register</span>
+  </div>
+  
+  <xw:zone value="#{viewState}" activeOn="register">
+    
+    <div>
+      <xw:form styleClass="pure-form pure-form-stacked">
+        <fieldset>
+          <div class="pure-control-group">
+            <label for="username">Username</label>
+            <xw:inputText formData="#{registerParams}" styleClass="pure-input-1-4" name="username"/>
+          </div>
+          
+          <div class="pure-control-group">
+            <label for="description">Password</label>
+            <xw:inputSecret formData="#{registerParams}" styleClass="pure-input-1-4" name="password"/>
+          </div>
+        </fieldset>
+      </xw:form>
+    </div>  
+    
+    <br style="clear:both"/>
+
+    <div class="view_actions">
+      <xw:button id="projectCreate" styleClass="primary" label="Register">
+        <xw:event type="onclick">
+          <xw:action type="script"><![CDATA[
+    var cb = function(response) {
+      var result = JSON.parse(response);
+      if (result != null) {
+        state.setValue("success");
+      }
+    }
+    registerService.post({content:JSON.stringify(registerParams.value), callback: cb});       
+          ]]></xw:action>
+        </xw:event>
+      </xw:button>
+
+      <xw:button label="Cancel">
+        <xw:event type="onclick">
+          <xw:action type="script"><![CDATA[xw.open("projects.xw", null, "content");]]></xw:action>
+        </xw:event>
+      </xw:button>
+    </div>
+  </xw:zone>
+  
+  <xw:zone value="#{viewState}" activeOn="success">
+    Registration successful!
+    <span>Please </span>
+    <xw:link caption="sign in">
+      <xw:event type="onclick">
+        <xw:action type="script">xw.Popup.open("login.xw", {title: "Please Sign In", width: 360, height: 320});</xw:action>
+      </xw:event>
+    </xw:link>
+    <span> to start creating new applications.</span>
+  </xw:zone>
+   
+</xw:view>

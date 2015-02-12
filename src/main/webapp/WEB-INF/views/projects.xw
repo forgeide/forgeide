@@ -21,7 +21,13 @@
             <xw:action type="script">xw.Popup.open("login.xw", {title: "Please Sign In", width: 360, height: 320});</xw:action>
           </xw:event>
         </xw:link>
-        <span> to see your projects</span>
+        <span> to see your projects, or </span>
+        <xw:link caption="register">
+          <xw:event type="onclick">
+            <xw:action type="script">xw.open("register.xw", null, "content");</xw:action>
+          </xw:event>
+        </xw:link>
+        <span> to create a new account.</span>
       </div>
     </div>  
   </xw:fragment>

@@ -33,16 +33,19 @@
       <param-value>3600</param-value>
     </init-param>
   </filter>
+  
   <filter-mapping>
   <!-- CORS Filter mapping --><filter-name>CORS</filter-name>
     <url-pattern>/rest/*</url-pattern>
   </filter-mapping>
   <!-- Force SSL usage -->
+
   <security-constraint>
-	<web-resource-collection>
-		<web-resource-name>JaxRsActivator</web-resource-name>
+    <web-resource-collection>
+		  <web-resource-name>JaxRsActivator</web-resource-name>
       <url-pattern>/*</url-pattern>
     </web-resource-collection>
+
     <!-- <user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint> -->

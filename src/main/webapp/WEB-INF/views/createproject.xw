@@ -2,7 +2,6 @@
 <xw:view xmlns="http://www.w3.org/1999/xhtml" xmlns:xw="http://xwidgets.org/core">
 
   <xw:formData id="projectParams"/>
-  
  
   <xw:eLBinding binding="templates">
     <xw:event type="onbind"><![CDATA[return [

@@ -23,6 +23,13 @@ var xp = {
       xp.createProjectCallback(JSON.parse(response));
     };
     xw.Sys.getWidget("projectService").post({content:JSON.stringify(props), callback: cb});
-  } 
+  },
+  register: function(params) {
+    var cb = function(response) {
+      var result = JSON.parse(response);
+      alert(result);
+    }
+    xw.Sys.getWidget("registerService").post({content:JSON.stringify(params), callback: cb});
+  }
 };
 

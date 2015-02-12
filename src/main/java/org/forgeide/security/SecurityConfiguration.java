@@ -54,6 +54,9 @@ public class SecurityConfiguration
                     .token()
             .forPath("/rest/auth/*")
                 .authenticateWith()
+                    .token()
+            .forPath("/rest/picketlink/*")
+                .authenticateWith()
                     .token();
 
       // IDM configured here
