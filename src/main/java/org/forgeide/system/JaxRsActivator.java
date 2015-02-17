@@ -17,6 +17,13 @@ import org.picketlink.rest.AuthenticationEndpoint;
 @ApplicationPath("/rest")
 public class JaxRsActivator extends Application
 {
+
+   @Override
+   public Set<Class<?>> getClasses()
+   {
+      // TODO Auto-generated method stub
+      return null;
+   }
   // Intentionally left blank
 
   /* public Set<Class<?>> getClasses() {

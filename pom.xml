@@ -15,6 +15,7 @@
    <name>Forge IDE</name>
    <description>Forge IDE</description>
    <url>http://www.forgeide.org</url>
+   
    <licenses>
       <license>
          <name>Apache License, Version 2.0</name>
@@ -22,6 +23,7 @@
          <distribution>repo</distribution>
       </license>
    </licenses>
+   
    <properties>
       <version.xwidgets>0.1-SNAPSHOT</version.xwidgets>
       <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
@@ -32,6 +34,7 @@
       <version.deltaspike>1.0.0</version.deltaspike>
       <version.jackson>2.4.2</version.jackson>
       <version.google.httpclient>1.18.0-rc</version.google.httpclient>
+      <version.resteasy>3.0.9.Final</version.resteasy>
    </properties>
    
    <repositories>
@@ -43,27 +46,36 @@
    
    <dependencyManagement>
       <dependencies>
-         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <version>3.0.2.Final</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0</version>
-         </dependency>
+			  <dependency>
+				  <groupId>org.jboss.spec</groupId>
+				  <artifactId>jboss-javaee-7.0</artifactId>
+				  <version>1.0.2.Final</version>
+				  <type>pom</type>
+				  <scope>import</scope>
+			  </dependency>
       </dependencies>
    </dependencyManagement>
+
    <dependencies>
+   
+      <!-- EJB -->
+      
       <dependency>
-         <groupId>org.jboss.spec.javax.ejb</groupId>
-         <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-         <scope>provided</scope>
+        <groupId>org.jboss.spec.javax.ejb</groupId>
+        <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+        <scope>provided</scope>
       </dependency>
       
+		  <!-- Import the Common Annotations API (JSR-250) -->
+
+		  <dependency>
+			  <groupId>org.jboss.spec.javax.annotation</groupId>
+			  <artifactId>jboss-annotations-api_1.2_spec</artifactId>
+			  <scope>provided</scope>
+		  </dependency>      
+		
+		  <!-- Java EE Dependencies -->
+
       <dependency>
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
@@ -74,19 +86,25 @@
          <groupId>javax.inject</groupId>
          <artifactId>javax.inject</artifactId>
          <scope>provided</scope>
+      </dependency>     
+      
+      <dependency>
+         <groupId>org.jboss.spec.javax.servlet</groupId>
+         <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+         <scope>provided</scope>
       </dependency>
       
       <dependency>
-         <groupId>org.jboss.spec.javax.annotation</groupId>
-         <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+         <groupId>org.jboss.resteasy</groupId>
+         <artifactId>jaxrs-api</artifactId>
          <scope>provided</scope>
       </dependency>
       
-      <!--dependency>
-         <groupId>org.jboss.spec.javax.transaction</groupId>
-         <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-         <scope>provided</scope>
-      </dependency-->
+      <dependency>
+        <groupId>org.jboss.spec.javax.websocket</groupId>
+        <artifactId>jboss-websocket-api_1.0_spec</artifactId>
+        <version>1.0.0.Final</version>
+      </dependency>            
       
       <dependency>
         <groupId>org.jboss.logging</groupId>
@@ -97,9 +115,11 @@
       
       <dependency>
          <groupId>org.hibernate.javax.persistence</groupId>
-         <artifactId>hibernate-jpa-2.0-api</artifactId>
+         <artifactId>hibernate-jpa-2.1-api</artifactId>
          <scope>provided</scope>
       </dependency>
+      
+      <!-- PicketLink -->
       
       <dependency>
          <groupId>org.picketlink</groupId>
@@ -129,8 +149,8 @@
          <scope>compile</scope>
          <exclusions>
             <exclusion>
+               <groupId>org.jboss.resteasy</groupId>            
                <artifactId>resteasy-jaxrs</artifactId>
-               <groupId>org.jboss.resteasy</groupId>
             </exclusion>
             <exclusion>
                <groupId>org.codehaus.jackson</groupId>
@@ -138,6 +158,8 @@
             </exclusion>
          </exclusions>
       </dependency>
+      
+      <!-- Jackson -->
       
       <dependency>
         <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -147,28 +169,23 @@
       </dependency>
       
       <dependency>
+			  <groupId>org.jboss.spec.javax.json</groupId>
+			  <artifactId>jboss-json-api_1.0_spec</artifactId>
+      </dependency>
+      
+      <!-- XWidgets -->
+      
+      <dependency>
          <groupId>org.xwidgets</groupId>
          <artifactId>xwidgets</artifactId>
          <version>${version.xwidgets}</version>
       </dependency>
 
       <dependency>
-         <groupId>org.xwidgets</groupId>
-         <artifactId>xwidgets-picketlink</artifactId>
-         <version>${version.xwidgets}</version>
+        <groupId>org.xwidgets</groupId>
+        <artifactId>xwidgets-picketlink</artifactId>
+        <version>${version.xwidgets}</version>
       </dependency>      
-      
-      <dependency>
-         <groupId>org.jboss.spec.javax.servlet</groupId>
-         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-         <scope>provided</scope>
-      </dependency>
-      
-      <dependency>
-         <groupId>javax.ws.rs</groupId>
-         <artifactId>javax.ws.rs-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
       
       <!-- DeltaSpike -->
       
@@ -185,17 +202,17 @@
       </dependency>
      
       <dependency>
-          <groupId>org.apache.deltaspike.modules</groupId>
-          <artifactId>deltaspike-jpa-module-api</artifactId>
-          <version>${version.deltaspike}</version>
-          <scope>compile</scope>
+         <groupId>org.apache.deltaspike.modules</groupId>
+         <artifactId>deltaspike-jpa-module-api</artifactId>
+         <version>${version.deltaspike}</version>
+         <scope>compile</scope>
       </dependency>
 
       <dependency>
-          <groupId>org.apache.deltaspike.modules</groupId>
-          <artifactId>deltaspike-jpa-module-impl</artifactId>
-          <version>${version.deltaspike}</version>
-          <scope>runtime</scope>
+        <groupId>org.apache.deltaspike.modules</groupId>
+        <artifactId>deltaspike-jpa-module-impl</artifactId>
+        <version>${version.deltaspike}</version>
+        <scope>runtime</scope>
       </dependency>
  
       <!-- CORS Filter (to enable CORS for REST endpoints) -->
@@ -284,18 +301,8 @@
          <artifactId>projects-api</artifactId>
          <version>${version.forge.addons}</version>
       </dependency>
-      
-      <dependency>
-        <groupId>org.jboss.spec.javax.websocket</groupId>
-        <artifactId>jboss-websocket-api_1.0_spec</artifactId>
-        <version>1.0.0.Final</version>
-      </dependency>
-      
-      <dependency>
-        <groupId>javax.json</groupId>
-        <artifactId>javax.json-api</artifactId>
-        <version>1.0</version>
-      </dependency>
+
+      <!-- GSON -->
 
       <dependency>
         <groupId>com.google.code.gson</groupId>
@@ -311,7 +318,8 @@
         <version>1.1_01</version>
       </dependency>
 
-      <!-- JGIT dependency -->      
+      <!-- JGIT dependency -->    
+        
       <dependency>
         <groupId>org.eclipse.jgit</groupId>
         <artifactId>org.eclipse.jgit</artifactId>
@@ -326,8 +334,8 @@
         <version>2.1.5</version>
       </dependency>
 
-
    </dependencies>
+
    <build>
       <finalName>${project.artifactId}</finalName>
       <plugins>
