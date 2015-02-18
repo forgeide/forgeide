@@ -1,380 +1,379 @@
 <?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-   <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <groupId>org.jboss</groupId>
-      <artifactId>jboss-parent</artifactId>
-      <version>14</version>
-   </parent>
+  <parent>
+    <groupId>org.jboss</groupId>
+    <artifactId>jboss-parent</artifactId>
+    <version>14</version>
+  </parent>
 
-   <groupId>org.forgeide</groupId>
-   <artifactId>forge-ide</artifactId>
-   <version>1.0-SNAPSHOT</version>
-   <packaging>war</packaging>
-   <name>Forge IDE</name>
-   <description>Forge IDE</description>
-   <url>http://www.forgeide.org</url>
-   
-   <licenses>
-      <license>
-         <name>Apache License, Version 2.0</name>
-         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-         <distribution>repo</distribution>
-      </license>
-   </licenses>
-   
-   <properties>
-      <version.xwidgets>0.1-SNAPSHOT</version.xwidgets>
-      <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
-      <version.picketlink>2.7.0-SNAPSHOT</version.picketlink>
-      <version.furnace>2.12.2.Final</version.furnace>
-      <version.forge.addons>2.12.2.Final</version.forge.addons>
-      <jboss.logging.version>3.1.1.GA</jboss.logging.version>
-      <version.deltaspike>1.0.0</version.deltaspike>
-      <version.jackson>2.4.2</version.jackson>
-      <version.google.httpclient>1.18.0-rc</version.google.httpclient>
-      <version.resteasy>3.0.9.Final</version.resteasy>
-   </properties>
-   
-   <repositories>
-     <repository>
-       <id>jgit-repository</id>
-       <url>https://repo.eclipse.org/content/groups/releases/</url>
-     </repository>
-   </repositories>
-   
-   <dependencyManagement>
-      <dependencies>
-			  <dependency>
-				  <groupId>org.jboss.spec</groupId>
-				  <artifactId>jboss-javaee-7.0</artifactId>
-				  <version>1.0.2.Final</version>
-				  <type>pom</type>
-				  <scope>import</scope>
-			  </dependency>
-      </dependencies>
-   </dependencyManagement>
+  <groupId>org.forgeide</groupId>
+  <artifactId>forge-ide</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>Forge IDE</name>
+  <description>Forge IDE</description>
+  <url>http://www.forgeide.org</url>
 
-   <dependencies>
-   
-      <!-- EJB -->
-      
-      <dependency>
-        <groupId>org.jboss.spec.javax.ejb</groupId>
-        <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-        <scope>provided</scope>
-      </dependency>
-      
-		  <!-- Import the Common Annotations API (JSR-250) -->
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
-		  <dependency>
-			  <groupId>org.jboss.spec.javax.annotation</groupId>
-			  <artifactId>jboss-annotations-api_1.2_spec</artifactId>
-			  <scope>provided</scope>
-		  </dependency>      
-		
-		  <!-- Java EE Dependencies -->
+  <properties>
+    <version.xwidgets>0.1-SNAPSHOT</version.xwidgets>
+    <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+    <version.picketlink>2.7.0-SNAPSHOT</version.picketlink>
+    <version.furnace>2.12.2.Final</version.furnace>
+    <version.forge.addons>2.12.2.Final</version.forge.addons>
+    <jboss.logging.version>3.1.1.GA</jboss.logging.version>
+    <version.deltaspike>1.0.0</version.deltaspike>
+    <version.jackson>2.4.2</version.jackson>
+    <version.google.httpclient>1.18.0-rc</version.google.httpclient>
+    <version.resteasy>3.0.9.Final</version.resteasy>
+  </properties>
 
-      <dependency>
-         <groupId>javax.enterprise</groupId>
-         <artifactId>cdi-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-      
-      <dependency>
-         <groupId>javax.inject</groupId>
-         <artifactId>javax.inject</artifactId>
-         <scope>provided</scope>
-      </dependency>     
-      
-      <dependency>
-         <groupId>org.jboss.spec.javax.servlet</groupId>
-         <artifactId>jboss-servlet-api_3.1_spec</artifactId>
-         <scope>provided</scope>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.resteasy</groupId>
-         <artifactId>jaxrs-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-      
-      <dependency>
-        <groupId>org.jboss.spec.javax.websocket</groupId>
-        <artifactId>jboss-websocket-api_1.0_spec</artifactId>
-        <version>1.0.0.Final</version>
-      </dependency>            
-      
-      <dependency>
-        <groupId>org.jboss.logging</groupId>
-        <artifactId>jboss-logging</artifactId>
-        <version>${jboss.logging.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.hibernate.javax.persistence</groupId>
-         <artifactId>hibernate-jpa-2.1-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-      
-      <!-- PicketLink -->
-      
-      <dependency>
-         <groupId>org.picketlink</groupId>
-         <artifactId>picketlink-api</artifactId>
-         <version>${version.picketlink}</version>
-         <scope>compile</scope>      
-      </dependency>
-      
-      <dependency>
-         <groupId>org.picketlink</groupId>
-         <artifactId>picketlink-impl</artifactId>
-         <version>${version.picketlink}</version>
-         <scope>compile</scope>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.picketlink</groupId>
-         <artifactId>picketlink-json</artifactId>
-         <version>${version.picketlink}</version>
-         <scope>compile</scope>
-      </dependency> 
-      
-      <dependency>
-         <groupId>org.picketlink</groupId>
-         <artifactId>picketlink-rest</artifactId>
-         <version>${version.picketlink}</version>
-         <scope>compile</scope>
-         <exclusions>
-            <exclusion>
-               <groupId>org.jboss.resteasy</groupId>            
-               <artifactId>resteasy-jaxrs</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.codehaus.jackson</groupId>
-               <artifactId>jackson-jaxrs</artifactId>            
-            </exclusion>
-         </exclusions>
-      </dependency>
-      
-      <!-- Jackson -->
-      
-      <dependency>
-        <groupId>com.fasterxml.jackson.jaxrs</groupId>
-        <artifactId>jackson-jaxrs-json-provider</artifactId>
-        <version>${version.jackson}</version>
-        <scope>provided</scope>
-      </dependency>
-      
-      <dependency>
-			  <groupId>org.jboss.spec.javax.json</groupId>
-			  <artifactId>jboss-json-api_1.0_spec</artifactId>
-      </dependency>
-      
-      <!-- XWidgets -->
-      
-      <dependency>
-         <groupId>org.xwidgets</groupId>
-         <artifactId>xwidgets</artifactId>
-         <version>${version.xwidgets}</version>
-      </dependency>
+  <repositories>
+    <repository>
+      <id>jgit-repository</id>
+      <url>https://repo.eclipse.org/content/groups/releases/</url>
+    </repository>
+  </repositories>
 
+  <dependencyManagement>
+    <dependencies>
       <dependency>
-        <groupId>org.xwidgets</groupId>
-        <artifactId>xwidgets-picketlink</artifactId>
-        <version>${version.xwidgets}</version>
-      </dependency>      
-      
-      <!-- DeltaSpike -->
-      
-      <dependency>
-        <groupId>org.apache.deltaspike.core</groupId>
-        <artifactId>deltaspike-core-impl</artifactId>
-        <version>${version.deltaspike}</version>
+        <groupId>org.jboss.spec</groupId>
+        <artifactId>jboss-javaee-7.0</artifactId>
+        <version>1.0.2.Final</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-      <dependency>
-        <groupId>org.apache.deltaspike.modules</groupId>
-        <artifactId>deltaspike-security-module-impl</artifactId>
-        <version>${version.deltaspike}</version>
-      </dependency>
-     
-      <dependency>
-         <groupId>org.apache.deltaspike.modules</groupId>
-         <artifactId>deltaspike-jpa-module-api</artifactId>
-         <version>${version.deltaspike}</version>
-         <scope>compile</scope>
-      </dependency>
+  <dependencies>
 
-      <dependency>
-        <groupId>org.apache.deltaspike.modules</groupId>
-        <artifactId>deltaspike-jpa-module-impl</artifactId>
-        <version>${version.deltaspike}</version>
-        <scope>runtime</scope>
-      </dependency>
- 
-      <!-- CORS Filter (to enable CORS for REST endpoints) -->
-      
-      <dependency>
-        <groupId>com.thetransactioncompany</groupId>
-        <artifactId>cors-filter</artifactId>
-        <version>1.9</version>
-      </dependency>
-      
-      <!-- Furnace -->
-      
-      <dependency>
-         <groupId>org.jboss.forge.furnace</groupId>
-         <artifactId>furnace</artifactId>
-         <version>${version.furnace}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.furnace</groupId>
-         <artifactId>furnace-se</artifactId>
-         <version>${version.furnace}</version>
-      </dependency>
+    <!-- EJB -->
 
-      <!-- Google HTTP Client -->
+    <dependency>
+      <groupId>org.jboss.spec.javax.ejb</groupId>
+      <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-      <dependency>
-         <groupId>com.google.http-client</groupId>
-         <artifactId>google-http-client</artifactId>
-         <version>${version.google.httpclient}</version>
-      </dependency>
+    <!-- Import the Common Annotations API (JSR-250) -->
 
-      <dependency>
-         <groupId>com.google.http-client</groupId>
-         <artifactId>google-http-client-jackson2</artifactId>
-         <version>${version.google.httpclient}</version>
-      </dependency>
+    <dependency>
+      <groupId>org.jboss.spec.javax.annotation</groupId>
+      <artifactId>jboss-annotations-api_1.2_spec</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-      <!-- Forge APIs -->
-      
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>environment-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>ui-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>ui-spi</artifactId>
-         <version>${version.forge.addons}</version>
-         <classifier>forge-addon</classifier>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>convert-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>facets-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>resources-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>dependencies-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>projects-api</artifactId>
-         <version>${version.forge.addons}</version>
-      </dependency>
+    <!-- Java EE Dependencies -->
 
-      <!-- GSON -->
+    <dependency>
+      <groupId>javax.enterprise</groupId>
+      <artifactId>cdi-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-      <dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>2.2.4</version>
-      </dependency>
-      
-      <!-- ACE dependencies -->
-      
-      <dependency>
-        <groupId>backport-util-concurrent</groupId>
-        <artifactId>backport-util-concurrent</artifactId>
-        <version>1.1_01</version>
-      </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-      <!-- JGIT dependency -->    
-        
-      <dependency>
-        <groupId>org.eclipse.jgit</groupId>
-        <artifactId>org.eclipse.jgit</artifactId>
-        <version>3.5.0.201409260305-r</version>
-      </dependency>
+    <dependency>
+      <groupId>org.jboss.spec.javax.servlet</groupId>
+      <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-      <!-- mylyn GitHub API -->
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>jaxrs-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-      <dependency>
-        <groupId>org.eclipse.mylyn.github</groupId>
-        <artifactId>org.eclipse.egit.github.core</artifactId>
-        <version>2.1.5</version>
-      </dependency>
+    <dependency>
+      <groupId>org.jboss.spec.javax.websocket</groupId>
+      <artifactId>jboss-websocket-api_1.1_spec</artifactId>
+    </dependency>
 
-   </dependencies>
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging</artifactId>
+      <version>${jboss.logging.version}</version>
+      <scope>provided</scope>
+    </dependency>
 
-   <build>
-      <finalName>${project.artifactId}</finalName>
-      <plugins>
+    <dependency>
+      <groupId>org.hibernate.javax.persistence</groupId>
+      <artifactId>hibernate-jpa-2.1-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-         <plugin>
-            <groupId>org.jboss.forge.furnace</groupId>
-            <artifactId>furnace-maven-plugin</artifactId>
-            <version>${version.furnace}</version>
-            <executions>
-               <execution>
-                  <id>deploy-addons</id>
-                  <phase>prepare-package</phase>
-                  <goals>
-                     <goal>addon-install</goal>
-                  </goals>
-                  <inherited>false</inherited>
-                  <configuration>
-                     <addonRepository>${project.build.directory}/${project.artifactId}/WEB-INF/addon-repository</addonRepository>
-                     <addonIds>
-                        <addonId>org.jboss.forge.addon:core,${version.forge.addons}</addonId>
-                        <!--addonId>org.jboss.forge.addon:ui-example,${version.forge.addons}</addonId-->
-                     </addonIds>
-                  </configuration>
-               </execution>
-            </executions>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
+    <!-- PicketLink -->
+
+    <dependency>
+      <groupId>org.picketlink</groupId>
+      <artifactId>picketlink-api</artifactId>
+      <version>${version.picketlink}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.picketlink</groupId>
+      <artifactId>picketlink-impl</artifactId>
+      <version>${version.picketlink}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.picketlink</groupId>
+      <artifactId>picketlink-json</artifactId>
+      <version>${version.picketlink}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.picketlink</groupId>
+      <artifactId>picketlink-rest</artifactId>
+      <version>${version.picketlink}</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss.resteasy</groupId>
+          <artifactId>resteasy-jaxrs</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.codehaus.jackson</groupId>
+          <artifactId>jackson-jaxrs</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- Jackson -->
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <artifactId>jackson-jaxrs-json-provider</artifactId>
+      <version>${version.jackson}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.spec.javax.json</groupId>
+      <artifactId>jboss-json-api_1.0_spec</artifactId>
+    </dependency>
+
+    <!-- XWidgets -->
+
+    <dependency>
+      <groupId>org.xwidgets</groupId>
+      <artifactId>xwidgets</artifactId>
+      <version>${version.xwidgets}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.xwidgets</groupId>
+      <artifactId>xwidgets-picketlink</artifactId>
+      <version>${version.xwidgets}</version>
+    </dependency>
+
+    <!-- DeltaSpike -->
+
+    <dependency>
+      <groupId>org.apache.deltaspike.core</groupId>
+      <artifactId>deltaspike-core-impl</artifactId>
+      <version>${version.deltaspike}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.deltaspike.modules</groupId>
+      <artifactId>deltaspike-security-module-impl</artifactId>
+      <version>${version.deltaspike}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.deltaspike.modules</groupId>
+      <artifactId>deltaspike-jpa-module-api</artifactId>
+      <version>${version.deltaspike}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.deltaspike.modules</groupId>
+      <artifactId>deltaspike-jpa-module-impl</artifactId>
+      <version>${version.deltaspike}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- CORS Filter (to enable CORS for REST endpoints) -->
+
+    <dependency>
+      <groupId>com.thetransactioncompany</groupId>
+      <artifactId>cors-filter</artifactId>
+      <version>1.9</version>
+    </dependency>
+
+    <!-- Furnace -->
+
+    <dependency>
+      <groupId>org.jboss.forge.furnace</groupId>
+      <artifactId>furnace</artifactId>
+      <version>${version.furnace}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.forge.furnace</groupId>
+      <artifactId>furnace-se</artifactId>
+      <version>${version.furnace}</version>
+    </dependency>
+
+    <!-- Google HTTP Client -->
+
+    <dependency>
+      <groupId>com.google.http-client</groupId>
+      <artifactId>google-http-client</artifactId>
+      <version>${version.google.httpclient}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.http-client</groupId>
+      <artifactId>google-http-client-jackson2</artifactId>
+      <version>${version.google.httpclient}</version>
+    </dependency>
+
+    <!-- Forge APIs -->
+
+    <dependency>
+      <groupId>org.jboss.forge.addon</groupId>
+      <artifactId>environment-api</artifactId>
+      <version>${version.forge.addons}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.forge.addon</groupId>
+      <artifactId>ui-api</artifactId>
+      <version>${version.forge.addons}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.forge.addon</groupId>
+      <artifactId>ui-spi</artifactId>
+      <version>${version.forge.addons}</version>
+      <classifier>forge-addon</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.forge.addon</groupId>
+      <artifactId>convert-api</artifactId>
+      <version>${version.forge.addons}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.forge.addon</groupId>
+      <artifactId>facets-api</artifactId>
+      <version>${version.forge.addons}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.forge.addon</groupId>
+      <artifactId>resources-api</artifactId>
+      <version>${version.forge.addons}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.forge.addon</groupId>
+      <artifactId>dependencies-api</artifactId>
+      <version>${version.forge.addons}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.forge.addon</groupId>
+      <artifactId>projects-api</artifactId>
+      <version>${version.forge.addons}</version>
+    </dependency>
+
+    <!-- GSON -->
+
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.2.4</version>
+    </dependency>
+
+    <!-- ACE dependencies -->
+
+    <dependency>
+      <groupId>backport-util-concurrent</groupId>
+      <artifactId>backport-util-concurrent</artifactId>
+      <version>1.1_01</version>
+    </dependency>
+
+    <!-- JGIT dependency -->
+
+    <dependency>
+      <groupId>org.eclipse.jgit</groupId>
+      <artifactId>org.eclipse.jgit</artifactId>
+      <version>3.5.0.201409260305-r</version>
+    </dependency>
+
+    <!-- mylyn GitHub API -->
+
+    <dependency>
+      <groupId>org.eclipse.mylyn.github</groupId>
+      <artifactId>org.eclipse.egit.github.core</artifactId>
+      <version>2.1.5</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+
+      <plugin>
+        <groupId>org.jboss.forge.furnace</groupId>
+        <artifactId>furnace-maven-plugin</artifactId>
+        <version>${version.furnace}</version>
+        <executions>
+          <execution>
+            <id>deploy-addons</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>addon-install</goal>
+            </goals>
+            <inherited>false</inherited>
             <configuration>
-               <!-- web.xml is not mandatory since JavaEE 5 -->
-               <failOnMissingWebXml>false</failOnMissingWebXml>
+              <addonRepository>${project.build.directory}/${project.artifactId}/WEB-INF/addon-repository</addonRepository>
+              <addonIds>
+                <addonId>org.jboss.forge.addon:core,${version.forge.addons}</addonId>
+                <!--addonId>org.jboss.forge.addon:ui-example,${version.forge.addons}</addonId-->
+              </addonIds>
             </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.jboss.as.plugins</groupId>
-            <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>${version.jboss.maven.plugin}</version>
-         </plugin>
-      </plugins>
-   </build>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <!-- web.xml is not mandatory since JavaEE 5 -->
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jboss.as.plugins</groupId>
+        <artifactId>jboss-as-maven-plugin</artifactId>
+        <version>${version.jboss.maven.plugin}</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>
