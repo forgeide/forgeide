@@ -9,6 +9,7 @@
       </xw:menuItem>
       <xw:menuItem styleClass="header_menu_item" label="Deployment"/>
       <xw:menuItem styleClass="header_menu_item" label="Administration"/>
+      <xw:menuItem styleClass="header_menu_icon" icon="/style/icon-menu.svg"/>
     </xw:menuBar>
 
   </div>

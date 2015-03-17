@@ -58,7 +58,7 @@ div.header_menu {
   clear: both;
 }
 
-div.header_menu_item {
+div.header_menu_item, div.header_menu_icon {
   float: left;
   padding-left: 30px;
   padding-right: 30px;
@@ -67,6 +67,25 @@ div.header_menu_item {
   height: 37px;
   line-height: 37px;
   font-weight: bold;
+}
+
+div.header_menu_item span, div.header_menu_icon span {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+div.header_menu_icon img {
+	vertical-align: middle;
+	max-height: 37px;
+}
+
+div.header_menu_icon {
+  float: right;	
+}
+
+div.header_menu_icon img:hover {
+  cursor: pointer;
 }
 
 div.header_menu_item_selected {
