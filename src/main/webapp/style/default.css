@@ -60,13 +60,21 @@ div.header_menu {
 
 div.header_menu_item, div.header_menu_icon {
   float: left;
-  padding-left: 30px;
-  padding-right: 30px;
   font-size: 85%;
   border-right: 1px solid #ffffff;
   height: 37px;
   line-height: 37px;
   font-weight: bold;
+}
+
+div.header_menu_item {
+	padding-left: 30px;
+  padding-right: 30px;
+}
+
+div.header_menu_icon {
+  padding-left: 10px;
+  padding-right: 10px;	
 }
 
 div.header_menu_item span, div.header_menu_icon span {
