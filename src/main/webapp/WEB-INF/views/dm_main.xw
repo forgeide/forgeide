@@ -16,5 +16,9 @@
   <pl:requestAuthenticator id="requestAuthenticator"/>
   
   <xw:restEndpoint id="projectService" url="#{servicePath}/projects" decorator="#{requestAuthenticator}"/>
+  
+  <xw:eventObserver event="org.picketlink.identity.loggedIn">
+    <xw:event type="onfire"><![CDATA[xw.open("projects.xw", null, "content")]]></xw:event>
+  </xw:eventObserver>
  
 </xw:dataModule>

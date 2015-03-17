@@ -27,7 +27,7 @@
   <properties>
     <version.xwidgets>0.1-SNAPSHOT</version.xwidgets>
     <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
-    <version.picketlink>2.7.0-SNAPSHOT</version.picketlink>
+    <version.picketlink>2.7.0.Final</version.picketlink>
     <version.furnace>2.12.2.Final</version.furnace>
     <version.forge.addons>2.12.2.Final</version.forge.addons>
     <jboss.logging.version>3.1.1.GA</jboss.logging.version>
@@ -101,6 +101,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.jboss.spec.javax.json</groupId>
+      <artifactId>jboss-json-api_1.0_spec</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.jboss.spec.javax.websocket</groupId>
       <artifactId>jboss-websocket-api_1.1_spec</artifactId>
     </dependency>
@@ -165,11 +171,6 @@
       <artifactId>jackson-jaxrs-json-provider</artifactId>
       <version>${version.jackson}</version>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.spec.javax.json</groupId>
-      <artifactId>jboss-json-api_1.0_spec</artifactId>
     </dependency>
 
     <!-- XWidgets -->
